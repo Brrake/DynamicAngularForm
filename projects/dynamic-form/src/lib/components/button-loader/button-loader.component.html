@@ -1,0 +1,6 @@
+<button [type]="type" [disabled]="!isFormValid||loadSpinner||loadCheck" [class]="'btn btn-'+color+' rounded-pill mr-1'">
+  <i style="font-size: 30px!important;" *ngIf="loadCheck && !loadSpinner" class="uil uil-check fs-18"></i>
+  <span *ngIf="loadSpinner && !loadCheck" class="spinner-border spinner-border-sm"
+    role="status" aria-hidden="true"></span>
+  <a class="d-flex align-items-center" [style]="'color: '+getTextColor()" *ngIf="!loadSpinner && !loadCheck"><i *ngIf="icon!=''" [class]="getClassFromIcon()+' fs-20 '+(text ? 'mr-1' : '')"></i> {{text}}</a>
+</button>
