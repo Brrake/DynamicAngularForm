@@ -32,7 +32,7 @@ fs.readFile(filePath, 'utf8', (err, data) => {
 
     // Increment the version
     patch += 1;
-    if (patch > 9) {
+    if (patch > 99) {
         patch = 0;
         minor += 1;
     }
