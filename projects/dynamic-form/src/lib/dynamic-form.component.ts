@@ -27,7 +27,7 @@ export class DynamicFormComponent implements OnInit {
   displayImg: string = ''
   addTree: any = []
 
-  isProd = isDevMode()
+  isProd = !isDevMode()
 
   formGroup: FormGroup[] = []
 
