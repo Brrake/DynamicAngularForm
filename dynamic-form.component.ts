@@ -1,9 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, isDevMode } from '@angular/core';
 import { AddonType, ButtonType, DynamicFormScheme, Errors, FieldType } from './models/dynamic-form.model';
-import { environment } from '../../../environments/environment';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { linkValidator } from '../../custom_validators/link.validator';
-import { confirmPasswordValidator } from '../../custom_validators/confirm-password.validator';
+import { linkValidator } from './custom_validators/link.validator';
+import { confirmPasswordValidator } from './custom_validators/confirm-password.validator';
 
 @Component({
   selector: 'dynamic-form',
@@ -28,7 +27,7 @@ export class DynamicFormComponent implements OnInit {
   displayImg: string = ''
   addTree: any = []
 
-  isProd = environment.production
+  isProd = isDevMode()
 
   formGroup: FormGroup[] = []
 
