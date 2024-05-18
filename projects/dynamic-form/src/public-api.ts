@@ -7,3 +7,5 @@ export * from './lib/dynamic-form.component';
 export * from './lib/components/button-loader/button-loader.component';
 export * from './lib/components/google-login/google-login.component';
 export * from './lib/dynamic-form.module';
+export * from './lib/custom_validators/link.validator';
+export * from './lib/custom_validators/confirm-password.validator';
