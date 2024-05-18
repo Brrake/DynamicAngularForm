@@ -3,5 +3,9 @@
   "dest": "../../dist/dynamic-form",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "allowedNonPeerDependencies": [
+    "@angular-slider/ngx-slider",
+    "@ng-bootstrap/ng-bootstrap"
+  ]
 }
