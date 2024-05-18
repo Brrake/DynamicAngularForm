@@ -20,3 +20,30 @@
 .uil-calendar-alt{
     color: var(--bs-primary)!important;
 }
+.pointer {
+    cursor: pointer;
+}
+.ngx-slider-active:after {
+    background-color: var(--bs-soft-primary) !important;
+}
+
+.bs-datepicker td,
+th {
+    text-align: center;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 15px;
+}
+
+.ngb-dp-arrow-btn,
+.ngb-dp-weekday,
+.ngb-tp-chevron {
+    color: var(--bs-primary) !important;
+}
+.form-control:focus{
+    border-color: var(--bs-primary) !important;
+}
+.btn-close {
+    height: fit-content !important;
+    width: fit-content !important;
+}
