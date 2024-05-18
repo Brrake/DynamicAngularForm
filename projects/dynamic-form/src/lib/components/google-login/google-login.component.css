@@ -1,0 +1,15 @@
+.btn-google{
+  color: #fff;
+    background-color: #e44134;
+    border-color: transparent;
+}
+#top-bar__logo {
+  height: 70px;
+  background-repeat: no-repeat;
+}
+.site-logo
+{
+  width: 160px!important;
+  background-size: 160px;
+  background-repeat: no-repeat;
+}

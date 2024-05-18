@@ -36,7 +36,17 @@
                 {{value.name}}</option>
             </select>
           </div>
-
+          <div *ngSwitchCase="FieldTypesEnum.g_recaptcha">
+            <div class="row mt-3">
+              <div class="col-sm-12 mb-2 g-recaptcha">
+                <re-captcha [id]="formScheme.formId+'-'+field.formControlName"
+                  class="d-flex justify-content-center"
+                  style="transform:scale(1);-webkit-transform:scale(1);transform-origin:0 0;-webkit-transform-origin:0 0;"
+                  [formControlName]="field.formControlName  || ''"
+                  [class.is-invalid]="formGroup[idx].get(field.formControlName  || '')?.invalid && (formGroup[idx].get(field.formControlName  || '')?.dirty || formGroup[idx].get(field.formControlName  || '')?.touched)"></re-captcha>
+              </div>
+            </div>
+          </div>
           <p *ngSwitchCase="FieldTypesEnum.section_info" class="lead mb-6 text-start">{{field.default_value}}</p>
           <div *ngSwitchCase="FieldTypesEnum.show_image" class="mb-4">
             <img [width]="field.width" [src]="field.src">
@@ -117,6 +127,13 @@
       <div *ngSwitchCase="AddonsEnum.signup">
         <p class="mb-0">Non hai un account? <a href="#" data-bs-target="#modal-signup" data-bs-toggle="modal"
             data-bs-dismiss="modal" class="hover">Registrati</a></p>
+      </div>
+      <div *ngSwitchCase="AddonsEnum.google_login">
+        <div class="divider-icon my-4">oppure</div>
+        <nav class="nav social justify-content-center text-center">
+          <google-login (loginWithGoogle)="handleGoogleLoginV2($event)"
+            [gStyle]="addon.style || 0"/>
+        </nav>
       </div>
       <div *ngSwitchCase="AddonsEnum.login">
         <p class="mb-0">Hai già un account? <a href="#" data-bs-target="#modal-signin" data-bs-toggle="modal"
