@@ -21,4 +21,4 @@ import { NgbCalendar, NgbCalendarGregorian, NgbModule, NgbTimepicker } from "@ng
   ],
   providers: [{ provide: NgbCalendar, useClass: NgbCalendarGregorian },{ provide: NgbTimepicker},],
 })
-export class SharedCamiAppModules { }
+export class DynamicFormModule { }
