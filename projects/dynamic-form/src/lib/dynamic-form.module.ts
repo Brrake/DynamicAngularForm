@@ -19,7 +19,8 @@ import { ButtonLoaderComponent } from "./components/button-loader/button-loader.
     ReactiveFormsModule
   ],
   exports: [
-    DynamicFormComponent
+    DynamicFormComponent,
+    ButtonLoaderComponent
   ],
   providers: [{ provide: NgbCalendar, useClass: NgbCalendarGregorian },{ provide: NgbTimepicker},],
 })
