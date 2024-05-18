@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-button-loader',
+  selector: 'button-loader',
   templateUrl: './button-loader.component.html',
   styleUrls: ['./button-loader.component.scss']
 })

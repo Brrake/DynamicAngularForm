@@ -97,16 +97,16 @@
       </div>
       <div class="d-flex justify-content-center">
         <div *ngFor="let button of formScheme.buttons" [ngSwitch]="button.type" class="mb-3">
-          <app-button-loader (click)="onClose()" *ngSwitchCase="ButtonsEnum.close" [isFormValid]="true"
+          <button-loader (click)="onClose()" *ngSwitchCase="ButtonsEnum.close" [isFormValid]="true"
             [text]="button.name" type="button" [text_color]="button.text_color" [color]="button.button_color"
-            data-bs-dismiss="modal"></app-button-loader>
-          <app-button-loader *ngSwitchCase="ButtonsEnum.test && !isProd" [isFormValid]="true" [text]="button.name"
+            data-bs-dismiss="modal"/>
+          <button-loader *ngSwitchCase="ButtonsEnum.test && !isProd" [isFormValid]="true" [text]="button.name"
             type="button" (click)="onTestSubmit()" [text_color]="button.text_color" [color]="button.button_color" />
-          <app-button-loader *ngSwitchCase="ButtonsEnum.back" [isFormValid]="true" [text]="button.name" type="button"
+          <button-loader *ngSwitchCase="ButtonsEnum.back" [isFormValid]="true" [text]="button.name" type="button"
             (click)="onBack(button.page || 0)" [text_color]="button.text_color" [color]="button.button_color" />
-          <app-button-loader *ngSwitchCase="ButtonsEnum.submit" [loadSpinner]="loadSpinner"
+          <button-loader *ngSwitchCase="ButtonsEnum.submit" [loadSpinner]="loadSpinner"
             [isFormValid]="formGroup[idx].valid" [text]="button.name" type="submit" [text_color]="button.text_color"
-            [color]="button.button_color"></app-button-loader>
+            [color]="button.button_color"/>
         </div>
       </div>
     </form>
