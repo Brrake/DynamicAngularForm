@@ -1,0 +1,128 @@
+<ng-container *ngFor="let formScheme of formSchemes;let idx = index">
+  <ng-container *ngIf="(formScheme.active_page) || (formSchemes.length == 1)">
+    <h2 class="mb-3 text-start">{{formScheme.title}}</h2>
+    <p *ngIf="formScheme.description" class="lead mb-6 text-start">{{formScheme.description}}</p>
+    <form [id]="formScheme.formId || 'defId'" [formGroup]="formGroup[idx]" (ngSubmit)="onSubmitForm()" class="mt-4">
+      <div *ngFor="let field of formScheme.fields">
+        <div [ngSwitch]="field.type">
+          <div *ngIf="field.top_label" class="text-left">
+            <p class="col-form-label" style="color: #60697b;">{{field.top_label}}</p>
+          </div>
+          <div *ngSwitchCase="FieldTypesEnum.slider" class="form-floating password-field mb-4">
+            <ngx-slider [id]="formScheme.formId+'-'+field.formControlName"
+              [formControlName]="field.formControlName || ''" (value)="field.default_value"
+              [options]="getSliderOptions(field.options)" />
+          </div>
+          <div *ngSwitchCase="FieldTypesEnum.password" class="form-floating password-field mb-4">
+            <input [id]="formScheme.formId+'-'+field.formControlName" autocomplete="on" type="password"
+              class="form-control" [placeholder]="field.name" [name]="field.formControlName"
+              [formControlName]="field.formControlName || ''">
+            <span class="password-toggle"><i class="uil uil-eye"></i></span>
+            <label [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
+          </div>
+          <div *ngSwitchCase="FieldTypesEnum.checkbox" class="mb-3 d-flex"
+            style="align-items: center;justify-content: space-between;">
+            <label [for]="formScheme.formId+'-'+field.formControlName" class="col-form-label">{{field.name}}
+              :</label>
+            <input [id]="formScheme.formId+'-'+field.formControlName" [name]="field.formControlName"
+              [formControlName]="field.formControlName || ''" style="margin-left: 15px;" class="form-check-input"
+              type="checkbox">
+          </div>
+          <div *ngSwitchCase="FieldTypesEnum.select" class="form-select-wrapper mb-4">
+            <select [id]="formScheme.formId+'-'+field.formControlName" [formControlName]="field.formControlName  || ''"
+              [name]="field.formControlName" class="form-select">
+              <option value="" disabled>{{field.name}}</option>
+              <option *ngFor="let value of field.values" [value]="value.value">
+                {{value.name}}</option>
+            </select>
+          </div>
+
+          <p *ngSwitchCase="FieldTypesEnum.section_info" class="lead mb-6 text-start">{{field.default_value}}</p>
+          <div *ngSwitchCase="FieldTypesEnum.show_image" class="mb-4">
+            <img [width]="field.width" [src]="field.src">
+          </div>
+          <div *ngSwitchCase="FieldTypesEnum.add_image" (click)="openSelectorFiles('input-file-'+(field.name || 'def'))"
+            class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
+            [style]="'font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;'+ (getDisplayImg()!='' ? 'background-image: url('+getDisplayImg()+');':'')">
+            <a [hidden]="getDisplayImg()!=''">+</a>
+            <input (change)="toAdd($event)" [id]="'input-file-'+(field.name || 'def')" style="display: none;"
+              type="file" accept="image/png, image/gif, image/jpeg, image/jpg">
+          </div>
+          <div *ngSwitchCase="FieldTypesEnum.textarea" class="form-floating mb-4">
+            <textarea [id]="formScheme.formId+'-'+field.formControlName" [formControlName]="field.formControlName || ''"
+              class="form-control" [placeholder]="field.name" style="height: 150px"></textarea>
+            <label [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
+          </div>
+          <div *ngSwitchCase="FieldTypesEnum.date" class="form-floating mb-4">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" [name]="field.formControlName"
+                [formControlName]="field.formControlName || ''" ngbDatepicker #d="ngbDatepicker" />
+              <button class="btn bi bi-calendar3" (click)="d.toggle()" type="button"><i
+                  class="uil uil-calendar-alt"></i></button>
+            </div>
+          </div>
+          <div *ngSwitchCase="FieldTypesEnum.time" class="form-floating mb-4">
+            <div class="input-group d-grid">
+              <p>{{field.name}}</p>
+              <ngb-timepicker class="d-flex justify-content-center" placeholder="yyyy-mm-dd"
+                [formControlName]="field.formControlName || ''" />
+            </div>
+          </div>
+          <div *ngSwitchDefault class="form-floating mb-4">
+            <input [id]="formScheme.formId+'-'+field.formControlName" [type]="field.type" class="form-control"
+              [placeholder]="field.name" [formControlName]="field.formControlName  || ''"
+              [name]="field.formControlName">
+            <label [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
+          </div>
+          <div
+            *ngIf="!formGroup[idx].get(field.formControlName || '')?.valid && (formGroup[idx].get(field.formControlName || '')?.dirty ||formGroup[idx].get(field.formControlName || '')?.touched)"
+            class="mt-4 alert alert-danger">
+            <div *ngFor="let error of field.errors">
+              <div [hidden]="!formGroup[idx].get(field?.formControlName || '')?.errors?.[error.name.toLowerCase()]">
+                {{error.text}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngFor="let error of formScheme.custom_validators">
+        <div [hidden]="!formGroup[idx]!.errors?.[error.error_name]" class="mt-4 alert alert-danger">
+          {{error.text}}
+        </div>
+      </div>
+
+      <div *ngIf="isSubmitFailed" class="alert alert-danger">
+        {{errorMessage}}
+      </div>
+      <div class="d-flex justify-content-center">
+        <div *ngFor="let button of formScheme.buttons" [ngSwitch]="button.type" class="mb-3">
+          <app-button-loader (click)="onClose()" *ngSwitchCase="ButtonsEnum.close" [isFormValid]="true"
+            [text]="button.name" type="button" [text_color]="button.text_color" [color]="button.button_color"
+            data-bs-dismiss="modal"></app-button-loader>
+          <app-button-loader *ngSwitchCase="ButtonsEnum.test && !isProd" [isFormValid]="true" [text]="button.name"
+            type="button" (click)="onTestSubmit()" [text_color]="button.text_color" [color]="button.button_color" />
+          <app-button-loader *ngSwitchCase="ButtonsEnum.back" [isFormValid]="true" [text]="button.name" type="button"
+            (click)="onBack(button.page || 0)" [text_color]="button.text_color" [color]="button.button_color" />
+          <app-button-loader *ngSwitchCase="ButtonsEnum.submit" [loadSpinner]="loadSpinner"
+            [isFormValid]="formGroup[idx].valid" [text]="button.name" type="submit" [text_color]="button.text_color"
+            [color]="button.button_color"></app-button-loader>
+        </div>
+      </div>
+    </form>
+    <div *ngFor="let addon of formScheme.addons" [ngSwitch]="addon.name">
+      <div *ngSwitchCase="AddonsEnum.change_pass">
+        <p class="mb-1"><a href="#" class="hover">Password dimenticata?</a></p>
+      </div>
+      <div *ngSwitchCase="AddonsEnum.signup">
+        <p class="mb-0">Non hai un account? <a href="#" data-bs-target="#modal-signup" data-bs-toggle="modal"
+            data-bs-dismiss="modal" class="hover">Registrati</a></p>
+      </div>
+      <div *ngSwitchCase="AddonsEnum.login">
+        <p class="mb-0">Hai già un account? <a href="#" data-bs-target="#modal-signin" data-bs-toggle="modal"
+            data-bs-dismiss="modal" class="hover">Accedi</a></p>
+      </div>
+    </div>
+  </ng-container>
+
+</ng-container>

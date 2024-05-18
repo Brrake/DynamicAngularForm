@@ -1,0 +1,22 @@
+.form-control:focus  {
+    border-color: var(--bs-border-soft-primary);
+}
+.form-check-input:checked{
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+.ngx-slider-active:after {
+    background-color:black!important;
+}
+.bi-calendar3{
+    border-color: var(--bs-primary)!important;
+}
+.bi-calendar3:hover{
+    background-color: var(--bs-primary)!important;
+    .uil-calendar-alt{
+        color: #fff!important;
+    }
+}
+.uil-calendar-alt{
+    color: var(--bs-primary)!important;
+}
