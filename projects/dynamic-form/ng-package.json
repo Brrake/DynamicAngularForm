@@ -6,6 +6,7 @@
   },
   "allowedNonPeerDependencies": [
     "@angular-slider/ngx-slider",
-    "@ng-bootstrap/ng-bootstrap"
+    "@ng-bootstrap/ng-bootstrap",
+    "ng-recaptcha"
   ]
 }
