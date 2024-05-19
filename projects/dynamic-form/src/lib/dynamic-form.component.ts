@@ -31,11 +31,14 @@ export class DynamicFormComponent implements OnInit {
 
   formGroup: FormGroup[] = []
 
+  emittedForms : any[] = []
+
 
   constructor() {
   }
 
   ngOnInit() {
+    this.emittedForms = []
     for (let i = 0; i < this.formSchemes.length; i++) {
       const formScheme = this.formSchemes[i]
       this.formGroup[i] = new FormGroup({})
@@ -113,8 +116,9 @@ export class DynamicFormComponent implements OnInit {
   updateForm(formGroup: number, values: any) {
     this.formGroup[formGroup].patchValue(values)
   }
-  onSubmitForm() {
-    this.onSubmit.emit({ forms: this.formGroup, files: this.addTree });
+  onSubmitForm(idx:number) {
+    this.emittedForms.push(this.formGroup[idx])
+    this.onSubmit.emit({ forms: this.formGroup, files: this.addTree, formEmittingIndex: idx, emittedForms: this.emittedForms });
   }
   onTestSubmit() {
     console.log(this.formGroup)
@@ -123,9 +127,12 @@ export class DynamicFormComponent implements OnInit {
   onBack(page: number) {
     this.goToPage(page)
     this.formGroup[page + 1].reset()
+    this.emittedForms = this.emittedForms.filter((form: any) => form !== this.formGroup[page])
     //this.ngOnInit()
   }
   onClose() {
+    this.goToPage(0)
+    this.emittedForms = []
     this.onCloseModal.emit(true)
   }
   resetAndGoToPage(page: number) {
@@ -133,6 +140,7 @@ export class DynamicFormComponent implements OnInit {
       this.formGroup[i].reset()
     }
     this.goToPage(page)
+    this.emittedForms = []
     this.ngOnInit()
   }
   getDisplayImg() {
