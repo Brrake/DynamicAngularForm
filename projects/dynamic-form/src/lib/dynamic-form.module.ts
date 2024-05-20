@@ -29,6 +29,7 @@ import { DynamicModalComponent } from "../public-api";
   exports: [
     DynamicFormComponent,
     ButtonLoaderComponent,
+    DynamicModalComponent,
     GoogleLoginComponent
   ],
   providers: [{ provide: NgbCalendar, useClass: NgbCalendarGregorian },{ provide: NgbTimepicker},],
