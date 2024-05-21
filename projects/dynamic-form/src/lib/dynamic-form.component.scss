@@ -44,3 +44,14 @@ th {
     height: fit-content !important;
     width: fit-content !important;
 }
+.btn:disabled, .btn.disabled, fieldset:disabled .btn {
+    color: var(--bs-btn-disabled-color);
+    pointer-events: none;
+    background-color: var(--bs-btn-disabled-bg);
+    border-color: var(--bs-primary);
+    opacity: var(--bs-btn-disabled-opacity);
+    box-shadow: none;
+}
+.form-check-input:checked{
+    background-color: var(--bs-primary);
+}
