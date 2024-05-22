@@ -1,24 +1,34 @@
 # DynamicForm
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.
+This Library was born to help peoples to integrate various forms in one. With the ausily of a json file pattern we can generate forms dynamically based on fields specified into JSON Pattern File.
 
-## Code scaffolding
+Repository GITHUB : [DynamicAngularForm](https://github.com/Brrake/DynamicAngularForm)
 
-Run `ng generate component component-name --project dynamic-form` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project dynamic-form`.
-> Note: Don't forget to add `--project dynamic-form` or else it will be added to the default project in your `angular.json` file. 
+## Requirements
 
-## Build
+For the installation we need to use the following versions of :
 
-Run `ng build dynamic-form` to build the project. The build artifacts will be stored in the `dist/` directory.
+Node.JS : [v20.13.1](https://nodejs.org/dist/v20.13.1/node-v20.13.1-x64.msi)
+Angular : 17
 
-## Publishing
+The library come with preinstalled @angular-slider/ngx-slider for the rendering of Slider form inputs, @ng-bootstrap/ng-bootstrap for the Date and Time Picker and ng-recaptcha for the rendering og Google Recaptcha security feature.
 
-After building your library with `ng build dynamic-form`, go to the dist folder `cd dist/dynamic-form` and run `npm publish`.
+## Installation
 
-## Running unit tests
-
-Run `ng test dynamic-form` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+First of all you need to install the library running :
+> npm i dynamic-angular-form
+Subsequently you need to import the module into `app.module.ts`
+``` angular
+@NgModule({
+  declarations: [	
+    AppComponent
+   ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    DynamicFormModule
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```

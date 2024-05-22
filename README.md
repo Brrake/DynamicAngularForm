@@ -1,27 +1,35 @@
-# DynamicFormAngular
+# DynamicForm
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.6.
+This Library was born to help peoples to integrate various forms in one. With the ausily of a json file pattern we can generate forms dynamically based on fields specified into JSON Pattern File.
 
-## Development server
+Repository GITHUB : [DynamicAngularForm](https://github.com/Brrake/DynamicAngularForm)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Requirements
 
-## Code scaffolding
+For the installation we need to use the following versions of :
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Node.JS : [v20.13.1](https://nodejs.org/dist/v20.13.1/node-v20.13.1-x64.msi)
+Angular : 17
 
-## Build
+The library come with preinstalled @angular-slider/ngx-slider for the rendering of Slider form inputs, @ng-bootstrap/ng-bootstrap for the Date and Time Picker and ng-recaptcha for the rendering og Google Recaptcha security feature.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Installation
 
-## Running unit tests
+First of all you need to install the library running :
+> npm i dynamic-angular-form
+Subsequently you need to import the module into `app.module.ts`
+``` angular
+@NgModule({
+  declarations: [	
+    AppComponent
+   ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    DynamicFormModule
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
