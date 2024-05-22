@@ -35,3 +35,20 @@ Subsequently you need to import the module into `app.module.ts`
 })
 export class AppModule { }
 ```
+
+> Note : If you want to use Google Login addon or Google Recaptcha input, you have to pass correctly the Google Recaptcha Key for making work Google Recaptcha and the Google Client Id for making work Google Login lib
+
+``` angular
+@NgModule({
+  declarations: [	
+    AppComponent
+   ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    DynamicFormModule.forRoot(environment.recaptchaSiteKey,environment.googleClientId)
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
