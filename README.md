@@ -9,6 +9,7 @@ Repository GITHUB : [DynamicAngularForm](https://github.com/Brrake/DynamicAngula
 For the installation we need to use the following versions of :
 
 Node.JS : [v20.13.1](https://nodejs.org/dist/v20.13.1/node-v20.13.1-x64.msi)
+
 Angular : 17
 
 The library come with preinstalled @angular-slider/ngx-slider for the rendering of Slider form inputs, @ng-bootstrap/ng-bootstrap for the Date and Time Picker and ng-recaptcha for the rendering og Google Recaptcha security feature.
@@ -16,7 +17,9 @@ The library come with preinstalled @angular-slider/ngx-slider for the rendering 
 ## Installation
 
 First of all you need to install the library running :
-> npm i dynamic-angular-form
+```
+ npm i dynamic-angular-form
+```
 Subsequently you need to import the module into `app.module.ts`
 ``` angular
 @NgModule({
@@ -32,4 +35,3 @@ Subsequently you need to import the module into `app.module.ts`
 })
 export class AppModule { }
 ```
-
