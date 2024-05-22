@@ -59,4 +59,7 @@ export class DynamicModalComponent implements OnInit {
   handleGoogleLoginV2(response: any) {
     this.loginWithGoogle.emit(response);
   }
+  openModal() {
+    document.getElementById('openModal-'+this.modalId)?.click()
+  }
 }
