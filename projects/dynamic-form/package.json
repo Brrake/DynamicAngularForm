@@ -1,6 +1,16 @@
 {
   "name": "dynamic-angular-form",
-  "version": "1.0.18",
+  "version": "1.0.19",
+  "description": "Simple, easy and performance dynamic form for angular",
+  "author": "Brrake <daviderubiu5@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Brrake/DynamicAngularForm"
+  },
+  "bugs": {
+    "url": "https://github.com/Brrake/DynamicAngularForm/issues"
+  },
   "peerDependencies": {
     "@angular/animations": "^17.0.0",
     "@angular/common": "^17.0.0",
