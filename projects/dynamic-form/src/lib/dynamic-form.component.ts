@@ -153,7 +153,6 @@ export class DynamicFormComponent implements OnInit {
   toAdd(event: any) {
     this.addTree = []
     this.displayImg = URL.createObjectURL(event.target.files[0])
-    console.log(event.target.files, this.displayImg)
     for (let file of event.target.files) {
       var src = URL.createObjectURL(file);
       this.addTree.push({ file: file, src: src });

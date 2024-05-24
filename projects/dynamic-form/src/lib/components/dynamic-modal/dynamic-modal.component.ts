@@ -48,7 +48,6 @@ export class DynamicModalComponent implements OnInit {
     this.dynForm?.goToPage(page)
   }
   onSubmitForm(event: any) {
-    console.log(event)
     this.onSubmit.emit(event);
   }
   closeModal(){

@@ -38,8 +38,6 @@ export class GoogleLoginComponent implements OnInit, OnDestroy {
   }
 
   handleGoogleLoginV2(response: any) {
-
-    console.log(response)
     this.loginWithGoogle.emit(response);
   }
 
