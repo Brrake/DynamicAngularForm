@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID, isDevMode } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID } from '@angular/core';
 import { AddonType, ButtonType, DynamicFormScheme, Errors, FieldType } from './models/dynamic-form.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { linkValidator } from './custom_validators/link.validator';
@@ -41,8 +41,6 @@ export class DynamicFormComponent implements OnInit {
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      /* @vite-ignore */
-      //import('intl-tel-input/build/js/utils.js' as any)
       this.emittedForms = []
       for (let i = 0; i < this.formSchemes.length; i++) {
         const formScheme = this.formSchemes[i]
