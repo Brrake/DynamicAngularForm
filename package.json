@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
     "@ng-bootstrap/ng-bootstrap": "^16.0.0",
+    "intl-tel-input": "^23.0.11",
     "ng-recaptcha": "^13.2.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

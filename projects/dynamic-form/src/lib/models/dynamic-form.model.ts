@@ -81,6 +81,7 @@ export enum FieldType {
   section_info = 'section-info',
   slider = 'slider',
   add_image = 'add-image',
+  telephone = 'telephone',
   show_image = 'show-image'
 }
 //Button Types
@@ -93,6 +94,7 @@ export enum ButtonType {
 //Errors Types
 export enum Errors {
   required = 'required',
+  telephone = 'telephone',
   email = 'email',
   maxlength = 'maxlength',
   minlength = 'minlength',
