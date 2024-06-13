@@ -3,7 +3,7 @@ import { AddonType, ButtonType, DynamicFormScheme, Errors, FieldType } from './m
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { linkValidator } from './custom_validators/link.validator';
 import { confirmPasswordValidator } from './custom_validators/confirm-password.validator';
-import intlTelInput, { Iti } from 'intl-tel-input';
+import /* @vite-ignore */ intlTelInput, { Iti } from 'intl-tel-input';
 import { phoneValidator } from './custom_validators/phoneValidator.validator';
 import { createIsValidNumberValidator } from './custom_validators/createIsValidNumberValidator.validator';
 import { isPlatformBrowser } from '@angular/common';
