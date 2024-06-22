@@ -22,7 +22,8 @@ export class DynamicFormComponent implements OnInit {
   @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
   @Output() onCloseModal: EventEmitter<any> = new EventEmitter<any>();
   @Output() loginWithGoogle: EventEmitter<any> = new EventEmitter<any>();
-
+  @Output() onBack: EventEmitter<any> = new EventEmitter<any>();
+  
   public FieldTypesEnum: typeof FieldType = FieldType
   public AddonsEnum: typeof AddonType = AddonType
   public ButtonsEnum: typeof ButtonType = ButtonType
@@ -156,11 +157,12 @@ export class DynamicFormComponent implements OnInit {
     console.log(this.formGroup)
     console.log(this.addTree)
   }
-  onBack(page: number) {
+  onBackPage(page: number) {
     this.goToPage(page)
-    this.formGroup[page + 1].reset()
+    this.formGroup[page + 1]?.reset()
     this.emittedForms = this.emittedForms.filter((form: any) => form !== this.formGroup[page])
     //this.ngOnInit()
+    this.onBack.emit(true)
   }
   onClose() {
     this.goToPage(0)

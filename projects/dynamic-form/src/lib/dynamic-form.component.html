@@ -116,7 +116,7 @@
           <button-loader *ngSwitchCase="ButtonsEnum.test" [isFormValid]="true" [text]="button.name"
             type="button" (click)="onTestSubmit()" [text_color]="button.text_color" [color]="button.button_color" />
           <button-loader *ngSwitchCase="ButtonsEnum.back" [isFormValid]="true" [text]="button.name" type="button"
-            (click)="onBack(button.page || 0)" [text_color]="button.text_color" [color]="button.button_color" />
+            (click)="onBackPage(button.page || 0)" [text_color]="button.text_color" [color]="button.button_color" />
           <button-loader *ngSwitchCase="ButtonsEnum.submit" [loadSpinner]="loadSpinner"
             [isFormValid]="formGroup[idx].valid" [text]="button.name" type="submit" [text_color]="button.text_color"
             [color]="button.button_color"/>

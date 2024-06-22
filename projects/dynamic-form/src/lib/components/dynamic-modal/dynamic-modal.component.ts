@@ -24,7 +24,7 @@ export class DynamicModalComponent implements OnInit {
   @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
   @Output() onCloseModal: EventEmitter<any> = new EventEmitter<any>();
   @Output() loginWithGoogle: EventEmitter<any> = new EventEmitter<any>();
-
+  @Output() onBack: EventEmitter<any> = new EventEmitter<any>();
 
   isLoaded = true
 
