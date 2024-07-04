@@ -1,63 +1,67 @@
 export interface DynamicFormScheme {
-  formId:string
-  title:string
-  description?:string
-  active_page?:boolean
-  fields:FieldScheme[]
-  buttons:ButtonScheme[]
-  addons:AddonScheme[]
-  custom_validators:CustomValidatorScheme[]
+  formId: string
+  title: string
+  description?: string
+  active_page?: boolean
+  fields: FieldScheme[]
+  buttons: ButtonScheme[]
+  addons: AddonScheme[]
+  custom_validators: CustomValidatorScheme[]
 }
 export interface FieldScheme {
-  type:FieldType
-  name?:string
-  src?:string
-  options?:any
-  width?:string
-  disabled?:boolean
-  formControlName?:string
-  default_value?:string | number | boolean | {year:number,month:number,day:number} | {hour:number,minute:number}
-  values?:SelectValueScheme[]
-  top_label?:string
-  validators?:ValidatorScheme[]
-  errors?:ErrorScheme[]
+  type: FieldType
+  name?: string
+  src?: string
+  options?: any
+  width?: string
+  disabled?: boolean
+  formControlName?: string
+  default_value?: string | number | boolean | { year: number, month: number, day: number } | { hour: number, minute: number }
+  values?: SelectValueScheme[]
+  top_label?: string
+  validators?: ValidatorScheme[]
+  errors?: ErrorScheme[]
 }
 
 export interface SelectValueScheme {
-  name:string
-  value:string
+  name: string
+  value: string
 }
 
 export interface AddonScheme {
-  name:AddonType
-  style?:number
-  upper_text?:string
-  size?:string
-  type?:string
+  name: AddonType
+  style?: number
+  upper_text?: string
+  size?: string
+  type?: string
+  theme?: string
+  text?: string
+  shape?: string
+  logo_alignment?: string
 }
 
 // Buttons
 export interface ButtonScheme {
-  type:ButtonType
-  name:string
-  text_color:string
-  button_color:string,
-  page?:number
+  type: ButtonType
+  name: string
+  text_color: string
+  button_color: string,
+  page?: number
 }
 
 // Errors and Validators
 export interface CustomValidatorScheme {
-  name:string
-  error_name:string
-  text:string
+  name: string
+  error_name: string
+  text: string
 }
 export interface ErrorScheme {
-  name:Errors
-  text:string
+  name: Errors
+  text: string
 }
 export interface ValidatorScheme {
-  name:Errors
-  value:string
+  name: Errors
+  value: string
 }
 
 /*
