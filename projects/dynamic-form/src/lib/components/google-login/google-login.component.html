@@ -1,8 +1,6 @@
 <ng-container *ngIf="gStyle==2">
-  <div id="g_id_onload"
-  [attr.data-client_id]="googleClientId"
-  data-auto_prompt="false"
-  data-callback="handleGoogleLoginV2">
-</div>
-<div data-size="medium" class="g_id_signin" [attr.data-type]="type"></div>
+  <div id="g_id_onload" [attr.data-client_id]="googleClientId" data-auto_prompt="false"
+    data-callback="handleGoogleLoginV2">
+  </div>
+  <div [attr.data-size]="size" class="g_id_signin" [attr.data-type]="type"></div>
 </ng-container>

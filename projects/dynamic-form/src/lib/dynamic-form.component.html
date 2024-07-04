@@ -132,11 +132,12 @@
             data-bs-dismiss="modal" class="hover">Registrati</a></p>
       </div>
       <div *ngSwitchCase="AddonsEnum.google_login">
-        <div class="divider-icon my-4">oppure</div>
+        <div class="divider-icon my-4" *ngIf="addon.upper_text">{{addon.upper_text}}</div>
         <nav class="nav social justify-content-center text-center">
           <google-login (loginWithGoogle)="handleGoogleLoginV2($event)"
-            [gStyle]="addon.style || 0"/>
+            [type]="addon.type || ''" [size]="addon.size || ''" [gStyle]="addon.style || 0"/>
         </nav>
+
       </div>
       <div *ngSwitchCase="AddonsEnum.login">
         <p class="mb-0">Hai già un account? <a href="#" data-bs-target="#modal-signin" data-bs-toggle="modal"

@@ -31,6 +31,9 @@ export interface SelectValueScheme {
 export interface AddonScheme {
   name:AddonType
   style?:number
+  upper_text?:string
+  size?:string
+  type?:string
 }
 
 // Buttons

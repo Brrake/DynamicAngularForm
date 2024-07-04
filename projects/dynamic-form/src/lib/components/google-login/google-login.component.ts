@@ -16,7 +16,8 @@ export class GoogleLoginComponent implements OnInit, OnDestroy {
   @Output() loginWithGoogle: EventEmitter<any> = new EventEmitter<any>();
   @Input() gStyle: number = 0
   @Input() type: string = 'standard'
-
+  @Input() size: string = 'medium'
+  
   script ?: HTMLScriptElement
 
   constructor(@Inject(GOOGLE_CLIENT_ID_KEY) public googleClientId: string) { }
