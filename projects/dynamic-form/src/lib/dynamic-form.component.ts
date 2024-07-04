@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { AddonType, ButtonType, DynamicFormScheme, Errors, FieldType } from './models/dynamic-form.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { linkValidator } from './custom_validators/link.validator';
@@ -23,7 +23,7 @@ export class DynamicFormComponent implements OnInit {
   @Output() onCloseModal: EventEmitter<any> = new EventEmitter<any>();
   @Output() loginWithGoogle: EventEmitter<any> = new EventEmitter<any>();
   @Output() onBack: EventEmitter<any> = new EventEmitter<any>();
-  
+
   public FieldTypesEnum: typeof FieldType = FieldType
   public AddonsEnum: typeof AddonType = AddonType
   public ButtonsEnum: typeof ButtonType = ButtonType
@@ -37,7 +37,7 @@ export class DynamicFormComponent implements OnInit {
   emittedForms: any[] = []
 
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object,) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object,private renderer: Renderer2) {
   }
 
   ngOnInit() {
@@ -62,10 +62,15 @@ export class DynamicFormComponent implements OnInit {
           }
           if (currField.type == this.FieldTypesEnum.telephone) {
             setTimeout(() => {
+              const link = this.renderer.createElement('link');
+              link.rel = 'stylesheet';
+              link.href = 'node_modules/intl-tel-input/build/css/intlTelInput.min.css';
+              this.renderer.appendChild(document.head, link);
+              
               const phone = document.getElementById("phone-" + j) as HTMLInputElement
               let iti = intlTelInput(phone, {
                 initialCountry: "auto",
-                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/23.0.11/js/utils.js",
+                utilsScript: "node_modules/intl-tel-input/build/js/utils.js",
                 geoIpLookup: function (success, failure) {
                   fetch("https://ipapi.co/json")
                     .then(function (res) { return res.json(); })
