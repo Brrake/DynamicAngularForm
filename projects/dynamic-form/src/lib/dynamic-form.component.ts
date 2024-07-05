@@ -160,10 +160,12 @@ export class DynamicFormComponent implements OnInit {
     this.formSchemes[idx].active_page = false
 
     let isV3GRecaptcha = false
+    let fieldName = ''
     for (let i = 0; i < this.formSchemes[idx].fields.length; i++) {
       if (this.formSchemes[idx].fields[i].type == this.FieldTypesEnum.g_recaptcha) {
         if (this.formSchemes[idx].fields[i].version == 'v3') {
           isV3GRecaptcha = true
+          fieldName = this.formSchemes[idx].fields[i].formControlName as string
           break
         }
       }
@@ -171,7 +173,7 @@ export class DynamicFormComponent implements OnInit {
     if (isV3GRecaptcha) {
       this.recaptchaV3Service.execute('importantAction')
       .subscribe((token) => {
-        this.formGroup[idx].value.g_recaptcha = token
+        this.formGroup[idx].value[fieldName] = token
         this.emittedForms.push(this.formGroup[idx])
         this.onSubmit.emit({ forms: this.formGroup, files: this.addTree, formEmittingIndex: idx, emittedForms: this.emittedForms });
       });
