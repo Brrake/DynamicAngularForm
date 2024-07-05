@@ -7,6 +7,7 @@ import /* @vite-ignore */ intlTelInput, { Iti } from 'intl-tel-input';
 import { phoneValidator } from './custom_validators/phoneValidator.validator';
 import { createIsValidNumberValidator } from './custom_validators/createIsValidNumberValidator.validator';
 import { isPlatformBrowser } from '@angular/common';
+import { ReCaptchaV3Service } from 'ng-recaptcha';
 @Component({
   selector: 'dynamic-form',
   templateUrl: './dynamic-form.component.html',
@@ -37,7 +38,7 @@ export class DynamicFormComponent implements OnInit {
   emittedForms: any[] = []
 
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object,private renderer: Renderer2) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private renderer: Renderer2, private recaptchaV3Service: ReCaptchaV3Service) {
   }
 
   ngOnInit() {
@@ -66,7 +67,7 @@ export class DynamicFormComponent implements OnInit {
               link.rel = 'stylesheet';
               link.href = 'node_modules/intl-tel-input/build/css/intlTelInput.min.css';
               this.renderer.appendChild(document.head, link);
-              
+
               const phone = document.getElementById("phone-" + j) as HTMLInputElement
               let iti = intlTelInput(phone, {
                 initialCountry: "auto",
@@ -155,6 +156,27 @@ export class DynamicFormComponent implements OnInit {
     this.formGroup[formGroup].patchValue(values)
   }
   onSubmitForm(idx: number) {
+    // Se vuole usare recaptcha v3
+    this.formSchemes[idx].active_page = false
+
+    let isV3GRecaptcha = false
+    for (let i = 0; i < this.formSchemes[idx].fields.length; i++) {
+      if (this.formSchemes[idx].fields[i].type == this.FieldTypesEnum.g_recaptcha) {
+        if (this.formSchemes[idx].fields[i].version == 'v3') {
+          isV3GRecaptcha = true
+          break
+        }
+      }
+    }
+    if (isV3GRecaptcha) {
+      this.recaptchaV3Service.execute('importantAction')
+      .subscribe((token) => {
+        this.formGroup[idx].value.g_recaptcha = token
+        this.emittedForms.push(this.formGroup[idx])
+        this.onSubmit.emit({ forms: this.formGroup, files: this.addTree, formEmittingIndex: idx, emittedForms: this.emittedForms });
+      });
+      return
+    }
     this.emittedForms.push(this.formGroup[idx])
     this.onSubmit.emit({ forms: this.formGroup, files: this.addTree, formEmittingIndex: idx, emittedForms: this.emittedForms });
   }

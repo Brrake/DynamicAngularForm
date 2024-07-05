@@ -37,7 +37,8 @@
             </select>
           </div>
           <div *ngSwitchCase="FieldTypesEnum.g_recaptcha">
-            <div class="row mt-3">
+
+            <div class="row mt-3" *ngIf="field.version == 'v2' || !field.version">
               <div class="col-sm-12 mb-2 g-recaptcha">
                 <re-captcha [id]="formScheme.formId+'-'+field.formControlName"
                   class="d-flex justify-content-center"
@@ -46,6 +47,7 @@
                   [class.is-invalid]="formGroup[idx].get(field.formControlName  || '')?.invalid && (formGroup[idx].get(field.formControlName  || '')?.dirty || formGroup[idx].get(field.formControlName  || '')?.touched)"></re-captcha>
               </div>
             </div>
+
           </div>
           <p *ngSwitchCase="FieldTypesEnum.section_info" class="lead mb-6 text-start">{{field.default_value}}</p>
           <div *ngSwitchCase="FieldTypesEnum.show_image" class="mb-4">

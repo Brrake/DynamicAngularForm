@@ -16,6 +16,7 @@ export interface FieldScheme {
   width?: string
   disabled?: boolean
   formControlName?: string
+  version?: string
   default_value?: string | number | boolean | { year: number, month: number, day: number } | { hour: number, minute: number }
   values?: SelectValueScheme[]
   top_label?: string

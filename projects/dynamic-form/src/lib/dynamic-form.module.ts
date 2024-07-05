@@ -5,7 +5,7 @@ import { DynamicFormComponent } from "./dynamic-form.component";
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { NgbCalendar, NgbCalendarGregorian, NgbModule, NgbTimepicker } from "@ng-bootstrap/ng-bootstrap";
 import { ButtonLoaderComponent } from "./components/button-loader/button-loader.component";
-import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from "ng-recaptcha";
+import { RECAPTCHA_SETTINGS, RECAPTCHA_V3_SITE_KEY, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RecaptchaV3Module } from "ng-recaptcha";
 import { GoogleLoginComponent } from "./components/google-login/google-login.component";
 import { GOOGLE_CLIENT_ID_KEY } from "./config.token";
 import { DynamicModalComponent } from "../public-api";
@@ -22,6 +22,7 @@ import { DynamicModalComponent } from "../public-api";
     FormsModule,
     NgxSliderModule,
     NgbModule,
+    RecaptchaV3Module,
     RecaptchaFormsModule,
     RecaptchaModule,
     ReactiveFormsModule
@@ -32,7 +33,10 @@ import { DynamicModalComponent } from "../public-api";
     DynamicModalComponent,
     GoogleLoginComponent
   ],
-  providers: [{ provide: NgbCalendar, useClass: NgbCalendarGregorian },{ provide: NgbTimepicker},],
+  providers: [
+    { provide: NgbCalendar, useClass: NgbCalendarGregorian },
+    { provide: NgbTimepicker}
+  ],
 })
 export class DynamicFormModule {
   static forRoot(sitegRecaptchaKey: string,googleClientId: string): ModuleWithProviders<DynamicFormModule> {
@@ -44,6 +48,10 @@ export class DynamicFormModule {
           useValue: {
             siteKey: sitegRecaptchaKey,
           } as RecaptchaSettings,
+        },
+        {
+          provide: RECAPTCHA_V3_SITE_KEY,
+          useValue: sitegRecaptchaKey
         },
         {
           provide: GOOGLE_CLIENT_ID_KEY,
