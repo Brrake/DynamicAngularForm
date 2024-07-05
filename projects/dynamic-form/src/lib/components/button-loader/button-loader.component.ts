@@ -14,7 +14,8 @@ export class ButtonLoaderComponent implements OnInit {
   @Input() type: string = 'submit'
   @Input() color: string = 'primary'
   @Input() text_color: string = 'white'
-
+  @Input() margin: boolean = true
+  
   constructor() { }
   ngOnInit() {
   }

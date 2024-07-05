@@ -46,7 +46,8 @@ export interface ButtonScheme {
   type: ButtonType
   name: string
   text_color: string
-  button_color: string,
+  button_color: string
+  margin?: boolean
   page?: number
 }
 
