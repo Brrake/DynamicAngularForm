@@ -13,6 +13,7 @@ export interface FieldScheme {
   name?: string
   src?: string
   options?: any
+  length?:number
   width?: string
   disabled?: boolean
   formControlName?: string
@@ -81,6 +82,7 @@ export enum AddonType {
 export enum FieldType {
   text = 'text',
   date = 'date',
+  otp= 'otp',
   time = 'time',
   select = 'select',
   password = 'password',

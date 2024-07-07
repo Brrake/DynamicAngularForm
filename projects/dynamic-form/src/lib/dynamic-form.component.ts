@@ -100,6 +100,9 @@ export class DynamicFormComponent implements OnInit {
       }
     }
   }
+  onOtpChange(event: any,formIdx:number, formControlName:string) {
+    this.formGroup[formIdx].patchValue({[formControlName]: event})
+  }
   updatePhoneField(event: any, formIdx: number, formControlName: string): void {
     const newDefault = event.target.value;
     let currIti = this.itis_info.find(iti => iti.formControlName == formControlName);

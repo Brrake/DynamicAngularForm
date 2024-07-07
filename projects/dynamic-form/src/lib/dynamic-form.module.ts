@@ -9,6 +9,7 @@ import { RECAPTCHA_SETTINGS, RECAPTCHA_V3_SITE_KEY, RecaptchaFormsModule, Recapt
 import { GoogleLoginComponent } from "./components/google-login/google-login.component";
 import { GOOGLE_CLIENT_ID_KEY } from "./config.token";
 import { DynamicModalComponent } from "../public-api";
+import { NgOtpInputModule } from "ng-otp-input";
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { DynamicModalComponent } from "../public-api";
     FormsModule,
     NgxSliderModule,
     NgbModule,
+    NgOtpInputModule,
     RecaptchaV3Module,
     RecaptchaFormsModule,
     RecaptchaModule,
