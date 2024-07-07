@@ -127,14 +127,16 @@
     </form>
     <div *ngFor="let addon of formScheme.addons" [ngSwitch]="addon.name">
       <div *ngSwitchCase="AddonsEnum.change_pass">
-        <p class="mb-1"><a href="#" class="hover">Password dimenticata?</a></p>
+        <p class="mb-1" [id]="'forgot-password-'+idx"><a href="#" class="hover">Password dimenticata?</a></p>
       </div>
       <div *ngSwitchCase="AddonsEnum.signup">
-        <p class="mb-0">Non hai un account? <a href="#" data-bs-target="#modal-signup" data-bs-toggle="modal"
-            data-bs-dismiss="modal" class="hover">Registrati</a></p>
+        <p class="mb-0">
+          <a [id]="'register-text-'+idx">Non hai un account? </a>
+          <a [id]="'register-button-'+idx" href="#" data-bs-target="#modal-signup" data-bs-toggle="modal" data-bs-dismiss="modal" class="hover">Registrati</a>
+        </p>
       </div>
       <div *ngSwitchCase="AddonsEnum.google_login">
-        <div class="divider-icon my-4" *ngIf="addon.upper_text">{{addon.upper_text}}</div>
+        <div [id]="'google-uppertext-'+idx" class="divider-icon my-4" *ngIf="addon.upper_text">{{addon.upper_text}}</div>
         <nav class="nav social justify-content-center text-center">
           <google-login
             (loginWithGoogle)="handleGoogleLoginV2($event)"
