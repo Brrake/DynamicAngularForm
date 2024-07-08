@@ -31,7 +31,8 @@
           </div>
           <div *ngSwitchCase="FieldTypesEnum.otp" class="mb-3 d-flex"
             style="align-items: center;justify-content: center;">
-            <ng-otp-input (onInputChange)="onOtpChange($event,idx, field.formControlName || '')"  [config]="{length:field.length || 6}"></ng-otp-input>
+            <ng-otp-input (onInputChange)="onOtpChange($event,idx, field.formControlName || '')"
+              [config]="{length:field.length || 6}"></ng-otp-input>
           </div>
           <div *ngSwitchCase="FieldTypesEnum.select" class="form-select-wrapper mb-4">
             <select [id]="formScheme.formId+'-'+field.formControlName" [formControlName]="field.formControlName  || ''"
@@ -133,14 +134,17 @@
       </div>
     </form>
     <div *ngFor="let addon of formScheme.addons" [ngSwitch]="addon.name">
-      <div *ngSwitchCase="AddonsEnum.change_pass">
-        <p class="mb-1" [id]="'forgot-password-'+idx"><a href="#" class="hover">Password dimenticata?</a></p>
-      </div>
-      <div *ngSwitchCase="AddonsEnum.signup">
-        <p class="mb-0">
-          <a [id]="'register-text-'+idx">Non hai un account? </a>
-          <a [id]="'register-button-'+idx" href="#" data-bs-target="#modal-signup" data-bs-toggle="modal"
-            data-bs-dismiss="modal" class="hover">Registrati</a>
+      <div *ngSwitchCase="AddonsEnum.highlight">
+        <p class="mb-0" style="text-align: center;">
+          <a *ngIf="addon.normal_text" [id]="'register-text-'+idx">{{addon.normal_text}} </a>
+          <ng-container *ngIf="addon.href_type == hrefTypes.MODAL;else default">
+            <a [id]="'register-button-'+idx" [attr.data-bs-target]="'#'+addon.href" data-bs-toggle="modal"
+              data-bs-dismiss="modal" class="hover">{{addon.highlight_text}}</a>
+          </ng-container>
+          <ng-template #default>
+            <a [id]="'register-button-'+idx" [routerLink]="['/'+addon.href]" class="hover">{{addon.highlight_text}}</a>
+          </ng-template>
+
         </p>
       </div>
       <div *ngSwitchCase="AddonsEnum.google_login">
@@ -152,10 +156,6 @@
             [shape]="addon.shape || ''" [logo_alignment]="addon.logo_alignment || ''" />
         </nav>
 
-      </div>
-      <div *ngSwitchCase="AddonsEnum.login">
-        <p class="mb-0">Hai già un account? <a href="#" data-bs-target="#modal-signin" data-bs-toggle="modal"
-            data-bs-dismiss="modal" class="hover">Accedi</a></p>
       </div>
     </div>
   </ng-container>

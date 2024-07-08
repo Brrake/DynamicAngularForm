@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID, Renderer2 } from '@angular/core';
-import { AddonType, ButtonType, DynamicFormScheme, Errors, FieldType } from './models/dynamic-form.model';
+import { AddonType, ButtonType, DynamicFormScheme, Errors, FieldType, HrefTypes } from './models/dynamic-form.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { linkValidator } from './custom_validators/link.validator';
 import { confirmPasswordValidator } from './custom_validators/confirm-password.validator';
@@ -28,6 +28,7 @@ export class DynamicFormComponent implements OnInit {
   public FieldTypesEnum: typeof FieldType = FieldType
   public AddonsEnum: typeof AddonType = AddonType
   public ButtonsEnum: typeof ButtonType = ButtonType
+  public hrefTypes:typeof HrefTypes = HrefTypes
 
   displayImg: string = ''
   addTree: any = []

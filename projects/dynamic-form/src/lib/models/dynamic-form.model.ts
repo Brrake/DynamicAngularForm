@@ -13,7 +13,7 @@ export interface FieldScheme {
   name?: string
   src?: string
   options?: any
-  length?:number
+  length?: number
   width?: string
   disabled?: boolean
   formControlName?: string
@@ -37,11 +37,17 @@ export interface AddonScheme {
   size?: string
   type?: string
   theme?: string
+  href?: string
+  normal_text?: string
+  highlight_text?: string
+  href_type?: HrefTypes
   text?: string
   shape?: string
   logo_alignment?: string
 }
-
+export enum HrefTypes {
+  MODAL = 'modal',
+}
 // Buttons
 export interface ButtonScheme {
   type: ButtonType
@@ -72,9 +78,7 @@ export interface ValidatorScheme {
  */
 // Addons Types
 export enum AddonType {
-  change_pass = 'change-pass',
-  signup = 'signup',
-  login = 'login',
+  highlight = 'highlight',
   google_login = 'google-login'
 }
 
@@ -82,7 +86,7 @@ export enum AddonType {
 export enum FieldType {
   text = 'text',
   date = 'date',
-  otp= 'otp',
+  otp = 'otp',
   time = 'time',
   select = 'select',
   password = 'password',

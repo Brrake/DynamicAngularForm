@@ -10,6 +10,7 @@ import { GoogleLoginComponent } from "./components/google-login/google-login.com
 import { GOOGLE_CLIENT_ID_KEY } from "./config.token";
 import { DynamicModalComponent } from "../public-api";
 import { NgOtpInputModule } from "ng-otp-input";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { NgOtpInputModule } from "ng-otp-input";
     RecaptchaV3Module,
     RecaptchaFormsModule,
     RecaptchaModule,
+    RouterModule,
     ReactiveFormsModule
   ],
   exports: [
