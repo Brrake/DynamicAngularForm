@@ -32,7 +32,7 @@
           <div *ngSwitchCase="FieldTypesEnum.otp" class="mb-3 d-flex"
             style="align-items: center;justify-content: center;">
             <ng-otp-input (onInputChange)="onOtpChange($event,idx, field.formControlName || '')"
-              [config]="{length:field.length || 6}"></ng-otp-input>
+              [config]="{length:field.length || 6, inputClass:'otp-input'}"></ng-otp-input>
           </div>
           <div *ngSwitchCase="FieldTypesEnum.select" class="form-select-wrapper mb-4">
             <select [id]="formScheme.formId+'-'+field.formControlName" [formControlName]="field.formControlName  || ''"

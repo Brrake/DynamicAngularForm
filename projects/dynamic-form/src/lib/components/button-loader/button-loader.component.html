@@ -5,6 +5,6 @@
   <a class="d-flex align-items-center" [style]="'color: '+getTextColor()" *ngIf="!loadSpinner && !loadCheck">
     <i *ngIf="icon!='' && icon_position=='left'" [class]="getClassFromIcon()+' fs-20 '+(text ? 'mr-1' : '')"></i>
     {{text}}
-    <i *ngIf="icon!='' && icon_position=='right'" [class]="getClassFromIcon()+' fs-20 '+(text ? 'mr-1' : '')"></i>
+    <i *ngIf="icon!='' && icon_position=='right'" [class]="getClassFromIcon()+' fs-20'"></i>
   </a>
 </button>
