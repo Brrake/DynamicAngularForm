@@ -11,11 +11,12 @@ export class ButtonLoaderComponent implements OnInit {
   @Input() isFormValid: boolean = true
   @Input() text: string = ''
   @Input() icon: string = ''
+  @Input() icon_position: string = 'left'
   @Input() type: string = 'submit'
   @Input() color: string = 'primary'
   @Input() text_color: string = 'white'
   @Input() margin: boolean = true
-  
+
   constructor() { }
   ngOnInit() {
   }
