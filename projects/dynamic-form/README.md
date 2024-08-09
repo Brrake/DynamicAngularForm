@@ -54,3 +54,20 @@ export class AppModule { }
 ```
 
 ## Models and Usage
+# Dynamic Modal
+Input | Type | Description | Required
+--- | --- | --- | ---
+modalId | string | Assign a custom modal id | false 
+modalPopup | boolean | Make the modal popup onload automatically | false
+modalCloseButton | boolean | Enable close modal button, will appear a "x" button in the top-right corner | false
+formSchemes | DynamicFormScheme | Scheme of the form to visualize | false
+loadSpinner | boolean | Load spinner into submit button | false
+isSubmitFailed | boolean | Enable custom message error after submit | false
+errorMessage | string | Load custom message error after submit | false
+
+Output | Description | Required
+--- | --- | ---
+onSubmit() | Handle form submitted result | false 
+loginWithGoogle() | Handle google login result | false
+onCloseModal() | Handle modal close | false
+onBack() | Handle modal back | false
