@@ -159,7 +159,7 @@ Below you will find all the information you need to correctly use the templates 
 
 | Property         | Type                                                          | Description                                                                                           |
 |------------------|---------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
-| `type`           | [`FieldType`](#fieldtype)                                                   | Type of the field.                                                                                    |
+| `type`           | [`FieldType`](#fieldtype-enum)                                                   | Type of the field.                                                                                    |
 | `name`           | `string (optional)`                                           | Name of the field.                                                                                    |
 | `src`            | `string (optional)`                                           | Source URL or path for certain field types (e.g., images).                                            |
 | `options`        | `any (optional)`                                              | Additional options for the field.                                                                     |
@@ -185,7 +185,7 @@ Below you will find all the information you need to correctly use the templates 
 
 | Property        | Type                     | Description                                |
 |-----------------|--------------------------|--------------------------------------------|
-| `name`          | [`AddonType`](#addontype)              | Type of the addon.                         |
+| `name`          | [`AddonType`](#addontype-enum)              | Type of the addon.                         |
 | `style`         | `number (optional)`      | Style identifier for the addon.            |
 | `upper_text`    | `string (optional)`      | Text displayed above the main content.     |
 | `size`          | `string (optional)`      | Size of the addon.                         |
@@ -194,7 +194,7 @@ Below you will find all the information you need to correctly use the templates 
 | `href`          | `string (optional)`      | URL or link associated with the addon.     |
 | `normal_text`   | `string (optional)`      | Regular text displayed in the addon.       |
 | `highlight_text`| `string (optional)`      | Highlighted text within the addon.         |
-| `href_type`     | [`HrefTypes (optional)`](#hreftypes)   | Type of href action (e.g., modal).         |
+| `href_type`     | [`HrefTypes (optional)`](#hreftypes-enum)   | Type of href action (e.g., modal).         |
 | `text`          | `string (optional)`      | Text displayed in the addon.               |
 | `shape`         | `string (optional)`      | Shape of the addon (e.g., square, circle). |
 | `logo_alignment`| `string (optional)`      | Alignment of the logo within the addon.    |
@@ -235,7 +235,7 @@ Below you will find all the information you need to correctly use the templates 
 
 | Property | Type   | Description           |
 |----------|--------|-----------------------|
-| `name`   | [`Errors`](#errors) | Type of the error being validated. |
+| `name`   | [`Errors`](#errors-enum) | Type of the error being validated. |
 | `value`  | `string` | Value associated with the validator. |
 
 ### `AddonType` (Enum)
