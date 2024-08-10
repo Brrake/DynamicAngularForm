@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID, Renderer2 } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID } from '@angular/core';
 import { AddonType, ButtonType, DynamicFormScheme, Errors, FieldType, HrefTypes } from './models/dynamic-form.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { linkValidator } from './custom_validators/link.validator';
 import { confirmPasswordValidator } from './custom_validators/confirm-password.validator';
-import /* @vite-ignore */ intlTelInput, { Iti } from 'intl-tel-input';
+import intlTelInput, { Iti } from 'intl-tel-input';
 import { phoneValidator } from './custom_validators/phoneValidator.validator';
 import { createIsValidNumberValidator } from './custom_validators/createIsValidNumberValidator.validator';
 import { isPlatformBrowser } from '@angular/common';
@@ -39,7 +39,7 @@ export class DynamicFormComponent implements OnInit {
   emittedForms: any[] = []
 
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private renderer: Renderer2, private recaptchaV3Service: ReCaptchaV3Service) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private recaptchaV3Service: ReCaptchaV3Service) {
   }
 
   ngOnInit() {
@@ -64,15 +64,10 @@ export class DynamicFormComponent implements OnInit {
           }
           if (currField.type == this.FieldTypesEnum.telephone) {
             setTimeout(() => {
-              const link = this.renderer.createElement('link');
-              link.rel = 'stylesheet';
-              link.href = 'node_modules/intl-tel-input/build/css/intlTelInput.min.css';
-              this.renderer.appendChild(document.head, link);
-
               const phone = document.getElementById("phone-" + j) as HTMLInputElement
               let iti = intlTelInput(phone, {
                 initialCountry: "auto",
-                utilsScript: "node_modules/intl-tel-input/build/js/utils.js",
+                //utilsScript: "node_modules/intl-tel-input/build/js/utils.js",
                 geoIpLookup: function (success, failure) {
                   fetch("https://ipapi.co/json")
                     .then(function (res) { return res.json(); })
