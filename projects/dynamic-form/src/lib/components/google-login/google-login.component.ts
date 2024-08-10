@@ -14,7 +14,7 @@ declare global {
 })
 export class GoogleLoginComponent implements OnInit, OnDestroy {
   @Output() loginWithGoogle: EventEmitter<any> = new EventEmitter<any>();
-  @Input() gStyle: number = 0
+  @Input() gStyle: number = 2
   @Input() type: string = 'standard'
   @Input() size: string = 'medium'
   @Input() theme: string = 'outline'

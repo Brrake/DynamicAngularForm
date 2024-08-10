@@ -21,7 +21,7 @@ export class DynamicFormComponent implements OnInit {
   @Input() errorMessage: string = '';
 
   @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
-  @Output() onCloseModal: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onCloseForm: EventEmitter<any> = new EventEmitter<any>();
   @Output() loginWithGoogle: EventEmitter<any> = new EventEmitter<any>();
   @Output() onBack: EventEmitter<any> = new EventEmitter<any>();
 
@@ -195,7 +195,7 @@ export class DynamicFormComponent implements OnInit {
   onClose() {
     this.goToPage(0)
     this.emittedForms = []
-    this.onCloseModal.emit(true)
+    this.onCloseForm.emit(true)
   }
   resetAndGoToPage(page: number) {
     for (let i = 0; i < this.formSchemes.length; i++) {
