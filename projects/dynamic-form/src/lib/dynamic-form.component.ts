@@ -67,7 +67,10 @@ export class DynamicFormComponent implements OnInit {
               const phone = document.getElementById("phone-" + j) as HTMLInputElement
               let iti = intlTelInput(phone, {
                 initialCountry: "auto",
-                //utilsScript: "node_modules/intl-tel-input/build/js/utils.js",
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/23.0.11/js/utils.js",
+                customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
+                  return "e.g. " + selectedCountryPlaceholder;
+                },
                 geoIpLookup: function (success, failure) {
                   fetch("https://ipapi.co/json")
                     .then(function (res) { return res.json(); })
