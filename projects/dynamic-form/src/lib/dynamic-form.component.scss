@@ -1,58 +1,77 @@
 @import url("../../assets/css/intlTelInput.min.css");
-.form-check-input:checked{
-    background-color: var(--bs-primary);
-    border-color: var(--bs-primary);
+
+.form-check-input:checked {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
 }
+
 .ngx-slider-active:after {
-    background-color:black!important;
+  background-color: black !important;
 }
-.bi-calendar3{
-    border-color: var(--bs-primary)!important;
+
+.bi-calendar3 {
+  border-color: var(--bs-primary) !important;
 }
-.bi-calendar3:hover{
-    background-color: var(--bs-primary)!important;
-    .uil-calendar-alt{
-        color: #fff!important;
-    }
+
+.bi-calendar3:hover {
+  background-color: var(--bs-primary) !important;
+
+  .uil-calendar-alt {
+    color: #fff !important;
+  }
 }
-.uil-calendar-alt{
-    color: var(--bs-primary)!important;
+
+.uil-calendar-alt {
+  color: var(--bs-primary) !important;
 }
+
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
+
 .ngx-slider-active:after {
-    background-color: var(--bs-soft-primary) !important;
+  background-color: var(--bs-soft-primary) !important;
 }
 
 .bs-datepicker td,
 th {
-    text-align: center;
-    padding: 8px 12px;
-    font-size: 14px;
-    border-radius: 15px;
+  text-align: center;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 15px;
 }
 
 .ngb-dp-arrow-btn,
 .ngb-dp-weekday,
 .ngb-tp-chevron {
-    color: var(--bs-primary) !important;
+  color: var(--bs-primary) !important;
 }
-.form-control:focus,.ngb-tp-input:focus{
-    border-color: var(--bs-primary) !important;
+
+.form-control:focus,
+.ngb-tp-input:focus {
+  border-color: var(--bs-primary) !important;
 }
+
 .btn-close {
-    height: fit-content !important;
-    width: fit-content !important;
+  height: fit-content !important;
+  width: fit-content !important;
 }
-.btn:disabled, .btn.disabled, fieldset:disabled .btn {
-    color: var(--bs-btn-disabled-color);
-    pointer-events: none;
-    background-color: var(--bs-btn-disabled-bg);
-    border-color: var(--bs-primary);
-    opacity: var(--bs-btn-disabled-opacity);
-    box-shadow: none;
+
+.btn:disabled,
+.btn.disabled,
+fieldset:disabled .btn {
+  color: var(--bs-btn-disabled-color);
+  pointer-events: none;
+  background-color: var(--bs-btn-disabled-bg);
+  border-color: var(--bs-primary);
+  opacity: var(--bs-btn-disabled-opacity);
+  box-shadow: none;
 }
-.form-check-input:checked{
-    background-color: var(--bs-primary);
+
+.form-check-input:checked {
+  background-color: var(--bs-primary);
+}
+
+.hidden {
+  display: none;
 }

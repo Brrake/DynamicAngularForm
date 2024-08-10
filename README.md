@@ -166,6 +166,7 @@ Below you will find all the information you need to correctly use the templates 
 | `length`         | `number (optional)`                                           | Length of the field.                                                                                  |
 | `width`          | `string (optional)`                                           | Width of the field.                                                                                   |
 | `disabled`       | `boolean (optional)`                                          | Indicates if the field is disabled.                                                                   |
+| `visible`       | `boolean (optional)`                                          | Indicates if the field is visible.                                                                   |
 | `formControlName`| `string (optional)`                                           | Form control name, typically used with reactive forms.                                                |
 | `version`        | `string (optional)`                                           | Version of the field.                                                                                 |
 | `default_value`  | `string` \| `number` \| `boolean` \| `{ year: number, month: number, day: number }` \| `{ hour: number, minute: number }` (optional) | Default value of the field. |
@@ -282,4 +283,6 @@ Below you will find all the information you need to correctly use the templates 
 | `email`    | Represents an email validation error. |
 | `maxlength`| Represents a max length error. |
 | `minlength`| Represents a min length error. |
+| `max`| Represents a max error. |
+| `min`| Represents a min error. |
 | `pattern`  | Represents a pattern matching error. |

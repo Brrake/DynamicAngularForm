@@ -16,6 +16,7 @@ export interface FieldScheme {
   length?: number
   width?: string
   disabled?: boolean
+  visible?: boolean
   formControlName?: string
   version?: string
   default_value?: string | number | boolean | { year: number, month: number, day: number } | { hour: number, minute: number }
@@ -113,5 +114,7 @@ export enum Errors {
   email = 'email',
   maxlength = 'maxlength',
   minlength = 'minlength',
+  max = 'max',
+  min = 'min',
   pattern = 'pattern'
 }

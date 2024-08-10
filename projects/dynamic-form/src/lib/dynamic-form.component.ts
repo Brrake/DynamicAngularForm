@@ -28,7 +28,7 @@ export class DynamicFormComponent implements OnInit {
   public FieldTypesEnum: typeof FieldType = FieldType
   public AddonsEnum: typeof AddonType = AddonType
   public ButtonsEnum: typeof ButtonType = ButtonType
-  public hrefTypes:typeof HrefTypes = HrefTypes
+  public hrefTypes: typeof HrefTypes = HrefTypes
 
   displayImg: string = ''
   addTree: any = []
@@ -68,7 +68,7 @@ export class DynamicFormComponent implements OnInit {
               let iti = intlTelInput(phone, {
                 initialCountry: "auto",
                 utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/23.0.11/js/utils.js",
-                customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
+                customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
                   return "e.g. " + selectedCountryPlaceholder;
                 },
                 geoIpLookup: function (success, failure) {
@@ -99,8 +99,8 @@ export class DynamicFormComponent implements OnInit {
       }
     }
   }
-  onOtpChange(event: any,formIdx:number, formControlName:string) {
-    this.formGroup[formIdx].patchValue({[formControlName]: event})
+  onOtpChange(event: any, formIdx: number, formControlName: string) {
+    this.formGroup[formIdx].patchValue({ [formControlName]: event })
   }
   updatePhoneField(event: any, formIdx: number, formControlName: string): void {
     const newDefault = event.target.value;
@@ -131,6 +131,14 @@ export class DynamicFormComponent implements OnInit {
         }
         case Errors.pattern: {
           valArr.push(Validators.pattern(val.value))
+          break;
+        }
+        case Errors.min: {
+          valArr.push(Validators.min(val.value))
+          break;
+        }
+        case Errors.max: {
+          valArr.push(Validators.max(val.value))
           break;
         }
         case Errors.email: {
@@ -174,11 +182,11 @@ export class DynamicFormComponent implements OnInit {
     }
     if (isV3GRecaptcha) {
       this.recaptchaV3Service.execute('importantAction')
-      .subscribe((token) => {
-        this.formGroup[idx].value[fieldName] = token
-        this.emittedForms.push(this.formGroup[idx])
-        this.onSubmit.emit({ forms: this.formGroup, files: this.addTree, formEmittingIndex: idx, emittedForms: this.emittedForms });
-      });
+        .subscribe((token) => {
+          this.formGroup[idx].value[fieldName] = token
+          this.emittedForms.push(this.formGroup[idx])
+          this.onSubmit.emit({ forms: this.formGroup, files: this.addTree, formEmittingIndex: idx, emittedForms: this.emittedForms });
+        });
       return
     }
     this.emittedForms.push(this.formGroup[idx])
