@@ -150,16 +150,16 @@ Below you will find all the information you need to correctly use the templates 
 | `title`           | `string`                    | Title of the form.                               |
 | `description`     | `string (optional)`         | Description of the form.                         |
 | `active_page`     | `boolean (optional)`        | Indicates if the form is active.                 |
-| `fields`          | `FieldScheme[]`             | Array of form fields.                            |
-| `buttons`         | `ButtonScheme[]`            | Array of form buttons.                           |
-| `addons`          | `AddonScheme[]`             | Array of form addons.                            |
-| `custom_validators`| `CustomValidatorScheme[]`  | Array of custom validators for the form.         |
+| `fields`          | [`FieldScheme[]`](#fieldscheme)             | Array of form fields.                            |
+| `buttons`         | [`ButtonScheme[]`](#buttonscheme)            | Array of form buttons.                           |
+| `addons`          | [`AddonScheme[]`](#addonscheme)             | Array of form addons.                            |
+| `custom_validators`| [`CustomValidatorScheme[]`](#customvalidatorscheme)  | Array of custom validators for the form.         |
 
 ### `FieldScheme`
 
 | Property         | Type                                                          | Description                                                                                           |
 |------------------|---------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
-| `type`           | `FieldType`                                                   | Type of the field.                                                                                    |
+| `type`           | [`FieldType`](#fieldtype)                                                   | Type of the field.                                                                                    |
 | `name`           | `string (optional)`                                           | Name of the field.                                                                                    |
 | `src`            | `string (optional)`                                           | Source URL or path for certain field types (e.g., images).                                            |
 | `options`        | `any (optional)`                                              | Additional options for the field.                                                                     |
@@ -171,8 +171,8 @@ Below you will find all the information you need to correctly use the templates 
 | `default_value`  | `string` \| `number` \| `boolean` \| `{ year: number, month: number, day: number }` \| `{ hour: number, minute: number }` (optional) | Default value of the field. |
 | `values`         | `SelectValueScheme[] (optional)`                              | Array of selectable values for fields like dropdowns or radios.                                       |
 | `top_label`      | `string (optional)`                                           | Label displayed above the field.                                                                      |
-| `validators`     | `ValidatorScheme[] (optional)`                                | Array of validators for the field.                                                                    |
-| `errors`         | `ErrorScheme[] (optional)`                                    | Array of error messages related to the field.                                                         |
+| `validators`     | [`ValidatorScheme[] (optional)`](#validatorscheme)                                | Array of validators for the field.                                                                    |
+| `errors`         | [`ErrorScheme[] (optional)`](#errorscheme)                                    | Array of error messages related to the field.                                                         |
 
 ### `SelectValueScheme`
 
@@ -185,7 +185,7 @@ Below you will find all the information you need to correctly use the templates 
 
 | Property        | Type                     | Description                                |
 |-----------------|--------------------------|--------------------------------------------|
-| `name`          | `AddonType`              | Type of the addon.                         |
+| `name`          | [`AddonType`](#addontype)              | Type of the addon.                         |
 | `style`         | `number (optional)`      | Style identifier for the addon.            |
 | `upper_text`    | `string (optional)`      | Text displayed above the main content.     |
 | `size`          | `string (optional)`      | Size of the addon.                         |
@@ -194,7 +194,7 @@ Below you will find all the information you need to correctly use the templates 
 | `href`          | `string (optional)`      | URL or link associated with the addon.     |
 | `normal_text`   | `string (optional)`      | Regular text displayed in the addon.       |
 | `highlight_text`| `string (optional)`      | Highlighted text within the addon.         |
-| `href_type`     | `HrefTypes (optional)`   | Type of href action (e.g., modal).         |
+| `href_type`     | [`HrefTypes (optional)`](#hreftypes)   | Type of href action (e.g., modal).         |
 | `text`          | `string (optional)`      | Text displayed in the addon.               |
 | `shape`         | `string (optional)`      | Shape of the addon (e.g., square, circle). |
 | `logo_alignment`| `string (optional)`      | Alignment of the logo within the addon.    |
@@ -235,7 +235,7 @@ Below you will find all the information you need to correctly use the templates 
 
 | Property | Type   | Description           |
 |----------|--------|-----------------------|
-| `name`   | `Errors` | Type of the error being validated. |
+| `name`   | [`Errors`](#errors) | Type of the error being validated. |
 | `value`  | `string` | Value associated with the validator. |
 
 ### `AddonType` (Enum)
