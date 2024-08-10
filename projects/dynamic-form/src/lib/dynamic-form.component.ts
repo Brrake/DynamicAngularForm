@@ -245,4 +245,7 @@ export class DynamicFormComponent implements OnInit {
     }
     this.formSchemes[page].active_page = true
   }
+  isFormValid(idx: number): boolean {
+    return this.formGroup[idx].valid
+  }
 }

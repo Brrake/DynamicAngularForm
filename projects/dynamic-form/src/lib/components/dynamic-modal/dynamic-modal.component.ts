@@ -41,6 +41,9 @@ export class DynamicModalComponent implements OnInit {
     this.onCloseModal.emit(true)
     this.isLoaded = true
   }
+  isFormValid(idx: number): boolean {
+    return this.dynForm?.isFormValid(idx) || false
+  }
   updateForm(formId:number, values:any) {
     this.dynForm?.updateForm(formId, values)
   }
