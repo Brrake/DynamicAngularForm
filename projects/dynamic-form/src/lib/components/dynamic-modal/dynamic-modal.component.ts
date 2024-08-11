@@ -44,8 +44,8 @@ export class DynamicModalComponent implements OnInit {
   isFormValid(idx: number): boolean {
     return this.dynForm?.isFormValid(idx) || false
   }
-  updateForm(formId:number, values:any) {
-    this.dynForm?.updateForm(formId, values)
+  updateForm(idx:number, values:any) {
+    this.dynForm?.updateForm(idx, values)
   }
   goToPage(page: number) {
     this.dynForm?.goToPage(page)

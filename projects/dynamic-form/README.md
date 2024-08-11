@@ -62,6 +62,10 @@ Below you will find all the information you need to correctly use the templates 
 
 ### Dynamic Modal
 
+```
+<dynamic-modal />
+```
+
 #### Input
 
 | Property          | Type               | Default       | Description                                                                  | Required |
@@ -83,9 +87,34 @@ Below you will find all the information you need to correctly use the templates 
 | `onCloseModal()`    | Handle modal close                | false    |
 | `onBack()`          | Handle modal back                 | false    |
 
+#### Functions
+
+To use it correctly declare a child in your component :
+TS ->
+```
+  @ViewChild('myModal') registerFormModal!: DynamicModalComponent
+```
+HTML ->
+```
+ <dynamic-modal #myModal (onSubmit)="submit($event)" [formSchemes]="registerScheme" modalId="modal-1" />
+```
+
+
+| Method              | Description                       | Required |
+|---------------------|-----------------------------------|----------|
+| `isFormValid(idx: number)`        | Check if a form in a certain index is valid      | false    |
+| `updateForm(idx:number, values:any)` | Patch values of a certain form        | false    |
+| `goToPage(page: number)`    | Navigate to a different form page                | false    |
+| `closeModal()`          | Close current modal                 | false    |
+| `openModal()`          | Open current modal                 | false    |
+
 ---
 
 ### Dynamic Form
+
+```
+<dynamic-form />
+```
 
 #### Input
 
@@ -104,6 +133,25 @@ Below you will find all the information you need to correctly use the templates 
 | `loginWithGoogle()` | Handle Google login result        | false    |
 | `onCloseForm()`     | Handle form close                 | false    |
 | `onBack()`          | Handle form back                  | false    |
+
+#### Functions
+
+To use it correctly declare a child in your component :
+TS ->
+```
+  @ViewChild('form') registerForm!: DynamicFormComponent
+```
+HTML ->
+```
+ <dynamic-form #form (onSubmit)="submit($event)" [formSchemes]="registerScheme" />
+```
+
+| Method              | Description                       | Required |
+|---------------------|-----------------------------------|----------|
+| `isFormValid(idx: number)`        | Check if a form in a certain index is valid      | false    |
+| `updateForm(idx:number, values:any)` | Patch values of a certain form        | false    |
+| `goToPage(page: number)`    | Navigate to a different form page                | false    |
+
 
 ---
 
