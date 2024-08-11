@@ -147,7 +147,8 @@
               data-bs-dismiss="modal" class="hover">{{addon.highlight_text}}</a>
           </ng-container>
           <ng-template #default>
-            <a [id]="'register-button-'+idx" [routerLink]="['/'+addon.href]" class="hover">{{addon.highlight_text}}</a>
+            <a (click)="closeModal.click()" [id]="'register-button-'+idx" [routerLink]="['/'+addon.href]" class="hover">{{addon.highlight_text}}</a>
+            <button #closeModal style="display: none;" type="button" data-bs-toggle="modal" data-bs-dismiss="modal"></button>
           </ng-template>
 
         </p>
