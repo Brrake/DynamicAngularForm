@@ -171,6 +171,11 @@ HTML ->
 | `color`          | `string`              | `'primary'`   | Button color as hex (e.g., `#45c4a0`)                                            | false    |
 | `text_color`     | `string`              | `'white'`     | Button text color as hex (e.g., `#ffffff`)                                       | false    |
 | `margin`         | `boolean`             | `true`        | Button margin right, useful with multiple buttons in sequence                    | false    |
+#### Output
+
+| Method              | Description                       | Required |
+|---------------------|-----------------------------------|----------|
+| `onSubmit()`        | Handle form submitted result      | false    |
 
 ---
 

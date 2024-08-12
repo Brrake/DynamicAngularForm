@@ -171,6 +171,11 @@ HTML ->
 | `color`          | `string`              | `'primary'`   | Button color as hex (e.g., `#45c4a0`)                                            | false    |
 | `text_color`     | `string`              | `'white'`     | Button text color as hex (e.g., `#ffffff`)                                       | false    |
 | `margin`         | `boolean`             | `true`        | Button margin right, useful with multiple buttons in sequence                    | false    |
+#### Output
+
+| Method              | Description                       | Required |
+|---------------------|-----------------------------------|----------|
+| `onSubmit()`        | Handle form submitted result      | false    |
 
 ---
 
@@ -334,111 +339,3 @@ HTML ->
 | `max`| Represents a max error. |
 | `min`| Represents a min error. |
 | `pattern`  | Represents a pattern matching error. |
-
-
-## Exasmples
-
-Example of formScheme
-
-
-```
-[
-  {
-    "formId": "loginForm",
-    "title":"Bentornato",
-    "description":"Inserisci le tue credenziali per accedere.",
-    "active_page": true,
-    "fields": [
-      {
-        "type": "text",
-        "name": "Email",
-        "formControlName": "email",
-        "default_value": "",
-        "validators": [
-          {
-            "name": "required",
-            "value": ""
-          },
-          {
-            "name": "email",
-            "value": ""
-          }
-        ],
-        "errors": [
-          {
-            "name": "required",
-            "text": "Email richiesta"
-          },
-          {
-            "name": "email",
-            "text": "Email non valida"
-          }
-        ]
-      },
-      {
-        "type": "password",
-        "name": "Password",
-        "formControlName": "password",
-        "default_value": "",
-        "validators": [
-          {
-            "name": "required",
-            "value": ""
-          }
-        ],
-        "errors": [
-          {
-            "name": "required",
-            "text": "Password richiesta"
-          }
-        ]
-      },
-      {
-        "type": "checkbox",
-        "name": "Ricordami",
-        "formControlName": "check",
-        "default_value": false,
-        "validators": [
-        ],
-        "errors": [
-        ]
-      },
-      {
-        "type": "g-recaptcha",
-        "formControlName": "recaptcha",
-        "default_value": "",
-        "version":"v3",
-        "validators": [],
-        "errors": []
-      }
-    ],
-    "buttons": [
-      {
-        "type": "submit",
-        "name": "Accedi",
-        "text_color": "green",
-        "button_color": "soft-green"
-      }
-    ],
-    "addons": [
-      {
-        "name": "highlight",
-        "highlight_text": "Password dimenticata?",
-        "href_type": "url",
-        "href": "forgot_password"
-      },
-      {
-        "name": "highlight",
-        "normal_text": "Non hai un account?",
-        "highlight_text": "Registrati",
-        "href_type": "url",
-        "href": "signup"
-      },
-      {
-        "name": "google-login"
-      }
-    ]
-  }
-]
-
-```
