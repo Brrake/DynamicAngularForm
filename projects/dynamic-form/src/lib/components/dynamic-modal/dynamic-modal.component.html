@@ -4,17 +4,12 @@
     <div class="text-start mb-3">
       <div class="modal-content text-center">
         <div class="modal-body" *ngIf="isLoaded">
-          <dynamic-form
-            #dyn_form
-            [formSchemes]="formSchemes"
-            [isSubmitFailed]="isSubmitFailed"
-            [loadSpinner]="loadSpinner"
-            [errorMessage]="errorMessage"
-            (onSubmit)="onSubmitForm($event)"
-            (loginWithGoogle)="handleGoogleLoginV2($event)"
-            (onCloseForm)="onClose()"
-            (onBack)="onBack.emit(true)"
-          />
+          <button style="height: fit-content;width: fit-content;" (click)="onClose()" *ngIf="modalCloseButton"
+            type="button" class="btnsign btn-close" [attr.data-bs-target]="'#'+modalId" data-bs-toggle="modal"
+            data-bs-dismiss="modal" aria-label="Close"></button>
+          <dynamic-form #dyn_form [formSchemes]="formSchemes" [isSubmitFailed]="isSubmitFailed"
+            [loadSpinner]="loadSpinner" [errorMessage]="errorMessage" (onSubmit)="onSubmitForm($event)"
+            (loginWithGoogle)="handleGoogleLoginV2($event)" (onCloseForm)="onClose()" (onBack)="onBack.emit(true)" />
 
         </div>
       </div>
@@ -26,4 +21,3 @@
   data-bs-dismiss="modal"></a>
 
 <a [id]="'openModal-'+modalId" style="display: none;" [attr.data-bs-target]="'#'+modalId" data-bs-toggle="modal"></a>
-

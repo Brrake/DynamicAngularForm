@@ -32,12 +32,9 @@ export class DynamicFormComponent implements OnInit {
 
   displayImg: string = ''
   addTree: any = []
-
   formGroup: FormGroup[] = []
   itis_info: any[] = []
-
   emittedForms: any[] = []
-
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private recaptchaV3Service: ReCaptchaV3Service) {
   }
