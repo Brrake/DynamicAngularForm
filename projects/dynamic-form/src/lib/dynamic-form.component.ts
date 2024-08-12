@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID, ViewChild } from '@angular/core';
 import { AddonType, ButtonType, DynamicFormScheme, Errors, FieldType, HrefTypes } from './models/dynamic-form.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { linkValidator } from './custom_validators/link.validator';
@@ -19,6 +19,7 @@ export class DynamicFormComponent implements OnInit {
   @Input() loadSpinner: boolean = false
   @Input() isSubmitFailed: boolean = false
   @Input() errorMessage: string = '';
+  @Input() isOnModal: boolean = false;
 
   @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
   @Output() onCloseForm: EventEmitter<any> = new EventEmitter<any>();
@@ -244,5 +245,8 @@ export class DynamicFormComponent implements OnInit {
   }
   isFormValid(idx: number): boolean {
     return this.formGroup[idx].valid
+  }
+  closeModal(){
+    if(this.isOnModal) setTimeout(()=>{document.getElementById('closeModalButt')?.click()});
   }
 }
