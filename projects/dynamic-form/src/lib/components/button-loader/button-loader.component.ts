@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'button-loader',
@@ -16,6 +16,7 @@ export class ButtonLoaderComponent implements OnInit {
   @Input() color: string = 'primary'
   @Input() text_color: string = 'white'
   @Input() margin: boolean = true
+  @Output() onSubmit = new EventEmitter()
 
   constructor() { }
   ngOnInit() {
@@ -56,6 +57,8 @@ export class ButtonLoaderComponent implements OnInit {
     }
     return this.text_color
   }
-
+  onClick(){
+    this.onSubmit.emit()
+  }
 
 }
