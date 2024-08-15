@@ -82,7 +82,7 @@
               <a [hidden]="getDisplayImg()!=''">+</a>
               <video [hidden]="getDisplayImg()==''" [width]="field.width" [src]="getDisplayImg()"></video>
               <input (change)="toAdd($event)" [id]="'input-file-'+(field.name || 'def')" style="display: none;"
-                type="file" accept="image/png, image/gif, image/jpeg, image/jpg">
+                type="file" accept="video/mp4,video/x-m4v,video/*">
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.textarea)" class="form-floating mb-4">
               <textarea [id]="formScheme.formId+'-'+field.formControlName"
