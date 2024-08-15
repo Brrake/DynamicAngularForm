@@ -314,9 +314,11 @@ HTML ->
 | `g_recaptcha`   | Represents a Google reCAPTCHA field. |
 | `section_info`  | Represents a section information field. |
 | `slider`        | Represents a slider input field. |
-| `add_image`     | Represents an add image field.   |
 | `telephone`     | Represents a telephone input field. |
+| `add_image`     | Represents an add image field.   |
 | `show_image`    | Represents a show image field.   |
+| `add_video`     | Represents an add image field.   |
+| `show_video`    | Represents a show image field.   |
 
 ### `ButtonType` (Enum)
 

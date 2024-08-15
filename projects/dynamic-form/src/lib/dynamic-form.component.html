@@ -10,19 +10,19 @@
             <div *ngIf="field.top_label" class="text-left">
               <p class="col-form-label" style="color: #60697b;">{{field.top_label}}</p>
             </div>
-            <div *ngSwitchCase="FieldTypesEnum.slider" class="form-floating password-field mb-4">
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.slider)" class="form-floating password-field mb-4">
               <ngx-slider [id]="formScheme.formId+'-'+field.formControlName"
                 [formControlName]="field.formControlName || ''" (value)="field.default_value"
                 [options]="getSliderOptions(field.options)" />
             </div>
-            <div *ngSwitchCase="FieldTypesEnum.password" class="form-floating password-field mb-4">
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)" class="form-floating password-field mb-4">
               <input [id]="formScheme.formId+'-'+field.formControlName" autocomplete="on" type="password"
                 class="form-control" [placeholder]="field.name" [name]="field.formControlName"
                 [formControlName]="field.formControlName || ''">
               <span class="password-toggle"><i class="uil uil-eye"></i></span>
               <label [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
             </div>
-            <div *ngSwitchCase="FieldTypesEnum.checkbox" class="mb-3 d-flex"
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.checkbox)" class="mb-3 d-flex"
               style="align-items: center;justify-content: space-between;">
               <label [for]="formScheme.formId+'-'+field.formControlName" class="col-form-label">{{field.name}}
                 :</label>
@@ -30,12 +30,12 @@
                 [formControlName]="field.formControlName || ''" style="margin-left: 15px;" class="form-check-input"
                 type="checkbox">
             </div>
-            <div *ngSwitchCase="FieldTypesEnum.otp" class="mb-3 d-flex"
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.otp)" class="mb-3 d-flex"
               style="align-items: center;justify-content: center;">
               <ng-otp-input (onInputChange)="onOtpChange($event,idx, field.formControlName || '')"
                 [config]="{length:field.length || 6, inputClass:'otp-input',allowNumbersOnly:true,placeholder:'0'}"></ng-otp-input>
             </div>
-            <div *ngSwitchCase="FieldTypesEnum.select" class="form-select-wrapper mb-4">
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.select)" class="form-select-wrapper mb-4">
               <select [id]="formScheme.formId+'-'+field.formControlName"
                 [formControlName]="field.formControlName  || ''" [name]="field.formControlName" class="form-select">
                 <option value="" disabled>{{field.name}}</option>
@@ -43,7 +43,7 @@
                   {{value.name}}</option>
               </select>
             </div>
-            <div *ngSwitchCase="FieldTypesEnum.g_recaptcha">
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.g_recaptcha)">
 
               <div class="row mt-3" *ngIf="field.version == 'v2' || !field.version">
                 <div class="col-sm-12 mb-2 g-recaptcha">
@@ -55,16 +55,19 @@
               </div>
 
             </div>
-            <p *ngSwitchCase="FieldTypesEnum.section_info" class="lead mb-6 text-start">{{field.default_value}}</p>
+            <p *ngSwitchCase="getRealFieldType(FieldTypesEnum.section_info)" class="lead mb-6 text-start">{{field.default_value}}</p>
             <div *ngSwitchCase="FieldTypesEnum.show_image" class="mb-4">
               <img [width]="field.width" [src]="field.src">
             </div>
-            <div *ngSwitchCase="FieldTypesEnum.telephone" class="mb-4">
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.show_video)" class="mb-4">
+              <video [width]="field.width" [src]="field.src"></video>
+            </div>
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.telephone)" class="mb-4">
               <input (input)="updatePhoneField($event,idx,field.formControlName || '')"
                 [value]="formGroup[idx].get(field.formControlName || '')?.value.default || ''" class="form-control"
                 [id]="'phone-'+fieldIdx">
             </div>
-            <div *ngSwitchCase="FieldTypesEnum.add_image"
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_image)"
               (click)="openSelectorFiles('input-file-'+(field.name || 'def'))"
               class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
               [style]="'font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;'+ (getDisplayImg()!='' ? 'background-image: url('+getDisplayImg()+');':'')">
@@ -72,13 +75,22 @@
               <input (change)="toAdd($event)" [id]="'input-file-'+(field.name || 'def')" style="display: none;"
                 type="file" accept="image/png, image/gif, image/jpeg, image/jpg">
             </div>
-            <div *ngSwitchCase="FieldTypesEnum.textarea" class="form-floating mb-4">
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_video)"
+              (click)="openSelectorFiles('input-file-'+(field.name || 'def'))"
+              class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
+              style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
+              <a [hidden]="getDisplayImg()!=''">+</a>
+              <video [hidden]="getDisplayImg()==''" [width]="field.width" [src]="getDisplayImg()"></video>
+              <input (change)="toAdd($event)" [id]="'input-file-'+(field.name || 'def')" style="display: none;"
+                type="file" accept="image/png, image/gif, image/jpeg, image/jpg">
+            </div>
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.textarea)" class="form-floating mb-4">
               <textarea [id]="formScheme.formId+'-'+field.formControlName"
                 [formControlName]="field.formControlName || ''" class="form-control" [placeholder]="field.name"
                 style="height: 150px"></textarea>
               <label [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
             </div>
-            <div *ngSwitchCase="FieldTypesEnum.date" class="form-floating mb-4">
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.date)" class="form-floating mb-4">
               <div class="input-group">
                 <input class="form-control" placeholder="yyyy-mm-dd" [name]="field.formControlName"
                   [formControlName]="field.formControlName || ''" ngbDatepicker #d="ngbDatepicker" />
@@ -86,7 +98,7 @@
                     class="uil uil-calendar-alt"></i></button>
               </div>
             </div>
-            <div *ngSwitchCase="FieldTypesEnum.time" class="form-floating mb-4">
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.time)" class="form-floating mb-4">
               <div class="input-group d-grid">
                 <p>{{field.name}}</p>
                 <ngb-timepicker class="d-flex justify-content-center" placeholder="yyyy-mm-dd"
@@ -124,14 +136,15 @@
       </div>
       <div class="d-flex justify-content-center">
         <div *ngFor="let button of formScheme.buttons" [ngSwitch]="button.type" class="mb-3">
-          <button-loader (onSubmit)="onClose()" *ngSwitchCase="ButtonsEnum.close" [isFormValid]="true" [text]="button.name"
-            type="button" [text_color]="button.text_color" [color]="button.button_color" data-bs-dismiss="modal" />
+          <button-loader (onSubmit)="onClose()" *ngSwitchCase="ButtonsEnum.close" [isFormValid]="true"
+            [text]="button.name" type="button" [text_color]="button.text_color" [color]="button.button_color"
+            data-bs-dismiss="modal" />
           <button-loader [margin]="button.margin || false" *ngSwitchCase="ButtonsEnum.test" [isFormValid]="true"
             [text]="button.name" type="button" (onSubmit)="onTestSubmit()" [text_color]="button.text_color"
             [color]="button.button_color" />
           <button-loader [margin]="button.margin || false" *ngSwitchCase="ButtonsEnum.back" [isFormValid]="true"
-            [text]="button.name" type="button" (onSubmit)="onBackPage(button.page || 0)" [text_color]="button.text_color"
-            [color]="button.button_color" />
+            [text]="button.name" type="button" (onSubmit)="onBackPage(button.page || 0)"
+            [text_color]="button.text_color" [color]="button.button_color" />
           <button-loader [margin]="button.margin || false" *ngSwitchCase="ButtonsEnum.submit"
             [loadSpinner]="loadSpinner" [isFormValid]="formGroup[idx].valid" [text]="button.name" type="submit"
             [text_color]="button.text_color" [color]="button.button_color" />
@@ -147,7 +160,8 @@
               data-bs-dismiss="modal" class="hover">{{addon.highlight_text}}</a>
           </ng-container>
           <ng-template #default>
-            <a (click)="closeModal()" [id]="'register-button-'+idx" [routerLink]="['/'+addon.href]" class="hover">{{addon.highlight_text}}</a>
+            <a (click)="closeModal()" [id]="'register-button-'+idx" [routerLink]="['/'+addon.href]"
+              class="hover">{{addon.highlight_text}}</a>
           </ng-template>
 
         </p>
@@ -166,4 +180,5 @@
   </ng-container>
 
 </ng-container>
-<button id="closeModalButt" style="display: none;" type="button" data-bs-toggle="modal" data-bs-dismiss="modal"></button>
+<button id="closeModalButt" style="display: none;" type="button" data-bs-toggle="modal"
+  data-bs-dismiss="modal"></button>

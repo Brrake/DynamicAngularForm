@@ -96,9 +96,11 @@ export enum FieldType {
   g_recaptcha = 'g-recaptcha',
   section_info = 'section-info',
   slider = 'slider',
-  add_image = 'add-image',
   telephone = 'telephone',
-  show_image = 'show-image'
+  add_image = 'add-image',
+  show_image = 'show-image',
+  add_video = 'add-video',
+  show_video = 'show-video'
 }
 //Button Types
 export enum ButtonType {

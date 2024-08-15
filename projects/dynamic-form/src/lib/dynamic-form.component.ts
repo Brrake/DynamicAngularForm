@@ -249,4 +249,7 @@ export class DynamicFormComponent implements OnInit {
   closeModal(){
     if(this.isOnModal) setTimeout(()=>{document.getElementById('closeModalButt')?.click()});
   }
+  getRealFieldType(fieldType:string){
+    return fieldType.replace('_','-').toLowerCase().trim()
+  }
 }
