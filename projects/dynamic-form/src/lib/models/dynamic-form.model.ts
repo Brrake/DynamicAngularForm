@@ -15,6 +15,7 @@ export interface FieldScheme {
   options?: any
   length?: number
   width?: string
+  controls?: string
   disabled?: boolean
   visible?: boolean
   formControlName?: string

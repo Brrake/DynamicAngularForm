@@ -218,6 +218,7 @@ HTML ->
 | `options`        | `any (optional)`                                              | Additional options for the field.                                                                     |
 | `length`         | `number (optional)`                                           | Length of the field.                                                                                  |
 | `width`          | `string (optional)`                                           | Width of the field.                                                                                   |
+| `controls`          | `string (optional)`                                           | Controls of the video field.                                                                                   |
 | `disabled`       | `boolean (optional)`                                          | Indicates if the field is disabled.                                                                   |
 | `visible`       | `boolean (optional)`                                          | Indicates if the field is visible.                                                                   |
 | `formControlName`| `string (optional)`                                           | Form control name, typically used with reactive forms.                                                |

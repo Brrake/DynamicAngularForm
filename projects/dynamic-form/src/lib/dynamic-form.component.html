@@ -60,7 +60,7 @@
               <img [width]="field.width" [src]="field.src">
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.show_video)" class="mb-4">
-              <video [width]="field.width" [src]="field.src"></video>
+              <video [controls]="field.controls" [width]="field.width" [src]="field.src"></video>
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.telephone)" class="mb-4">
               <input (input)="updatePhoneField($event,idx,field.formControlName || '')"
@@ -80,7 +80,7 @@
               class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
               style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
               <a [hidden]="getDisplayImg()!=''">+</a>
-              <video [hidden]="getDisplayImg()==''" [width]="field.width" [src]="getDisplayImg()"></video>
+              <video [controls]="field.controls" [hidden]="getDisplayImg()==''" [width]="field.width" [src]="getDisplayImg()"></video>
               <input (change)="toAdd($event)" [id]="'input-file-'+(field.name || 'def')" style="display: none;"
                 type="file" accept="video/mp4,video/x-m4v,video/*">
             </div>
