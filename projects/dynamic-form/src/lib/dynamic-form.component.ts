@@ -51,11 +51,13 @@ export class DynamicFormComponent implements OnInit {
           if (
             currField.type != this.FieldTypesEnum.show_image &&
             currField.type != this.FieldTypesEnum.add_image &&
+            currField.type != this.FieldTypesEnum.add_video &&
+            currField.type != this.FieldTypesEnum.show_video &&
             currField.type != this.FieldTypesEnum.section_info
           ) {
             this.addFormControl(currField.formControlName as string, currField.default_value as string, currField.validators, i, currField.disabled as boolean)
           }
-          if (currField.type == this.FieldTypesEnum.add_image) {
+          if (currField.type == this.FieldTypesEnum.add_image || currField.type == this.FieldTypesEnum.add_video) {
             if (currField.default_value) {
               this.displayImg = currField.default_value as string
             }
