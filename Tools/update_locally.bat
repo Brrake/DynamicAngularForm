@@ -7,12 +7,11 @@ if /i "%update_version%"=="YES" goto :update_version
 
 :: Continue with the rest of the commands
 goto :no_update_version
-
-
 :update_version
 call node update_version.js
 
 :no_update_version
-call npm run build
+call cd ..
+call ng build --configuration development
 call cd .\dist\dynamic-form\
-call npm publish
+call npm pack

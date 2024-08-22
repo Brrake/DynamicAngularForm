@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Set the file path
-const filePath = path.join(__dirname,'projects','dynamic-form','package.json');
+const filePath = path.join(__dirname,'../projects','dynamic-form','package.json');
 
 // Read the file content
 fs.readFile(filePath, 'utf8', (err, data) => {
