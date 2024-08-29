@@ -5,17 +5,17 @@
     </p>
     <form [id]="formScheme.formId || 'defId'" [formGroup]="formGroup[idx]" (ngSubmit)="onSubmitForm(idx)" class="mt-4">
       <ng-container *ngFor="let field of formScheme.fields;let fieldIdx = index">
-        <div [class]="(field.visible == false ? 'hidden':'')">
+        <div [class]="(field.visible == false ? 'hidden':'')" class="mb-4">
           <ng-container [ngSwitch]="field.type">
             <div *ngIf="field.top_label" class="text-left">
               <p class="col-form-label" style="color: #60697b;">{{field.top_label}}</p>
             </div>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.slider)" class="form-floating password-field mb-4">
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.slider)" class="form-floating password-field">
               <ngx-slider [id]="formScheme.formId+'-'+field.formControlName"
                 [formControlName]="field.formControlName || ''" (value)="field.default_value"
                 [options]="getSliderOptions(field.options)" />
             </div>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)" class="form-floating password-field mb-4">
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)" class="form-floating password-field">
               <input [id]="formScheme.formId+'-'+field.formControlName" autocomplete="on" type="password"
                 class="form-control" [placeholder]="field.name" [name]="field.formControlName"
                 [formControlName]="field.formControlName || ''">
@@ -35,7 +35,7 @@
               <ng-otp-input (onInputChange)="onOtpChange($event,idx, field.formControlName || '')"
                 [config]="{length:field.length || 6, inputClass:'otp-input',allowNumbersOnly:true,placeholder:'0'}"></ng-otp-input>
             </div>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.select)" class="form-select-wrapper mb-4">
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.select)" class="form-select-wrapper">
               <select [id]="formScheme.formId+'-'+field.formControlName"
                 [formControlName]="field.formControlName  || ''" [name]="field.formControlName" class="form-select">
                 <option value="" disabled>{{field.name}}</option>
@@ -84,13 +84,13 @@
               <input (change)="toAdd($event)" [id]="'input-file-'+(field.name || 'def')" style="display: none;"
                 type="file" accept="video/mp4,video/x-m4v,video/*">
             </div>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.textarea)" class="form-floating mb-4">
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.textarea)" class="form-floating">
               <textarea [id]="formScheme.formId+'-'+field.formControlName"
                 [formControlName]="field.formControlName || ''" class="form-control" [placeholder]="field.name"
                 style="height: 150px"></textarea>
               <label [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
             </div>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.date)" class="form-floating mb-4">
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.date)" class="form-floating">
               <div class="input-group">
                 <input class="form-control" [placeholder]="field.name ? field.name : 'yyyy-mm-dd'" [name]="field.formControlName"
                   [formControlName]="field.formControlName || ''" ngbDatepicker #d="ngbDatepicker" />
@@ -98,22 +98,22 @@
                     class="uil uil-calendar-alt"></i></button>
               </div>
             </div>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.time)" class="form-floating mb-4">
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.time)" class="form-floating">
               <div class="input-group d-grid">
                 <p>{{field.name}}</p>
                 <ngb-timepicker class="d-flex justify-content-center" placeholder="yyyy-mm-dd"
                   [formControlName]="field.formControlName || ''" />
               </div>
             </div>
-            <div *ngSwitchDefault class="form-floating mb-4">
+            <div *ngSwitchDefault class="form-floating">
               <input [id]="formScheme.formId+'-'+field.formControlName" [type]="field.type" class="form-control"
                 [placeholder]="field.name" [formControlName]="field.formControlName  || ''"
                 [name]="field.formControlName">
               <label [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
             </div>
             <div
-              *ngIf="!formGroup[idx].get(field.formControlName || '')?.valid && (formGroup[idx].get(field.formControlName || '')?.dirty ||formGroup[idx].get(field.formControlName || '')?.touched)"
-              class="mt-4 alert alert-danger">
+              *ngIf="!formGroup[idx].get(field.formControlName || '')?.valid && (formGroup[idx].get(field.formControlName || '')?.dirty || formGroup[idx].get(field.formControlName || '')?.touched)"
+              class="alert alert-danger">
               <div *ngFor="let error of field.errors">
                 <div [hidden]="!formGroup[idx].get(field?.formControlName || '')?.errors?.[error.name.toLowerCase()]">
                   {{error.text}}
@@ -121,8 +121,6 @@
               </div>
             </div>
           </ng-container>
-
-
         </div>
       </ng-container>
       <div *ngFor="let error of formScheme.custom_validators">
