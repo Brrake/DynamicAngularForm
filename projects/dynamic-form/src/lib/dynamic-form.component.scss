@@ -75,3 +75,10 @@ fieldset:disabled .btn {
 .hidden {
   display: none;
 }
+
+.pw-invalid {
+  margin-right: 25px;
+  line-height: normal;
+  align-items: center;
+  display: flex;
+}

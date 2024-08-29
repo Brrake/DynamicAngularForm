@@ -16,17 +16,17 @@
                 [options]="getSliderOptions(field.options)" />
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)" class="form-floating password-field">
-              <input [id]="formScheme.formId+'-'+field.formControlName" autocomplete="on" type="password"
+              <input [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}" [id]="formScheme.formId+'-'+field.formControlName" autocomplete="on" type="password"
                 class="form-control" [placeholder]="field.name" [name]="field.formControlName"
                 [formControlName]="field.formControlName || ''">
-              <span class="password-toggle"><i class="uil uil-eye"></i></span>
+              <span [class]="'password-toggle '+((formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched) ? 'pw-invalid':'')"><i class="uil uil-eye"></i></span>
               <label [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.checkbox)" class="mb-3 d-flex"
               style="align-items: center;justify-content: space-between;">
               <label [for]="formScheme.formId+'-'+field.formControlName" class="col-form-label">{{field.name}}
                 :</label>
-              <input [id]="formScheme.formId+'-'+field.formControlName" [name]="field.formControlName"
+              <input [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}" [id]="formScheme.formId+'-'+field.formControlName" [name]="field.formControlName"
                 [formControlName]="field.formControlName || ''" style="margin-left: 15px;" class="form-check-input"
                 type="checkbox">
             </div>
@@ -36,7 +36,7 @@
                 [config]="{length:field.length || 6, inputClass:'otp-input',allowNumbersOnly:true,placeholder:'0'}"></ng-otp-input>
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.select)" class="form-select-wrapper">
-              <select [id]="formScheme.formId+'-'+field.formControlName"
+              <select [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}" [id]="formScheme.formId+'-'+field.formControlName"
                 [formControlName]="field.formControlName  || ''" [name]="field.formControlName" class="form-select">
                 <option value="" disabled>{{field.name}}</option>
                 <option *ngFor="let value of field.values" [value]="value.value">
@@ -63,7 +63,7 @@
               <video [controls]="field.controls" [width]="field.width" [src]="field.src"></video>
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.telephone)" class="mb-4">
-              <input (input)="updatePhoneField($event,idx,field.formControlName || '')"
+              <input [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}" (input)="updatePhoneField($event,idx,field.formControlName || '')"
                 [value]="formGroup[idx].get(field.formControlName || '')?.value.default || ''" class="form-control"
                 [id]="'phone-'+fieldIdx">
             </div>
@@ -85,7 +85,7 @@
                 type="file" accept="video/mp4,video/x-m4v,video/*">
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.textarea)" class="form-floating">
-              <textarea [id]="formScheme.formId+'-'+field.formControlName"
+              <textarea [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}" [id]="formScheme.formId+'-'+field.formControlName"
                 [formControlName]="field.formControlName || ''" class="form-control" [placeholder]="field.name"
                 style="height: 150px"></textarea>
               <label [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
@@ -101,12 +101,12 @@
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.time)" class="form-floating">
               <div class="input-group d-grid">
                 <p>{{field.name}}</p>
-                <ngb-timepicker class="d-flex justify-content-center" placeholder="yyyy-mm-dd"
+                <ngb-timepicker [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}" class="d-flex justify-content-center" placeholder="yyyy-mm-dd"
                   [formControlName]="field.formControlName || ''" />
               </div>
             </div>
             <div *ngSwitchDefault class="form-floating">
-              <input [id]="formScheme.formId+'-'+field.formControlName" [type]="field.type" class="form-control"
+              <input [id]="formScheme.formId+'-'+field.formControlName" [type]="field.type" [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}" class="form-control"
                 [placeholder]="field.name" [formControlName]="field.formControlName  || ''"
                 [name]="field.formControlName">
               <label [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
