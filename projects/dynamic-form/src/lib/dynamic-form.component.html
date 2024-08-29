@@ -16,8 +16,8 @@
                 [options]="getSliderOptions(field.options)" />
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)" class="form-floating password-field">
-              <input [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}" [id]="formScheme.formId+'-'+field.formControlName" autocomplete="on" type="password"
-                class="form-control" [placeholder]="field.name" [name]="field.formControlName"
+              <input [style]="" [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}" [id]="formScheme.formId+'-'+field.formControlName" autocomplete="on" type="password"
+                [class]="'form-control '+((formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched) ? 'pr-3':'pr-2')" [placeholder]="field.name" [name]="field.formControlName"
                 [formControlName]="field.formControlName || ''">
               <span [class]="'password-toggle '+((formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched) ? 'pw-invalid':'')"><i class="uil uil-eye"></i></span>
               <label [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
