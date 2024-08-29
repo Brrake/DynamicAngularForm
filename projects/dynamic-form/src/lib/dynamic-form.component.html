@@ -101,8 +101,9 @@
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.time)" class="form-floating">
               <div class="input-group d-grid">
                 <p>{{field.name}}</p>
-                <ngb-timepicker [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}" class="d-flex justify-content-center" placeholder="yyyy-mm-dd"
-                  [formControlName]="field.formControlName || ''" />
+                <ngb-timepicker [seconds]="true" class="d-flex justify-content-center"
+                  [formControlName]="field.formControlName || ''" >
+                </ngb-timepicker>
               </div>
             </div>
             <div *ngSwitchDefault class="form-floating">
