@@ -217,6 +217,8 @@ HTML ->
 | `src`            | `string (optional)`                                           | Source URL or path for certain field types (e.g., images).                                            |
 | `options`        | `any (optional)`                                              | Additional options for the field.                                                                     |
 | `length`         | `number (optional)`                                           | Length of the field.                                                                                  |
+| `minDate`         | `{ year:number, month:number, day:number } (optional)`                                           | minDate of datepicker.                                                                                  |
+| `maxDate`         | `{ year:number, month:number, day:number } (optional)`                                           | maxDate of datepicker.                                                                                  |
 | `width`          | `string (optional)`                                           | Width of the field.                                                                                   |
 | `controls`          | `string (optional)`                                           | Controls of the video field.                                                                                   |
 | `disabled`       | `boolean (optional)`                                          | Indicates if the field is disabled.                                                                   |
