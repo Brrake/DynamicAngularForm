@@ -219,6 +219,8 @@ HTML ->
 | `length`         | `number (optional)`                                           | Length of the field.                                                                                  |
 | `minDate`         | `{ year:number, month:number, day:number } (optional)`                                           | minDate of datepicker.                                                                                  |
 | `maxDate`         | `{ year:number, month:number, day:number } (optional)`                                           | maxDate of datepicker.                                                                                  |
+| `multiple`         | `boolean (optional)`                                           | Multiple upload of files.                                                                                  |
+| `accept`         | `string (optional)`                                           | Accept types for input files.                                                                                  |
 | `width`          | `string (optional)`                                           | Width of the field.                                                                                   |
 | `controls`          | `string (optional)`                                           | Controls of the video field.                                                                                   |
 | `disabled`       | `boolean (optional)`                                          | Indicates if the field is disabled.                                                                   |

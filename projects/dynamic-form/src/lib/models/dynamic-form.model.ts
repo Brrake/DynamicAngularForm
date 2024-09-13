@@ -16,6 +16,8 @@ export interface FieldScheme {
   length?: number
   minDate:{ year: number, month: number, day: number }
   maxDate:{ year: number, month: number, day: number }
+  multiple?: boolean
+  accept?: string
   width?: string
   controls?: string
   disabled?: boolean
