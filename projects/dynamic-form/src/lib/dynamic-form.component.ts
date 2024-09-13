@@ -60,12 +60,12 @@ export class DynamicFormComponent implements OnInit {
             this.addFormControl(currField.formControlName as string, currField.default_value as string, currField.validators, i, currField.disabled as boolean)
           }
           if (currField.type == this.FieldTypesEnum.add_image) {
-            this.displayImg.fill('',0,formScheme.fields.length)
+            this.displayImg.fill('', 0, formScheme.fields.length)
             if (currField.default_value) {
               this.displayImg[j] = currField.default_value as string
             }
           } if (currField.type == this.FieldTypesEnum.add_video) {
-            this.displayVideo.fill('',0,formScheme.fields.length)
+            this.displayVideo.fill('', 0, formScheme.fields.length)
             if (currField.default_value) {
               this.displayVideo[j] = currField.default_value as string
             }
@@ -193,16 +193,23 @@ export class DynamicFormComponent implements OnInit {
         .subscribe((token) => {
           this.formGroup[idx].value[fieldName] = token
           this.emittedForms.push(this.formGroup[idx])
-          this.onSubmit.emit({ forms: this.formGroup, files: this.addTree, formEmittingIndex: idx, emittedForms: this.emittedForms });
+          this.onSubmit.emit({ forms: this.formGroup, files: {
+            images:this.addTree,
+            videos: this.addVideoTree
+          }, formEmittingIndex: idx, emittedForms: this.emittedForms });
         });
       return
     }
     this.emittedForms.push(this.formGroup[idx])
-    this.onSubmit.emit({ forms: this.formGroup, files: this.addTree, formEmittingIndex: idx, emittedForms: this.emittedForms });
+    this.onSubmit.emit({ forms: this.formGroup, files: {
+      images:this.addTree,
+      videos: this.addVideoTree
+    } , formEmittingIndex: idx, emittedForms: this.emittedForms });
   }
   onTestSubmit() {
     console.log(this.formGroup)
     console.log(this.addTree)
+    console.log(this.addVideoTree)
   }
   onBackPage(page: number) {
     this.goToPage(page)
@@ -225,18 +232,22 @@ export class DynamicFormComponent implements OnInit {
     this.ngOnInit()
   }
   getDisplayImg(idx: number) {
-    console.log(this.displayImg,idx)
-    return this.displayImg[idx]
+    if (this.displayImg[idx] != '' && this.displayImg[idx] != undefined) {
+      return this.displayImg[idx]
+    }
+    return ''
   }
   getDisplayVideo(idx: number) {
-    console.log(this.displayVideo,idx)
-    return this.displayVideo[idx]
+    if (this.displayVideo[idx] != '' && this.displayVideo[idx] != undefined) {
+      return this.displayVideo[idx]
+    }
+    return ''
   }
   openSelectorFiles(id: string) {
     const selector = document.getElementById(id) as HTMLElement
     selector.click()
   }
-  toAdd(event: any,idx: number, mode: string = 'img') {
+  toAdd(event: any, idx: number, mode: string = 'img') {
     if (mode == 'img') {
       this.addTree = []
       this.displayImg[idx] = URL.createObjectURL(event.target.files[0])
