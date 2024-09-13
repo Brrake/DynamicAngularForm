@@ -235,6 +235,7 @@ export class DynamicFormComponent implements OnInit {
     this.loginWithGoogle.emit(response);
   }
   public goToPage(page: number): void {
+    if (!this.formSchemes?.[page]) return;
     //Se la pagina non esiste
     if (page > this.formSchemes.length) {
       return
