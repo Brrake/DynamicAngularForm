@@ -16,17 +16,24 @@
                 [options]="getSliderOptions(field.options)" />
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)" class="form-floating password-field">
-              <input [style]="" [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}" [id]="formScheme.formId+'-'+field.formControlName" autocomplete="on" type="password"
-                [class]="'form-control '+((formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched) ? 'pr-3':'pr-2')" [placeholder]="field.name" [name]="field.formControlName"
+              <input [style]=""
+                [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
+                [id]="formScheme.formId+'-'+field.formControlName" autocomplete="on" type="password"
+                [class]="'form-control '+((formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched) ? 'pr-3':'pr-2')"
+                [placeholder]="field.name" [name]="field.formControlName"
                 [formControlName]="field.formControlName || ''">
-              <span [class]="'password-toggle '+((formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched) ? 'pw-invalid':'')"><i class="uil uil-eye"></i></span>
+              <span
+                [class]="'password-toggle '+((formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched) ? 'pw-invalid':'')"><i
+                  class="uil uil-eye"></i></span>
               <label [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.checkbox)" class="mb-3 d-flex"
               style="align-items: center;justify-content: space-between;">
               <label [for]="formScheme.formId+'-'+field.formControlName" class="col-form-label">{{field.name}}
                 :</label>
-              <input [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}" [id]="formScheme.formId+'-'+field.formControlName" [name]="field.formControlName"
+              <input
+                [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
+                [id]="formScheme.formId+'-'+field.formControlName" [name]="field.formControlName"
                 [formControlName]="field.formControlName || ''" style="margin-left: 15px;" class="form-check-input"
                 type="checkbox">
             </div>
@@ -36,8 +43,10 @@
                 [config]="{length:field.length || 6, inputClass:'otp-input',allowNumbersOnly:true,placeholder:'0'}"></ng-otp-input>
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.select)" class="form-select-wrapper">
-              <select [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}" [id]="formScheme.formId+'-'+field.formControlName"
-                [formControlName]="field.formControlName  || ''" [name]="field.formControlName" class="form-select">
+              <select
+                [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
+                [id]="formScheme.formId+'-'+field.formControlName" [formControlName]="field.formControlName  || ''"
+                [name]="field.formControlName" class="form-select">
                 <option value="" disabled selected>{{field.name}}</option>
                 <option *ngFor="let value of field.values" [value]="value.value">
                   {{value.name}}</option>
@@ -55,7 +64,8 @@
               </div>
 
             </div>
-            <p *ngSwitchCase="getRealFieldType(FieldTypesEnum.section_info)" class="lead mb-6 text-start">{{field.default_value}}</p>
+            <p *ngSwitchCase="getRealFieldType(FieldTypesEnum.section_info)" class="lead mb-6 text-start">
+              {{field.default_value}}</p>
             <div *ngSwitchCase="FieldTypesEnum.show_image" class="mb-4">
               <img [width]="field.width" [src]="field.src">
             </div>
@@ -63,7 +73,9 @@
               <video [controls]="field.controls" [width]="field.width" [src]="field.src"></video>
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.telephone)" class="mb-4">
-              <input [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}" (input)="updatePhoneField($event,idx,field.formControlName || '')"
+              <input
+                [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
+                (input)="updatePhoneField($event,idx,field.formControlName || '')"
                 [value]="formGroup[idx].get(field.formControlName || '')?.value.default || ''" class="form-control"
                 [id]="'phone-'+fieldIdx">
             </div>
@@ -73,27 +85,43 @@
               [style]="'font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;'+ (getDisplayImg(fieldIdx)!='' ? 'background-image: url('+getDisplayImg(fieldIdx)+');':'')">
               <a [hidden]="getDisplayImg(fieldIdx)!=''">+</a>
               <input (change)="toAdd($event,fieldIdx)" [id]="'input-file-'+(field.name || 'def')" style="display: none;"
-                type="file" [attr.multiple]="field.multiple ? field.multiple : null" [attr.accept]=" field.accept ? field.accept :'image/png, image/gif, image/jpeg, image/jpg'">
+                type="file" [attr.multiple]="field.multiple ? field.multiple : null"
+                [attr.accept]=" field.accept ? field.accept :'image/png, image/gif, image/jpeg, image/jpg'">
             </div>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_video)"
-              (click)="openSelectorFiles('input-file-'+(field.name || 'def'))"
-              class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
-              style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
-              <a [hidden]="getDisplayVideo(fieldIdx)!=''">+</a>
-              <video [controls]="field.controls" [hidden]="getDisplayVideo(fieldIdx)==''" [width]="field.width" [src]="getDisplayVideo(fieldIdx)"></video>
-              <input (change)="toAdd($event,fieldIdx,'video')" [id]="'input-file-'+(field.name || 'def')" style="display: none;"
-                type="file" [attr.multiple]="field.multiple ? field.multiple : null" [attr.accept]=" field.accept ? field.accept :'video/mp4,video/x-m4v,video/*'">
-            </div>
+            <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_video)">
+              <ng-container *ngIf="getDisplayVideo(fieldIdx)!='';else noVideo">
+                <div (click)="openSelectorFiles('input-file-'+(field.name || 'def'))"
+                  class="video-container pointer lift mb-8"
+                  style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
+                  <video [src]="getDisplayVideo(fieldIdx)" [controls]="field.controls ? field.controls : null" [width]="field.width" playsinline autoplay [muted]="'muted'" loop id="bg-video">
+                  </video>
+                  <input (change)="toAdd($event,fieldIdx,'video')" [id]="'input-file-'+(field.name || 'def')"
+                    style="display: none;" type="file" [attr.multiple]="field.multiple ? field.multiple : null"
+                    [attr.accept]=" field.accept ? field.accept :'video/mp4,video/x-m4v,video/*'">
+                </div>
+              </ng-container>
+              <ng-template #noVideo>
+                <div (click)="openSelectorFiles('input-file-'+(field.name || 'def'))"
+                  class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
+                  style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
+                  <a>+</a>
+                  <input (change)="toAdd($event,fieldIdx,'video')" [id]="'input-file-'+(field.name || 'def')"
+                    style="display: none;" type="file" [attr.multiple]="field.multiple ? field.multiple : null"
+                    [attr.accept]=" field.accept ? field.accept :'video/mp4,video/x-m4v,video/*'">
+                </div>
+              </ng-template>
+            </ng-container>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.textarea)" class="form-floating">
-              <textarea [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}" [id]="formScheme.formId+'-'+field.formControlName"
-                [formControlName]="field.formControlName || ''" class="form-control" [placeholder]="field.name"
-                style="height: 150px"></textarea>
+              <textarea
+                [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
+                [id]="formScheme.formId+'-'+field.formControlName" [formControlName]="field.formControlName || ''"
+                class="form-control" [placeholder]="field.name" style="height: 150px"></textarea>
               <label [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.date)" class="form-floating">
               <div class="input-group">
-                <input class="form-control" [minDate]="field.minDate"
-                [maxDate]="field.maxDate" [placeholder]="field.name ? field.name : 'yyyy-mm-dd'" [name]="field.formControlName"
+                <input class="form-control" [minDate]="field.minDate" [maxDate]="field.maxDate"
+                  [placeholder]="field.name ? field.name : 'yyyy-mm-dd'" [name]="field.formControlName"
                   [formControlName]="field.formControlName || ''" ngbDatepicker #d="ngbDatepicker" />
                 <button class="btn bi bi-calendar3" (click)="d.toggle()" type="button"><i
                     class="uil uil-calendar-alt"></i></button>
@@ -103,13 +131,14 @@
               <div class="input-group d-grid">
                 <p>{{field.name}}</p>
                 <ngb-timepicker [seconds]="true" class="d-flex justify-content-center"
-                  [formControlName]="field.formControlName || ''" >
+                  [formControlName]="field.formControlName || ''">
                 </ngb-timepicker>
               </div>
             </div>
             <div *ngSwitchDefault class="form-floating">
-              <input [id]="formScheme.formId+'-'+field.formControlName" [type]="field.type" [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}" class="form-control"
-                [placeholder]="field.name" [formControlName]="field.formControlName  || ''"
+              <input [id]="formScheme.formId+'-'+field.formControlName" [type]="field.type"
+                [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
+                class="form-control" [placeholder]="field.name" [formControlName]="field.formControlName  || ''"
                 [name]="field.formControlName">
               <label [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
             </div>
