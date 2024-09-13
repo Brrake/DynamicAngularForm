@@ -70,18 +70,18 @@
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_image)"
               (click)="openSelectorFiles('input-file-'+(field.name || 'def'))"
               class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
-              [style]="'font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;'+ (getDisplayImg()!='' ? 'background-image: url('+getDisplayImg()+');':'')">
-              <a [hidden]="getDisplayImg()!=''">+</a>
-              <input (change)="toAdd($event)" [id]="'input-file-'+(field.name || 'def')" style="display: none;"
+              [style]="'font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;'+ (getDisplayImg(fieldIdx)!='' ? 'background-image: url('+getDisplayImg(fieldIdx)+');':'')">
+              <a [hidden]="getDisplayImg(fieldIdx)!=''">+</a>
+              <input (change)="toAdd($event,fieldIdx)" [id]="'input-file-'+(field.name || 'def')" style="display: none;"
                 type="file" accept="image/png, image/gif, image/jpeg, image/jpg">
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_video)"
               (click)="openSelectorFiles('input-file-'+(field.name || 'def'))"
               class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
               style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
-              <a [hidden]="getDisplayImg()!=''">+</a>
-              <video [controls]="field.controls" [hidden]="getDisplayImg()==''" [width]="field.width" [src]="getDisplayImg()"></video>
-              <input (change)="toAdd($event)" [id]="'input-file-'+(field.name || 'def')" style="display: none;"
+              <a [hidden]="getDisplayVideo(fieldIdx)!=''">+</a>
+              <video [controls]="field.controls" [hidden]="getDisplayVideo(fieldIdx)==''" [width]="field.width" [src]="getDisplayVideo(fieldIdx)"></video>
+              <input (change)="toAdd($event,fieldIdx,'video')" [id]="'input-file-'+(field.name || 'def')" style="display: none;"
                 type="file" accept="video/mp4,video/x-m4v,video/*">
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.textarea)" class="form-floating">

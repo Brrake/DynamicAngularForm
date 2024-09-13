@@ -31,8 +31,10 @@ export class DynamicFormComponent implements OnInit {
   public ButtonsEnum: typeof ButtonType = ButtonType
   public hrefTypes: typeof HrefTypes = HrefTypes
 
-  displayImg: string = ''
+  displayImg: string[] = []
+  displayVideo: string[] = []
   addTree: any = []
+  addVideoTree: any = []
   formGroup: FormGroup[] = []
   itis_info: any[] = []
   emittedForms: any[] = []
@@ -57,9 +59,15 @@ export class DynamicFormComponent implements OnInit {
           ) {
             this.addFormControl(currField.formControlName as string, currField.default_value as string, currField.validators, i, currField.disabled as boolean)
           }
-          if (currField.type == this.FieldTypesEnum.add_image || currField.type == this.FieldTypesEnum.add_video) {
+          if (currField.type == this.FieldTypesEnum.add_image) {
+            this.displayImg.fill('',0,formScheme.fields.length)
             if (currField.default_value) {
-              this.displayImg = currField.default_value as string
+              this.displayImg[j] = currField.default_value as string
+            }
+          } if (currField.type == this.FieldTypesEnum.add_video) {
+            this.displayVideo.fill('',0,formScheme.fields.length)
+            if (currField.default_value) {
+              this.displayVideo[j] = currField.default_value as string
             }
           }
           if (currField.type == this.FieldTypesEnum.telephone) {
@@ -216,19 +224,33 @@ export class DynamicFormComponent implements OnInit {
     this.emittedForms = []
     this.ngOnInit()
   }
-  getDisplayImg() {
-    return this.displayImg
+  getDisplayImg(idx: number) {
+    console.log(this.displayImg,idx)
+    return this.displayImg[idx]
+  }
+  getDisplayVideo(idx: number) {
+    console.log(this.displayVideo,idx)
+    return this.displayVideo[idx]
   }
   openSelectorFiles(id: string) {
     const selector = document.getElementById(id) as HTMLElement
     selector.click()
   }
-  toAdd(event: any) {
-    this.addTree = []
-    this.displayImg = URL.createObjectURL(event.target.files[0])
-    for (let file of event.target.files) {
-      var src = URL.createObjectURL(file);
-      this.addTree.push({ file: file, src: src });
+  toAdd(event: any,idx: number, mode: string = 'img') {
+    if (mode == 'img') {
+      this.addTree = []
+      this.displayImg[idx] = URL.createObjectURL(event.target.files[0])
+      for (let file of event.target.files) {
+        var src = URL.createObjectURL(file);
+        this.addTree.push({ file: file, src: src });
+      }
+    } else if (mode == 'video') {
+      this.addVideoTree = []
+      this.displayVideo[idx] = URL.createObjectURL(event.target.files[0])
+      for (let file of event.target.files) {
+        var src = URL.createObjectURL(file);
+        this.addVideoTree.push({ file: file, src: src });
+      }
     }
   }
   handleGoogleLoginV2(response: any) {
@@ -249,10 +271,10 @@ export class DynamicFormComponent implements OnInit {
   isFormValid(idx: number): boolean {
     return this.formGroup[idx].valid
   }
-  closeModal(){
-    if(this.isOnModal) setTimeout(()=>{document.getElementById('closeModalButt')?.click()});
+  closeModal() {
+    if (this.isOnModal) setTimeout(() => { document.getElementById('closeModalButt')?.click() });
   }
-  getRealFieldType(fieldType:string){
-    return fieldType.replace('_','-').toLowerCase().trim()
+  getRealFieldType(fieldType: string) {
+    return fieldType.replace('_', '-').toLowerCase().trim()
   }
 }
