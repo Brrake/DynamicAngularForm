@@ -39,7 +39,7 @@
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.otp)" class="mb-3 d-flex"
               style="align-items: center;justify-content: center;">
-              <ng-otp-input (onInputChange)="onOtpChange($event,idx, field.formControlName || '')"
+              <ng-otp-input [id]="formScheme.formId+'-'+field.formControlName" (onInputChange)="onOtpChange($event,idx, field.formControlName || '')"
                 [config]="{length:field.length || 6, inputClass:'otp-input',allowNumbersOnly:true,placeholder:'0'}"></ng-otp-input>
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.select)" class="form-select-wrapper">
@@ -64,13 +64,13 @@
               </div>
 
             </div>
-            <p *ngSwitchCase="getRealFieldType(FieldTypesEnum.section_info)" class="lead mb-6 text-start">
+            <p [id]="formScheme.formId+'-'+field.formControlName" *ngSwitchCase="getRealFieldType(FieldTypesEnum.section_info)" class="lead mb-6 text-start">
               {{field.default_value}}</p>
             <div *ngSwitchCase="FieldTypesEnum.show_image" class="mb-4">
-              <img [width]="field.width" [src]="field.src">
+              <img [id]="formScheme.formId+'-'+field.formControlName" [width]="field.width" [src]="field.src">
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.show_video)" class="mb-4">
-              <video [controls]="field.controls" [width]="field.width" [src]="field.src"></video>
+              <video [id]="formScheme.formId+'-'+field.formControlName" [controls]="field.controls" [width]="field.width" [src]="field.src"></video>
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.telephone)" class="mb-4">
               <input
@@ -79,7 +79,7 @@
                 [value]="formGroup[idx].get(field.formControlName || '')?.value.default || ''" class="form-control"
                 [id]="'phone-'+fieldIdx">
             </div>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_image)"
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_image)" [id]="formScheme.formId+'-'+field.formControlName"
               (click)="openSelectorFiles('input-file-'+(field.name || 'def'))"
               class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
               [style]="'font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;'+ (getDisplayImg(fieldIdx)!='' ? 'background-image: url('+getDisplayImg(fieldIdx)+');':'')">
@@ -90,7 +90,7 @@
             </div>
             <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_video)">
               <ng-container *ngIf="getDisplayVideo(fieldIdx)!='';else noVideo">
-                <div (click)="openSelectorFiles('input-file-'+(field.name || 'def'))"
+                <div [id]="formScheme.formId+'-'+field.formControlName" (click)="openSelectorFiles('input-file-'+(field.name || 'def'))"
                   class="video-container pointer lift mb-8"
                   style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
                   <video [src]="getDisplayVideo(fieldIdx)" [controls]="field.controls ? field.controls : null" [width]="field.width" playsinline autoplay [muted]="'muted'" loop id="bg-video">
@@ -101,7 +101,7 @@
                 </div>
               </ng-container>
               <ng-template #noVideo>
-                <div (click)="openSelectorFiles('input-file-'+(field.name || 'def'))"
+                <div [id]="formScheme.formId+'-'+field.formControlName" (click)="openSelectorFiles('input-file-'+(field.name || 'def'))"
                   class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
                   style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
                   <a>+</a>
@@ -119,7 +119,7 @@
               <label [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.date)" class="form-floating">
-              <div class="input-group">
+              <div [id]="formScheme.formId+'-'+field.formControlName" class="input-group">
                 <input class="form-control" [minDate]="field.minDate" [maxDate]="field.maxDate"
                   [placeholder]="field.name ? field.name : 'yyyy-mm-dd'" [name]="field.formControlName"
                   [formControlName]="field.formControlName || ''" ngbDatepicker #d="ngbDatepicker" />
@@ -128,7 +128,7 @@
               </div>
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.time)" class="form-floating">
-              <div class="input-group d-grid">
+              <div [id]="formScheme.formId+'-'+field.formControlName" class="input-group d-grid">
                 <p>{{field.name}}</p>
                 <ngb-timepicker [seconds]="true" class="d-flex justify-content-center"
                   [formControlName]="field.formControlName || ''">
