@@ -112,7 +112,7 @@
               </ng-template>
             </ng-container>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.textarea)" class="form-floating">
-              <textarea
+              <textarea (input)="sanitizeInput(field.formControlName || '',idx)"
                 [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
                 [id]="formScheme.formId+'-'+field.formControlName" [formControlName]="field.formControlName || ''"
                 class="form-control" [placeholder]="field.name" style="height: 150px"></textarea>
@@ -136,7 +136,7 @@
               </div>
             </div>
             <div *ngSwitchDefault class="form-floating">
-              <input [id]="formScheme.formId+'-'+field.formControlName" [type]="field.type"
+              <input (input)="sanitizeInput(field.formControlName || '',idx)" [id]="formScheme.formId+'-'+field.formControlName" [type]="field.type"
                 [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
                 class="form-control" [placeholder]="field.name" [formControlName]="field.formControlName  || ''"
                 [name]="field.formControlName">

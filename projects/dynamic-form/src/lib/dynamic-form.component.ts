@@ -221,6 +221,8 @@ export class DynamicFormComponent implements OnInit {
   onClose() {
     this.goToPage(0)
     this.emittedForms = []
+    this.addTree = []
+    this.addVideoTree = []
     this.onCloseForm.emit(true)
   }
   resetAndGoToPage(page: number) {
@@ -273,6 +275,8 @@ export class DynamicFormComponent implements OnInit {
     if (page > this.formSchemes.length) {
       return
     }
+    this.addTree = []
+    this.addVideoTree = []
     //Se la pagina è dopo la prima
     for (let i = 0; i < this.formSchemes.length; i++) {
       this.formSchemes[i].active_page = false
@@ -287,5 +291,12 @@ export class DynamicFormComponent implements OnInit {
   }
   getRealFieldType(fieldType: string) {
     return fieldType.replace('_', '-').toLowerCase().trim()
+  }
+  sanitizeInput(formControlName: string, idx: number) {
+    const control = this.formGroup[idx].get(formControlName);
+    if (control) {
+      const sanitizedValue = control.value.replace(/<[^>]*>/g, "");
+      control.setValue(sanitizedValue, { emitEvent: false });
+    }
   }
 }
