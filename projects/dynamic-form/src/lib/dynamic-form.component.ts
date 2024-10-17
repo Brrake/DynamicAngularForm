@@ -216,6 +216,7 @@ export class DynamicFormComponent implements OnInit {
     this.formGroup[page + 1]?.reset()
     this.emittedForms = this.emittedForms.filter((form: any) => form !== this.formGroup[page])
     //this.ngOnInit()
+    this.isSubmitFailed = false
     this.onBack.emit(true)
   }
   onClose() {
