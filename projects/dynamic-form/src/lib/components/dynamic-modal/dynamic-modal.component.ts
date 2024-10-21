@@ -53,6 +53,9 @@ export class DynamicModalComponent implements OnInit {
   onSubmitForm(event: any) {
     this.onSubmit.emit(event);
   }
+  submitDynamicForm(idx: number) {
+    this.dynForm?.onSubmitForm(idx);
+  }
   closeModal(){
     this.onClose()
     document.getElementById('closeDefModal-'+this.modalId)?.click()
