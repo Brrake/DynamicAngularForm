@@ -7,7 +7,7 @@
       <ng-container *ngFor="let field of formScheme.fields;let fieldIdx = index">
         <div [class]="(field.visible == false ? 'hidden':'')" class="mb-4">
           <ng-container [ngSwitch]="field.type">
-            <div *ngIf="field.top_label" class="text-left">
+            <div *ngIf="field.top_label" class="text-left" [id]="formScheme.formId+'-'+field.formControlName+'-toplabel'">
               <p class="col-form-label" style="color: #60697b;">{{field.top_label}}</p>
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.slider)" class="form-floating password-field">
