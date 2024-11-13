@@ -25,6 +25,7 @@ export class DynamicModalComponent implements OnInit {
   @Output() onCloseModal: EventEmitter<any> = new EventEmitter<any>();
   @Output() loginWithGoogle: EventEmitter<any> = new EventEmitter<any>();
   @Output() onBack: EventEmitter<any> = new EventEmitter<any>();
+  @Output() formValueChanges = new EventEmitter<any>();
 
   isLoaded = true
 
@@ -52,6 +53,9 @@ export class DynamicModalComponent implements OnInit {
   }
   onSubmitForm(event: any) {
     this.onSubmit.emit(event);
+  }
+  onFormValueChanges(event: any) {
+    this.formValueChanges.emit(event);
   }
   submitDynamicForm(idx: number) {
     this.dynForm?.onSubmitForm(idx);

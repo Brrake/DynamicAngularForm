@@ -9,10 +9,10 @@
             data-bs-dismiss="modal" aria-label="Close"></button>
           <dynamic-form [isOnModal]="true" #dyn_form [formSchemes]="formSchemes" [isSubmitFailed]="isSubmitFailed"
             [loadSpinner]="loadSpinner" [errorMessage]="errorMessage" (onSubmit)="onSubmitForm($event)"
-            (loginWithGoogle)="handleGoogleLoginV2($event)" (onCloseForm)="onClose()" (onBack)="onBack.emit(true)" />
+            (loginWithGoogle)="handleGoogleLoginV2($event)" (formValueChanges)="onFormValueChanges($event)" (onCloseForm)="onClose()" (onBack)="onBack.emit(true)" />
 
             <ng-content></ng-content>
-            
+
         </div>
       </div>
     </div>

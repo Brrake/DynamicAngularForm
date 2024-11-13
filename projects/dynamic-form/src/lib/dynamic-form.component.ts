@@ -25,6 +25,7 @@ export class DynamicFormComponent implements OnInit {
   @Output() onCloseForm: EventEmitter<any> = new EventEmitter<any>();
   @Output() loginWithGoogle: EventEmitter<any> = new EventEmitter<any>();
   @Output() onBack: EventEmitter<any> = new EventEmitter<any>();
+  @Output() formValueChanges = new EventEmitter<any>();
 
   public FieldTypesEnum: typeof FieldType = FieldType
   public AddonsEnum: typeof AddonType = AddonType
@@ -104,6 +105,12 @@ export class DynamicFormComponent implements OnInit {
             }
           }
         }
+        this.formGroup[i].valueChanges.subscribe((value) => {
+          this.formValueChanges.emit({
+            value,
+            formIdx: i
+          }); // Emit changes to parent component
+        });
       }
     }
   }
@@ -172,6 +179,12 @@ export class DynamicFormComponent implements OnInit {
   }
   updateForm(formGroup: number, values: any) {
     this.formGroup[formGroup].patchValue(values)
+  }
+  handleFormChanges(formGroup: number){
+    this.formGroup[formGroup].valueChanges.subscribe((formValues) => {
+      console.log('Form changed:', formValues);
+      // Respond to any form-wide changes here if needed
+    });
   }
   onSubmitForm(idx: number) {
     // Se vuole usare recaptcha v3
