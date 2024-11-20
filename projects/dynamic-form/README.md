@@ -80,12 +80,13 @@ Below you will find all the information you need to correctly use the templates 
 
 #### Output
 
-| Method              | Description                       | Required |
-|---------------------|-----------------------------------|----------|
-| `onSubmit()`        | Handle form submitted result      | false    |
-| `loginWithGoogle()` | Handle Google login result        | false    |
-| `onCloseModal()`    | Handle modal close                | false    |
-| `onBack()`          | Handle modal back                 | false    |
+| Method                | Description                       | Required |
+|-----------------------|-----------------------------------|----------|
+| `onSubmit()`          | Handle form submitted result      | false    |
+| `loginWithGoogle()`   | Handle Google login result        | false    |
+| `onCloseModal()`      | Handle modal close                | false    |
+| `onBack()`            | Handle modal back                 | false    |
+| `formValueChanges()`  | Handle modal value change         | false    |
 
 #### Functions
 
@@ -127,12 +128,13 @@ HTML ->
 
 #### Output
 
-| Method              | Description                       | Required |
-|---------------------|-----------------------------------|----------|
-| `onSubmit()`        | Handle form submitted result      | false    |
-| `loginWithGoogle()` | Handle Google login result        | false    |
-| `onCloseForm()`     | Handle form close                 | false    |
-| `onBack()`          | Handle form back                  | false    |
+| Method                | Description                       | Required |
+|-----------------------|-----------------------------------|----------|
+| `onSubmit()`          | Handle form submitted result      | false    |
+| `loginWithGoogle()`   | Handle Google login result        | false    |
+| `onCloseForm()`       | Handle form close                 | false    |
+| `onBack()`            | Handle form back                  | false    |
+| `formValueChanges()`  | Handle modal value change         | false    |
 
 #### Functions
 
