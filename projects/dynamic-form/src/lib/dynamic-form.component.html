@@ -159,7 +159,7 @@
           {{error.text}}
         </div>
       </div>
-
+      <ng-content />
       <div *ngIf="isSubmitFailed" class="alert alert-danger">
         {{errorMessage}}
       </div>

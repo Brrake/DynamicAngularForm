@@ -11,7 +11,7 @@
             [loadSpinner]="loadSpinner" [errorMessage]="errorMessage" (onSubmit)="onSubmitForm($event)"
             (loginWithGoogle)="handleGoogleLoginV2($event)" (formValueChanges)="onFormValueChanges($event)" (onCloseForm)="onClose()" (onBack)="onBack.emit(true)" />
 
-            <ng-content></ng-content>
+            <ng-content />
 
         </div>
       </div>
