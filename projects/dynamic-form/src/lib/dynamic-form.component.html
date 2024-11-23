@@ -5,7 +5,7 @@
     </p>
     <form [id]="formScheme.formId || 'defId'" [formGroup]="formGroup[idx]" (ngSubmit)="onSubmitForm(idx)" class="mt-4">
       <ng-container *ngFor="let field of formScheme.fields;let fieldIdx = index">
-        <div [class]="(field.visible == false ? 'hidden':'')" class="mb-4">
+        <div [class]="(field.visible == false ? 'hidden':'')" class="mb-4" [id]="formScheme.formId+'-'+field.formControlName+'-main'">
           <ng-container [ngSwitch]="field.type">
             <div *ngIf="field.top_label" class="text-left" [id]="formScheme.formId+'-'+field.formControlName+'-toplabel'">
               <p class="col-form-label" style="color: #60697b;">{{field.top_label}}</p>
@@ -25,11 +25,11 @@
               <span
                 [class]="'password-toggle '+((formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched) ? 'pw-invalid':'')"><i
                   class="uil uil-eye"></i></span>
-              <label [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
+              <label [id]="formScheme.formId+'-'+field.formControlName+'-label'" [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.checkbox)" class="mb-3 d-flex"
               style="align-items: center;justify-content: space-between;">
-              <label [for]="formScheme.formId+'-'+field.formControlName" class="col-form-label">{{field.name}}
+              <label [id]="formScheme.formId+'-'+field.formControlName+'-label'" [for]="formScheme.formId+'-'+field.formControlName" class="col-form-label">{{field.name}}
                 :</label>
               <input
                 [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
@@ -116,7 +116,7 @@
                 [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
                 [id]="formScheme.formId+'-'+field.formControlName" [formControlName]="field.formControlName || ''"
                 class="form-control" [placeholder]="field.name" style="height: 150px"></textarea>
-              <label [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
+              <label [id]="formScheme.formId+'-'+field.formControlName+'-label'" [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.date)" class="form-floating">
               <div [id]="formScheme.formId+'-'+field.formControlName" class="input-group">
@@ -140,7 +140,7 @@
                 [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
                 class="form-control" [placeholder]="field.name" [formControlName]="field.formControlName  || ''"
                 [name]="field.formControlName">
-              <label [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
+              <label [id]="formScheme.formId+'-'+field.formControlName+'-label'" [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
             </div>
             <div
               *ngIf="!formGroup[idx].get(field.formControlName || '')?.valid && (formGroup[idx].get(field.formControlName || '')?.dirty || formGroup[idx].get(field.formControlName || '')?.touched)"
