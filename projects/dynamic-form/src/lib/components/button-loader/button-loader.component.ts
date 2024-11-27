@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ButtonType } from '../../models/dynamic-form.model';
 
 @Component({
   selector: 'button-loader',
@@ -16,6 +17,12 @@ export class ButtonLoaderComponent implements OnInit {
   @Input() color: string = 'primary'
   @Input() text_color: string = 'white'
   @Input() margin: boolean = true
+
+  @Input() button_type: ButtonType = ButtonType.PILL
+  @Input() large: boolean = false
+  @Input() expand: boolean = false
+  @Input() pulse: boolean = false
+
   @Output() onSubmit = new EventEmitter()
 
   constructor() { }

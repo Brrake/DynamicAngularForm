@@ -125,3 +125,10 @@ export enum Errors {
   min = 'min',
   pattern = 'pattern'
 }
+export enum ButtonType {
+  SQUARE = 'rounded-0',
+  ROUNDED = '',
+  ROUNDER = 'rounded-xl',
+  PILL = 'rounded-pill',
+  CIRCLE = 'btn-circle'
+}
