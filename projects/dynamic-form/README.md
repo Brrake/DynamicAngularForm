@@ -157,47 +157,8 @@ HTML ->
 
 ---
 
-### Button Loader
 
-#### Input
-
-| Property         | Type                  | Default       | Description                                                                      | Required |
-|------------------|-----------------------|---------------|----------------------------------------------------------------------------------|----------|
-| `loadSpinner`    | `boolean`             | `false`       | Load spinner into the submit button                                              | false    |
-| `loadCheck`      | `boolean`             | `false`       | Load check icon, useful when the submit is finished                              | false    |
-| `isFormValid`    | `boolean`             | `true`        | Enable button if the form is valid                                               | false    |
-| `text`           | `string`              | `''`          | Text inside the button                                                           | false    |
-| `icon`           | `StockIcons` or `Uil` | `''`          | Icon to load next to the text. Uil icon example: `uil uil-info-circle`           | false    |
-| `icon_position`  | `['left','right']`    | `'left'`      | Position of the icon in relation to the text                                     | false    |
-| `type`           | `string`              | `'submit'`    | Button type                                                                      | false    |
-| `color`          | `string`              | `'primary'`   | Button color as hex (e.g., `#45c4a0`)                                            | false    |
-| `text_color`     | `string`              | `'white'`     | Button text color as hex (e.g., `#ffffff`)                                       | false    |
-| `margin`         | `boolean`             | `true`        | Button margin right, useful with multiple buttons in sequence                    | false    |
-#### Output
-
-| Method              | Description                       | Required |
-|---------------------|-----------------------------------|----------|
-| `onSubmit()`        | Handle form submitted result      | false    |
-
----
-
-### Google Login
-
-#### Input
-
-| Property         | Type    | Default        | Description                                      | Required |
-|------------------|---------|----------------|--------------------------------------------------|----------|
-| `type`           | `string`| `'standard'`   | Refer to Google Docs                             | false    |
-| `size`           | `string`| `'medium'`     | Refer to Google Docs                             | false    |
-| `theme`          | `string`| `'outline'`    | Refer to Google Docs                             | false    |
-| `text`           | `string`| `'sign_in_with'`| Refer to Google Docs                            | false    |
-| `shape`          | `string`| `'rectangular'`| Refer to Google Docs                             | false    |
-| `logo_alignment` | `string`| `'left'`       | Refer to Google Docs                             | false    |
-
----
-
-
-### `DynamicFormScheme`
+## `DynamicFormScheme`
 
 | Property          | Type                        | Description                                      |
 |-------------------|-----------------------------|--------------------------------------------------|
@@ -210,7 +171,7 @@ HTML ->
 | `addons`          | [`AddonScheme[]`](#addonscheme)             | Array of form addons.                            |
 | `custom_validators`| [`CustomValidatorScheme[]`](#customvalidatorscheme)  | Array of custom validators for the form.         |
 
-### `FieldScheme`
+## `FieldScheme`
 
 | Property         | Type                                                          | Description                                                                                           | Usage Type                                      |
 |------------------|---------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|-------------------------------------------------|
@@ -235,6 +196,27 @@ HTML ->
 | `controls`       | `string (optional)`                                           | Controls of the video field.                                                                             | show_video, add_video                           |
 | `version`        | `string (optional)`                                           | Version of the field.                                                                                 | g_recaptcha                                     |
 
+## `FieldType` (Enum)
+
+| Value           | Description                      |
+|-----------------|----------------------------------|
+| `text`          | Represents a text input field.   |
+| `date`          | Represents a date input field.   |
+| `otp`           | Represents an OTP input field.   |
+| `time`          | Represents a time input field.   |
+| `select`        | Represents a select dropdown field. |
+| `password`      | Represents a password input field. |
+| `textarea`      | Represents a textarea input field. |
+| `checkbox`      | Represents a checkbox input field. |
+| `g_recaptcha`   | Represents a Google reCAPTCHA field. |
+| `section_info`  | Represents a section information field. |
+| `slider`        | Represents a slider input field. |
+| `telephone`     | Represents a telephone input field. |
+| `add_image`     | Represents an add image field.   |
+| `show_image`    | Represents a show image field.   |
+| `add_video`     | Represents an add image field.   |
+| `show_video`    | Represents a show image field.   |
+
 ### `SelectValueScheme`
 
 | Property | Type   | Description           |
@@ -242,7 +224,7 @@ HTML ->
 | `name`   | `string` | Display name of the option. |
 | `value`  | `string` | Value of the option. |
 
-### `AddonScheme`
+## `AddonScheme`
 
 | Property        | Type                     | Description                                                   | Usage Type            |
 |-----------------|--------------------------|---------------------------------------------------------------|-----------------------|
@@ -273,7 +255,7 @@ HTML ->
 |----------|--------------------------------|
 | `MODAL`  | Represents a modal link type.  |
 
-### `ButtonScheme`
+## `ButtonScheme`
 
 | Property      | Type           | Description                                      | Usage Type            |
 |---------------|----------------|--------------------------------------------------|-----------------------|
@@ -283,6 +265,15 @@ HTML ->
 | `button_color`| `string`       | Background color of the button.                  | ALL
 | `margin`      | `boolean (optional)` | Indicates if the button has a margin.      | ALL
 | `page`        | `number (optional)`  | Page number the button is associated with. | back
+
+### `ButtonType` (Enum)
+
+| Value    | Description                    |
+|----------|--------------------------------|
+| `submit` | Represents a submit button.    |
+| `close`  | Represents a close button.     |
+| `back`   | Represents a back button.      |
+| `test`   | Represents a test button.      |
 
 ### `CustomValidatorScheme`
 
@@ -306,37 +297,6 @@ HTML ->
 | `name`   | [`Errors`](#errors-enum) | Type of the error being validated. |
 | `value`  | `string` | Value associated with the validator. |
 
-
-### `FieldType` (Enum)
-
-| Value           | Description                      |
-|-----------------|----------------------------------|
-| `text`          | Represents a text input field.   |
-| `date`          | Represents a date input field.   |
-| `otp`           | Represents an OTP input field.   |
-| `time`          | Represents a time input field.   |
-| `select`        | Represents a select dropdown field. |
-| `password`      | Represents a password input field. |
-| `textarea`      | Represents a textarea input field. |
-| `checkbox`      | Represents a checkbox input field. |
-| `g_recaptcha`   | Represents a Google reCAPTCHA field. |
-| `section_info`  | Represents a section information field. |
-| `slider`        | Represents a slider input field. |
-| `telephone`     | Represents a telephone input field. |
-| `add_image`     | Represents an add image field.   |
-| `show_image`    | Represents a show image field.   |
-| `add_video`     | Represents an add image field.   |
-| `show_video`    | Represents a show image field.   |
-
-### `ButtonType` (Enum)
-
-| Value    | Description                    |
-|----------|--------------------------------|
-| `submit` | Represents a submit button.    |
-| `close`  | Represents a close button.     |
-| `back`   | Represents a back button.      |
-| `test`   | Represents a test button.      |
-
 ### `Errors` (Enum)
 
 | Value      | Description                    |
@@ -349,3 +309,55 @@ HTML ->
 | `max`| Represents a max error. |
 | `min`| Represents a min error. |
 | `pattern`  | Represents a pattern matching error. |
+
+
+
+
+## Other Components
+
+### Button Loader
+
+```
+<button-loader />
+```
+
+#### Input
+
+| Property         | Type                  | Default       | Description                                                                      | Required |
+|------------------|-----------------------|---------------|----------------------------------------------------------------------------------|----------|
+| `loadSpinner`    | `boolean`             | `false`       | Load spinner into the submit button                                              | false    |
+| `loadCheck`      | `boolean`             | `false`       | Load check icon, useful when the submit is finished                              | false    |
+| `isFormValid`    | `boolean`             | `true`        | Enable button if the form is valid                                               | false    |
+| `text`           | `string`              | `''`          | Text inside the button                                                           | false    |
+| `icon`           | `StockIcons` or `Uil` | `''`          | Icon to load next to the text. Uil icon example: `uil uil-info-circle`           | false    |
+| `icon_position`  | `['left','right']`    | `'left'`      | Position of the icon in relation to the text                                     | false    |
+| `type`           | `string`              | `'submit'`    | Button type                                                                      | false    |
+| `color`          | `string`              | `'primary'`   | Button color as hex (e.g., `#45c4a0`)                                            | false    |
+| `text_color`     | `string`              | `'white'`     | Button text color as hex (e.g., `#ffffff`)                                       | false    |
+| `margin`         | `boolean`             | `true`        | Button margin right, useful with multiple buttons in sequence                    | false    |
+#### Output
+
+| Method              | Description                       | Required |
+|---------------------|-----------------------------------|----------|
+| `onSubmit()`        | Handle form submitted result      | false    |
+
+---
+
+### Google Login
+
+```
+<google-login />
+```
+
+#### Input
+
+| Property         | Type    | Default        | Description                                      | Required |
+|------------------|---------|----------------|--------------------------------------------------|----------|
+| `type`           | `string`| `'standard'`   | Refer to Google Docs                             | false    |
+| `size`           | `string`| `'medium'`     | Refer to Google Docs                             | false    |
+| `theme`          | `string`| `'outline'`    | Refer to Google Docs                             | false    |
+| `text`           | `string`| `'sign_in_with'`| Refer to Google Docs                            | false    |
+| `shape`          | `string`| `'rectangular'`| Refer to Google Docs                             | false    |
+| `logo_alignment` | `string`| `'left'`       | Refer to Google Docs                             | false    |
+
+---
