@@ -304,7 +304,7 @@ export class DynamicFormComponent implements OnInit {
     if (this.isOnModal) setTimeout(() => { document.getElementById('closeModalButt')?.click() });
   }
   getRealFieldType(fieldType: string) {
-    return fieldType.replace('_', '-').toLowerCase().trim()
+    return fieldType.replace(/_/g, '-').toLowerCase().trim()
   }
   sanitizeInput(formControlName: string, idx: number) {
     const control = this.formGroup[idx].get(formControlName);

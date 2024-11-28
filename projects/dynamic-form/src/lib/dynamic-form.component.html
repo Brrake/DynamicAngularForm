@@ -66,7 +66,7 @@
             </div>
             <p [id]="formScheme.formId+'-'+field.formControlName" *ngSwitchCase="getRealFieldType(FieldTypesEnum.section_info)" class="lead mb-6 text-start">
               {{field.default_value}}</p>
-            <div *ngSwitchCase="FieldTypesEnum.show_image" class="mb-4">
+            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.show_image)" class="mb-4">
               <img [id]="formScheme.formId+'-'+field.formControlName" [width]="field.width" [src]="field.src">
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.show_video)" class="mb-4">
@@ -165,7 +165,7 @@
       </div>
       <div class="d-flex justify-content-center">
         <div *ngFor="let button of formScheme.buttons" [ngSwitch]="button.type" class="mb-3">
-          <button-loader (onSubmit)="onClose()" *ngSwitchCase="ButtonsEnum.close" [isFormValid]="true"
+          <button-loader [margin]="button.margin || false" (onSubmit)="onClose()" *ngSwitchCase="ButtonsEnum.close" [isFormValid]="true"
             [text]="button.name" type="button" [text_color]="button.text_color" [color]="button.button_color"
             data-bs-dismiss="modal" />
           <button-loader [margin]="button.margin || false" *ngSwitchCase="ButtonsEnum.test" [isFormValid]="true"

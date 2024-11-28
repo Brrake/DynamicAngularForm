@@ -212,28 +212,28 @@ HTML ->
 
 ### `FieldScheme`
 
-| Property         | Type                                                          | Description                                                                                           |
-|------------------|---------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
-| `type`           | [`FieldType`](#fieldtype-enum)                                                   | Type of the field.                                                                                    |
-| `name`           | `string (optional)`                                           | Name of the field.                                                                                    |
-| `src`            | `string (optional)`                                           | Source URL or path for certain field types (e.g., images).                                            |
-| `options`        | `any (optional)`                                              | Additional options for the field.                                                                     |
-| `length`         | `number (optional)`                                           | Length of the field.                                                                                  |
-| `minDate`         | `{ year:number, month:number, day:number } (optional)`                                           | minDate of datepicker.                                                                                  |
-| `maxDate`         | `{ year:number, month:number, day:number } (optional)`                                           | maxDate of datepicker.                                                                                  |
-| `multiple`         | `boolean (optional)`                                           | Multiple upload of files.                                                                                  |
-| `accept`         | `string (optional)`                                           | Accept types for input files.                                                                                  |
-| `width`          | `string (optional)`                                           | Width of the field.                                                                                   |
-| `controls`          | `string (optional)`                                           | Controls of the video field.                                                                                   |
-| `disabled`       | `boolean (optional)`                                          | Indicates if the field is disabled.                                                                   |
-| `visible`       | `boolean (optional)`                                          | Indicates if the field is visible.                                                                   |
-| `formControlName`| `string (optional)`                                           | Form control name, typically used with reactive forms.                                                |
-| `version`        | `string (optional)`                                           | Version of the field.                                                                                 |
-| `default_value`  | `string` \| `number` \| `boolean` \| `{ year: number, month: number, day: number }` \| `{ hour: number, minute: number }` (optional) | Default value of the field. |
-| `values`         | `SelectValueScheme[] (optional)`                              | Array of selectable values for fields like dropdowns or radios.                                       |
-| `top_label`      | `string (optional)`                                           | Label displayed above the field.                                                                      |
-| `validators`     | [`ValidatorScheme[] (optional)`](#validatorscheme)                                | Array of validators for the field.                                                                    |
-| `errors`         | [`ErrorScheme[] (optional)`](#errorscheme)                                    | Array of error messages related to the field.                                                         |
+| Property         | Type                                                          | Description                                                                                           | Usage Type                                      |
+|------------------|---------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|-------------------------------------------------|
+| `type`           | [`FieldType`](#fieldtype-enum)                                | Type of the field.                                                                                    | ALL                                             |
+| `default_value`  | `string` \| `number` \| `boolean` \| `{ year: number, month: number, day: number }` \| `{ hour: number, minute: number }` (optional) | Default value of the field.    | ALL                                             |
+| `name`           | `string (optional)`                                           | Name of the field.                                                                                    | ALL                                             |
+| `top_label`      | `string (optional)`                                           | Label displayed above the field.                                                                      | ALL                                             |
+| `validators`     | [`ValidatorScheme[] (optional)`](#validatorscheme)            | Array of validators for the field.                                                                    | ALL                                             |
+| `errors`         | [`ErrorScheme[] (optional)`](#errorscheme)                    | Array of error messages related to the field.                                                         | ALL                                             |
+| `disabled`       | `boolean (optional)`                                          | Indicates if the field is disabled.                                                                   | ALL                                             |
+| `visible`        | `boolean (optional)`                                          | Indicates if the field is visible.                                                                    | ALL                                             |
+| `formControlName`| `string (optional)`                                           | Form control name, typically used with reactive forms.                                                | ALL                                             |
+| `src`            | `string (optional)`                                           | Source URL or path for certain field types (e.g., images).                                            | show_image                                      |
+| `options`        | `any (optional)`                                              | Additional options for the field.                                                                     | slider                                          |
+| `length`         | `number (optional)`                                           | Length of the field.                                                                                  | otp                                             |
+| `minDate`        | `{ year:number, month:number, day:number } (optional)`        | minDate of datepicker.                                                                                 | date                                            |
+| `maxDate`        | `{ year:number, month:number, day:number } (optional)`        | maxDate of datepicker.                                                                                 | date                                            |
+| `values`         | `SelectValueScheme[] (optional)`                              | Array of selectable values for fields like dropdowns or radios.                                       | select                                          |
+| `multiple`       | `boolean (optional)`                                          | Multiple upload of files.                                                                               | add_image, add_video                            |
+| `accept`         | `string (optional)`                                           | Accept types for input files.                                                                         | add_image, add_video                            |
+| `width`          | `string (optional)`                                           | Width of the field.                                                                                   | add_image, add_video, show_image, show_video    |
+| `controls`       | `string (optional)`                                           | Controls of the video field.                                                                             | show_video, add_video                           |
+| `version`        | `string (optional)`                                           | Version of the field.                                                                                 | g_recaptcha                                     |
 
 ### `SelectValueScheme`
 
@@ -244,21 +244,28 @@ HTML ->
 
 ### `AddonScheme`
 
-| Property        | Type                     | Description                                |
-|-----------------|--------------------------|--------------------------------------------|
-| `name`          | [`AddonType`](#addontype-enum)              | Type of the addon.                         |
-| `style`         | `number (optional)`      | Style identifier for the addon.            |
-| `upper_text`    | `string (optional)`      | Text displayed above the main content.     |
-| `size`          | `string (optional)`      | Size of the addon.                         |
-| `type`          | `string (optional)`      | Type of addon (e.g., button, link).        |
-| `theme`         | `string (optional)`      | Theme or color scheme for the addon.       |
-| `href`          | `string (optional)`      | URL or link associated with the addon.     |
-| `normal_text`   | `string (optional)`      | Regular text displayed in the addon.       |
-| `highlight_text`| `string (optional)`      | Highlighted text within the addon.         |
-| `href_type`     | [`HrefTypes (optional)`](#hreftypes-enum)   | Type of href action (e.g., modal).         |
-| `text`          | `string (optional)`      | Text displayed in the addon.               |
-| `shape`         | `string (optional)`      | Shape of the addon (e.g., square, circle). |
-| `logo_alignment`| `string (optional)`      | Alignment of the logo within the addon.    |
+| Property        | Type                     | Description                                                   | Usage Type            |
+|-----------------|--------------------------|---------------------------------------------------------------|-----------------------|
+| `name`          | [`AddonType`](#addontype-enum)              | Type of the addon.                         |ALL                    |
+| `normal_text`   | `string (optional)`      | Regular text displayed in the addon.                          |highlight              |
+| `highlight_text`| `string (optional)`      | Highlighted text within the addon.                            |highlight              |
+| `href`          | `string (optional)`      | URL or link associated with the addon.                        |highlight              |
+| `href_type`     | [`HrefTypes (optional)`](#hreftypes-enum)   | Type of href action (e.g., modal).         |highlight              |
+| `style`         | `number (optional)`      | Style identifier for the addon.                               |google_login           |
+| `upper_text`    | `string (optional)`      | Text displayed above the main content.                        |google_login           |
+| `size`          | `string (optional)`      | Size of the addon.                                            |google_login           |
+| `type`          | `string (optional)`      | Type of addon (e.g., button, link).                           |google_login           |
+| `theme`         | `string (optional)`      | Theme or color scheme for the addon.                          |google_login           |
+| `text`          | `string (optional)`      | Text displayed in the addon.                                  |google_login           |
+| `shape`         | `string (optional)`      | Shape of the addon (e.g., square, circle).                    |google_login           |
+| `logo_alignment`| `string (optional)`      | Alignment of the logo within the addon.                       |google_login           |
+
+### `AddonType` (Enum)
+
+| Value          | Description                     |
+|----------------|---------------------------------|
+| `highlight`    | Represents a highlight addon.   |
+| `google_login` | Represents a Google login addon.|
 
 ### `HrefTypes` (Enum)
 
@@ -268,14 +275,14 @@ HTML ->
 
 ### `ButtonScheme`
 
-| Property      | Type           | Description                            |
-|---------------|----------------|----------------------------------------|
-| `type`        | `ButtonType`   | Type of the button (e.g., submit, close). |
-| `name`        | `string`       | Name of the button.                    |
-| `text_color`  | `string`       | Text color of the button.              |
-| `button_color`| `string`       | Background color of the button.        |
-| `margin`      | `boolean (optional)` | Indicates if the button has a margin.    |
-| `page`        | `number (optional)`  | Page number the button is associated with. |
+| Property      | Type           | Description                                      | Usage Type            |
+|---------------|----------------|--------------------------------------------------|-----------------------|
+| `type`        | `ButtonType`   | Type of the button (e.g., submit, close).        | ALL
+| `name`        | `string`       | Name of the button.                              | ALL
+| `text_color`  | `string`       | Text color of the button.                        | ALL
+| `button_color`| `string`       | Background color of the button.                  | ALL
+| `margin`      | `boolean (optional)` | Indicates if the button has a margin.      | ALL
+| `page`        | `number (optional)`  | Page number the button is associated with. | back
 
 ### `CustomValidatorScheme`
 
@@ -299,12 +306,6 @@ HTML ->
 | `name`   | [`Errors`](#errors-enum) | Type of the error being validated. |
 | `value`  | `string` | Value associated with the validator. |
 
-### `AddonType` (Enum)
-
-| Value          | Description                     |
-|----------------|---------------------------------|
-| `highlight`    | Represents a highlight addon.   |
-| `google_login` | Represents a Google login addon.|
 
 ### `FieldType` (Enum)
 
