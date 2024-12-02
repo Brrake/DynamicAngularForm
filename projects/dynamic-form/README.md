@@ -164,7 +164,9 @@ HTML ->
 |-------------------|-----------------------------|--------------------------------------------------|
 | `formId`          | `string`                    | Unique identifier for the form.                  |
 | `title`           | `string`                    | Title of the form.                               |
+| `title_{LANGUAGE}`| `string (optional)`         | Title translated of the field.                    |
 | `description`     | `string (optional)`         | Description of the form.                         |
+| `description_{LANGUAGE}`| `string (optional)`   | Description translated of the field.                    |
 | `active_page`     | `boolean (optional)`        | Indicates if the form is active.                 |
 | `fields`          | [`FieldScheme[]`](#fieldscheme)             | Array of form fields.                            |
 | `buttons`         | [`ButtonScheme[]`](#buttonscheme)            | Array of form buttons.                           |
@@ -231,7 +233,9 @@ HTML ->
 |-----------------|--------------------------|---------------------------------------------------------------|-----------------------|
 | `name`          | [`AddonType`](#addontype-enum)              | Type of the addon.                         |ALL                    |
 | `normal_text`   | `string (optional)`      | Regular text displayed in the addon.                          |highlight              |
+| `normal_text_{LANGUAGE}`| `string (optional)` |  Regular text translated of the field.     | highlight                                             |
 | `highlight_text`| `string (optional)`      | Highlighted text within the addon.                            |highlight              |
+| `highlight_text_{LANGUAGE}`| `string (optional)` | Highlighted text translated of the field.        | highlight                                             |
 | `href`          | `string (optional)`      | URL or link associated with the addon.                        |highlight              |
 | `href_type`     | [`HrefTypes (optional)`](#hreftypes-enum)   | Type of href action (e.g., modal).         |highlight              |
 | `style`         | `number (optional)`      | Style identifier for the addon.                               |google_login           |
@@ -260,12 +264,13 @@ HTML ->
 
 | Property      | Type           | Description                                      | Usage Type            |
 |---------------|----------------|--------------------------------------------------|-----------------------|
-| `type`        | `ButtonType`   | Type of the button (e.g., submit, close).        | ALL
-| `name`        | `string`       | Name of the button.                              | ALL
-| `text_color`  | `string`       | Text color of the button.                        | ALL
-| `button_color`| `string`       | Background color of the button.                  | ALL
-| `margin`      | `boolean (optional)` | Indicates if the button has a margin.      | ALL
-| `page`        | `number (optional)`  | Page number the button is associated with. | back
+| `type`        | `ButtonType`   | Type of the button (e.g., submit, close).        | ALL                   |
+| `name`        | `string`       | Name of the button.                              | ALL                   |
+| `name_{LANGUAGE}`| `string (optional)`  | Name translated of the field.      | ALL                  |
+| `text_color`  | `string`       | Text color of the button.                        | ALL                   |
+| `button_color`| `string`       | Background color of the button.                  | ALL                   |
+| `margin`      | `boolean (optional)` | Indicates if the button has a margin.      | ALL                   |
+| `page`        | `number (optional)`  | Page number the button is associated with. | back                   |
 
 ### `ButtonType` (Enum)
 

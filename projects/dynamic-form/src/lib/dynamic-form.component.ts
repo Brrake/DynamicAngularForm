@@ -317,10 +317,10 @@ export class DynamicFormComponent implements OnInit {
       control.setValue(sanitizedValue, { emitEvent: false });
     }
   }
-  getTranslatedName(field:any) {
+  getTranslatedName(field:any, key: string = 'name'): string {
     const deflang = this.translate.getDefaultLang()
     const currLang = this.translate.currentLang
-    if(deflang != currLang && field['name_'+currLang] != undefined) return field['name_'+currLang]
-    return field.name
+    if(deflang != currLang && field[key+'_'+currLang] != undefined) return field[key+'_'+currLang]
+    return field[key]
   }
 }
