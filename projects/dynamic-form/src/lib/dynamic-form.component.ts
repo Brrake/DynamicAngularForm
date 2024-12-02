@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID } from '@angular/core';
 import { AddonType, ButtonType, DynamicFormScheme, Errors, FieldType, HrefTypes } from './models/dynamic-form.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { linkValidator } from './custom_validators/link.validator';
@@ -8,6 +8,7 @@ import { phoneValidator } from './custom_validators/phoneValidator.validator';
 import { createIsValidNumberValidator } from './custom_validators/createIsValidNumberValidator.validator';
 import { isPlatformBrowser } from '@angular/common';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'dynamic-form',
   templateUrl: './dynamic-form.component.html',
@@ -40,9 +41,12 @@ export class DynamicFormComponent implements OnInit {
   itis_info: any[] = []
   emittedForms: any[] = []
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private recaptchaV3Service: ReCaptchaV3Service) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private recaptchaV3Service: ReCaptchaV3Service,
+    private translate : TranslateService
+  ) {
   }
-
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.emittedForms = []
@@ -312,5 +316,11 @@ export class DynamicFormComponent implements OnInit {
       const sanitizedValue = control.value.replace(/<[^>]*>/g, "");
       control.setValue(sanitizedValue, { emitEvent: false });
     }
+  }
+  getTranslatedName(field:any) {
+    const deflang = this.translate.getDefaultLang()
+    const currLang = this.translate.currentLang
+    if(deflang != currLang && field['name_'+currLang] != undefined) return field['name_'+currLang]
+    return field.name
   }
 }

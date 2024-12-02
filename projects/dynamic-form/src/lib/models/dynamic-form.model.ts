@@ -11,6 +11,7 @@ export interface DynamicFormScheme {
 export interface FieldScheme {
   type: FieldType
   name?: string
+  name_?: string
   src?: string
   options?: any
   length?: number

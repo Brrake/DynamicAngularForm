@@ -11,6 +11,7 @@ import { GOOGLE_CLIENT_ID_KEY } from "./config.token";
 import { DynamicModalComponent } from "../public-api";
 import { NgOtpInputModule } from "ng-otp-input";
 import { RouterModule } from "@angular/router";
+import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { RouterModule } from "@angular/router";
     FormsModule,
     NgxSliderModule,
     NgbModule,
+    TranslateModule,
     NgOtpInputModule,
     RecaptchaV3Module,
     RecaptchaFormsModule,

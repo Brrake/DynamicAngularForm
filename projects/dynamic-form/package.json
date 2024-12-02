@@ -1,6 +1,6 @@
 {
   "name": "dynamic-angular-form",
-  "version": "2.0.50",
+  "version": "2.0.53",
   "description": "Simple, easy and performance dynamic form for angular",
   "author": "Brrake <daviderubiu5@gmail.com>",
   "license": "MIT",
@@ -19,7 +19,9 @@
     "@angular/forms": "^17.0.0",
     "@angular/platform-browser": "^17.0.0",
     "@angular/platform-browser-dynamic": "^17.0.0",
-    "@angular/router": "^17.0.0"
+    "@angular/router": "^17.0.0",
+    "@ngx-translate/core": "^16.0.3",
+    "@ngx-translate/http-loader": "^16.0.0"
   },
   "dependencies": {
     "@angular-slider/ngx-slider": "^17.0.2",

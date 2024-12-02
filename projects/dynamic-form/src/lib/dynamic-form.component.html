@@ -20,16 +20,16 @@
                 [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
                 [id]="formScheme.formId+'-'+field.formControlName" autocomplete="on" type="password"
                 [class]="'form-control '+((formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched) ? 'pr-3':'pr-2')"
-                [placeholder]="field.name" [name]="field.formControlName"
+                [placeholder]="getTranslatedName(field)" [name]="field.formControlName"
                 [formControlName]="field.formControlName || ''">
               <span
                 [class]="'password-toggle '+((formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched) ? 'pw-invalid':'')"><i
                   class="uil uil-eye"></i></span>
-              <label [id]="formScheme.formId+'-'+field.formControlName+'-label'" [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
+              <label [id]="formScheme.formId+'-'+field.formControlName+'-label'" [for]="formScheme.formId+'-'+field.formControlName">{{getTranslatedName(field)}}</label>
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.checkbox)" class="mb-3 d-flex"
               style="align-items: center;justify-content: space-between;">
-              <label [id]="formScheme.formId+'-'+field.formControlName+'-label'" [for]="formScheme.formId+'-'+field.formControlName" class="col-form-label">{{field.name}}
+              <label [id]="formScheme.formId+'-'+field.formControlName+'-label'" [for]="formScheme.formId+'-'+field.formControlName" class="col-form-label">{{getTranslatedName(field)}}
                 :</label>
               <input
                 [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
@@ -47,7 +47,7 @@
                 [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
                 [id]="formScheme.formId+'-'+field.formControlName" [formControlName]="field.formControlName  || ''"
                 [name]="field.formControlName" class="form-select">
-                <option value="" disabled selected>{{field.name}}</option>
+                <option value="" disabled selected>{{getTranslatedName(field)}}</option>
                 <option *ngFor="let value of field.values" [value]="value.value">
                   {{value.name}}</option>
               </select>
@@ -80,32 +80,32 @@
                 [id]="'phone-'+fieldIdx">
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_image)" [id]="formScheme.formId+'-'+field.formControlName"
-              (click)="openSelectorFiles('input-file-'+(field.name || 'def'))"
+              (click)="openSelectorFiles('input-file-'+(getTranslatedName(field) || 'def'))"
               class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
               [style]="'font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;'+ (getDisplayImg(fieldIdx)!='' ? 'background-image: url('+getDisplayImg(fieldIdx)+');':'')">
               <a [hidden]="getDisplayImg(fieldIdx)!=''">+</a>
-              <input (change)="toAdd($event,fieldIdx)" [id]="'input-file-'+(field.name || 'def')" style="display: none;"
+              <input (change)="toAdd($event,fieldIdx)" [id]="'input-file-'+(getTranslatedName(field) || 'def')" style="display: none;"
                 type="file" [attr.multiple]="field.multiple ? field.multiple : null"
                 [attr.accept]=" field.accept ? field.accept :'image/png, image/gif, image/jpeg, image/jpg'">
             </div>
             <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_video)">
               <ng-container *ngIf="getDisplayVideo(fieldIdx)!='';else noVideo">
-                <div [id]="formScheme.formId+'-'+field.formControlName" (click)="openSelectorFiles('input-file-'+(field.name || 'def'))"
+                <div [id]="formScheme.formId+'-'+field.formControlName" (click)="openSelectorFiles('input-file-'+(getTranslatedName(field) || 'def'))"
                   class="video-container pointer lift mb-8"
                   style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
                   <video [src]="getDisplayVideo(fieldIdx)" [controls]="field.controls ? field.controls : null" [width]="field.width" playsinline autoplay [muted]="'muted'" loop id="bg-video">
                   </video>
-                  <input (change)="toAdd($event,fieldIdx,'video')" [id]="'input-file-'+(field.name || 'def')"
+                  <input (change)="toAdd($event,fieldIdx,'video')" [id]="'input-file-'+(getTranslatedName(field) || 'def')"
                     style="display: none;" type="file" [attr.multiple]="field.multiple ? field.multiple : null"
                     [attr.accept]=" field.accept ? field.accept :'video/mp4,video/x-m4v,video/*'">
                 </div>
               </ng-container>
               <ng-template #noVideo>
-                <div [id]="formScheme.formId+'-'+field.formControlName" (click)="openSelectorFiles('input-file-'+(field.name || 'def'))"
+                <div [id]="formScheme.formId+'-'+field.formControlName" (click)="openSelectorFiles('input-file-'+(getTranslatedName(field) || 'def'))"
                   class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
                   style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
                   <a>+</a>
-                  <input (change)="toAdd($event,fieldIdx,'video')" [id]="'input-file-'+(field.name || 'def')"
+                  <input (change)="toAdd($event,fieldIdx,'video')" [id]="'input-file-'+(getTranslatedName(field) || 'def')"
                     style="display: none;" type="file" [attr.multiple]="field.multiple ? field.multiple : null"
                     [attr.accept]=" field.accept ? field.accept :'video/mp4,video/x-m4v,video/*'">
                 </div>
@@ -115,13 +115,13 @@
               <textarea (input)="sanitizeInput(field.formControlName || '',idx)"
                 [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
                 [id]="formScheme.formId+'-'+field.formControlName" [formControlName]="field.formControlName || ''"
-                class="form-control" [placeholder]="field.name" style="height: 150px"></textarea>
-              <label [id]="formScheme.formId+'-'+field.formControlName+'-label'" [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
+                class="form-control" [placeholder]="getTranslatedName(field)" style="height: 150px"></textarea>
+              <label [id]="formScheme.formId+'-'+field.formControlName+'-label'" [for]="formScheme.formId+'-'+field.formControlName">{{getTranslatedName(field)}}</label>
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.date)" class="form-floating">
               <div [id]="formScheme.formId+'-'+field.formControlName" class="input-group">
                 <input class="form-control" [minDate]="field.minDate" [maxDate]="field.maxDate"
-                  [placeholder]="field.name ? field.name : 'yyyy-mm-dd'" [name]="field.formControlName"
+                  [placeholder]="getTranslatedName(field) ? getTranslatedName(field) : 'yyyy-mm-dd'" [name]="field.formControlName"
                   [formControlName]="field.formControlName || ''" ngbDatepicker #d="ngbDatepicker" />
                 <button class="btn bi bi-calendar3" (click)="d.toggle()" type="button"><i
                     class="uil uil-calendar-alt"></i></button>
@@ -129,7 +129,7 @@
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.time)" class="form-floating">
               <div [id]="formScheme.formId+'-'+field.formControlName" class="input-group d-grid">
-                <p>{{field.name}}</p>
+                <p>{{getTranslatedName(field)}}</p>
                 <ngb-timepicker [seconds]="true" class="d-flex justify-content-center"
                   [formControlName]="field.formControlName || ''">
                 </ngb-timepicker>
@@ -138,9 +138,9 @@
             <div *ngSwitchDefault class="form-floating">
               <input (input)="sanitizeInput(field.formControlName || '',idx)" [id]="formScheme.formId+'-'+field.formControlName" [type]="field.type"
                 [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
-                class="form-control" [placeholder]="field.name" [formControlName]="field.formControlName  || ''"
+                class="form-control" [placeholder]="getTranslatedName(field)" [formControlName]="field.formControlName  || ''"
                 [name]="field.formControlName">
-              <label [id]="formScheme.formId+'-'+field.formControlName+'-label'" [for]="formScheme.formId+'-'+field.formControlName">{{field.name}}</label>
+              <label [id]="formScheme.formId+'-'+field.formControlName+'-label'" [for]="formScheme.formId+'-'+field.formControlName">{{getTranslatedName(field)}}</label>
             </div>
             <div
               *ngIf="!formGroup[idx].get(field.formControlName || '')?.valid && (formGroup[idx].get(field.formControlName || '')?.dirty || formGroup[idx].get(field.formControlName || '')?.touched)"
