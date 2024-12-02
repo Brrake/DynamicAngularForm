@@ -64,8 +64,8 @@
               </div>
 
             </div>
-            <p [id]="formScheme.formId+'-'+field.formControlName" *ngSwitchCase="getRealFieldType(FieldTypesEnum.section_info)" class="lead mb-6 text-start">
-              {{field.default_value}}</p>
+            <p [id]="formScheme.formId+'-section_info-'+fieldIdx" *ngSwitchCase="getRealFieldType(FieldTypesEnum.section_info)" class="lead mb-6 text-start">
+              {{getTranslatedName(field,'default_value')}}</p>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.show_image)" class="mb-4">
               <img [id]="formScheme.formId+'-'+field.formControlName" [width]="field.width" [src]="field.src">
             </div>
