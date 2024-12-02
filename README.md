@@ -225,6 +225,7 @@ HTML ->
 | Property | Type   | Description           |
 |----------|--------|-----------------------|
 | `name`   | `string` | Display name of the option. |
+| `name_{LANGUAGE}`| `string (optional)`    | Name translated of the field. |
 | `value`  | `string` | Value of the option. |
 
 ## `AddonScheme`

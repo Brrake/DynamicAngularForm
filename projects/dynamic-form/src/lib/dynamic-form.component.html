@@ -49,7 +49,7 @@
                 [name]="field.formControlName" class="form-select">
                 <option value="" disabled selected>{{getTranslatedName(field)}}</option>
                 <option *ngFor="let value of field.values" [value]="value.value">
-                  {{value.name}}</option>
+                  {{getTranslatedName(value,'name')}}</option>
               </select>
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.g_recaptcha)">
