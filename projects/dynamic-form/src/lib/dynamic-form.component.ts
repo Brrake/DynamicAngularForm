@@ -318,9 +318,8 @@ export class DynamicFormComponent implements OnInit {
     }
   }
   getTranslatedName(field:any, key: string = 'name'): string {
-    const deflang = this.translate.getDefaultLang()
     const currLang = this.translate.currentLang
-    if(deflang != currLang && field[key+'_'+currLang] != undefined) return field[key+'_'+currLang]
+    if(currLang != 'it' && field[key+'_'+currLang] != undefined) return field[key+'_'+currLang]
     return field[key]
   }
 }
