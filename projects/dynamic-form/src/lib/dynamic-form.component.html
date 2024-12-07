@@ -120,7 +120,7 @@
             </div>
             <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.date)" class="form-floating">
               <div [id]="formScheme.formId+'-'+field.formControlName" class="input-group">
-                <input class="form-control" [minDate]="field.minDate" [maxDate]="field.maxDate"
+                <input class="form-control" [minDate]="field.minDate || defMinDate" [maxDate]="field.maxDate || defMaxDate"
                   [placeholder]="getTranslatedName(field) ? getTranslatedName(field) : 'yyyy-mm-dd'" [name]="field.formControlName"
                   [formControlName]="field.formControlName || ''" ngbDatepicker #d="ngbDatepicker" />
                 <button class="btn bi bi-calendar3" (click)="d.toggle()" type="button"><i

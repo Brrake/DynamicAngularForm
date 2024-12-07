@@ -33,6 +33,9 @@ export class DynamicFormComponent implements OnInit {
   public ButtonsEnum: typeof ButtonType = ButtonType
   public hrefTypes: typeof HrefTypes = HrefTypes
 
+  defMinDate = { year: 1930, month: 1, day: 1 }
+  defMaxDate = { year: new Date().setFullYear(new Date().getFullYear()+5), month: 12, day: 31 }
+
   displayImg: string[] = []
   displayVideo: string[] = []
   addTree: any = []
