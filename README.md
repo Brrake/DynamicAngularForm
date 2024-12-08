@@ -205,6 +205,7 @@ HTML ->
 | Value           | Description                      |
 |-----------------|----------------------------------|
 | `text`          | Represents a text input field.   |
+| `radio`          | Represents a radio input field.   |
 | `date`          | Represents a date input field.   |
 | `otp`           | Represents an OTP input field.   |
 | `time`          | Represents a time input field.   |

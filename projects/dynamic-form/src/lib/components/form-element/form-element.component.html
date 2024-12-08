@@ -19,7 +19,7 @@
       </div>
     </ng-container>
     <ng-container *ngSwitchCase="getRealFieldType('checkbox')">
-      <div class="form-check" [formGroup]="form">
+      <div class="form-check text-end" [formGroup]="form">
         <input [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
           [name]="formName" [formControlName]="formName" class="form-check-input" type="checkbox" value="" [id]="id">
         <label class="form-check-label" [for]="id"> {{label}} </label>
@@ -79,7 +79,7 @@
       <a class="text-center" [hidden]="displayImg!=''">+</a>
       <input (change)="toAdd($event)" [id]="'input-file-'+id" style="display: none;" type="file"
         [attr.multiple]="multiple ? multiple : null"
-        [attr.accept]="accept!='' ? accept :'image/png, image/gif, image/jpeg, image/jpg'">
+        [attr.accept]="(accept!='' && accept!=null && accept!=undefined) ? accept :'image/png, image/gif, image/jpeg, image/jpg'">
     </div>
     <ng-container *ngSwitchCase="getRealFieldType('add_video')">
       <ng-container *ngIf="displayVideo!='';else noVideo">
@@ -90,7 +90,7 @@
           </video>
           <input (change)="toAdd($event,'video')" [id]="'input-file-'+id" style="display: none;" type="file"
             [attr.multiple]="multiple ? multiple : null"
-            [attr.accept]=" accept!='' ? accept :'video/mp4,video/x-m4v,video/*'">
+            [attr.accept]=" (accept!='' && accept!=null && accept!=undefined) ? accept :'video/mp4,video/x-m4v,video/*'">
         </div>
       </ng-container>
       <ng-template #noVideo>
@@ -100,7 +100,7 @@
           <a class="text-center">+</a>
           <input (change)="toAdd($event,'video')" [id]="'input-file-'+id" style="display: none;" type="file"
             [attr.multiple]="multiple ? multiple : null"
-            [attr.accept]=" accept!='' ? accept :'video/mp4,video/x-m4v,video/*'">
+            [attr.accept]=" (accept!='' && accept!=null && accept!=undefined) ? accept :'video/mp4,video/x-m4v,video/*'">
         </div>
       </ng-template>
     </ng-container>
