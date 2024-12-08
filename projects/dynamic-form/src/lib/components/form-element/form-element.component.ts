@@ -9,7 +9,6 @@ import { TranslateService } from '@ngx-translate/core';
 export class FormElementComponent {
   @Input() id:string = '';
   @Input() type:FieldType = FieldType.text;
-  @Input() visible:boolean=true;
   @Input() label:string = 'Example';
   @Input() form:any;
   @Input() formName:string = 'example';
