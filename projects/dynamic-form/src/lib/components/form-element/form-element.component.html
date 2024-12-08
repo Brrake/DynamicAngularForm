@@ -73,32 +73,32 @@
     <div *ngSwitchCase="getRealFieldType('show_video')" class="mb-4">
       <video [id]="id" [controls]="controls" [width]="width" [src]="src"></video>
     </div>
-    <div *ngSwitchCase="getRealFieldType('add_image')" [id]="id" (click)="openSelectorFiles('input-file-'+id)"
+    <div *ngSwitchCase="getRealFieldType('add_image')" [id]="id" (click)="openSelectorFiles('input-file-'+label)"
       class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
       [style]="'font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;'+ (displayImg!='' ? 'background-image: url('+displayImg+');':'')">
       <a class="text-center" [hidden]="displayImg!=''">+</a>
-      <input (change)="toAdd($event)" [id]="'input-file-'+id" style="display: none;" type="file"
+      <input (change)="toAdd($event)" [id]="'input-file-'+label" style="display: none;" type="file"
         [attr.multiple]="multiple ? multiple : null"
         [attr.accept]="(accept!='' && accept!=null && accept!=undefined) ? accept :'image/png, image/gif, image/jpeg, image/jpg'">
     </div>
     <ng-container *ngSwitchCase="getRealFieldType('add_video')">
       <ng-container *ngIf="displayVideo!='';else noVideo">
-        <div [id]="id" (click)="openSelectorFiles('input-file-'+id)" class="video-container pointer lift mb-8"
+        <div [id]="id" (click)="openSelectorFiles('input-file-'+label)" class="video-container pointer lift mb-8"
           style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
           <video [src]="displayVideo" [controls]="controls ? controls : null" [width]="width" playsinline autoplay
             [muted]="'muted'" loop id="bg-video">
           </video>
-          <input (change)="toAdd($event,'video')" [id]="'input-file-'+id" style="display: none;" type="file"
+          <input (change)="toAdd($event,'video')" [id]="'input-file-'+label" style="display: none;" type="file"
             [attr.multiple]="multiple ? multiple : null"
             [attr.accept]=" (accept!='' && accept!=null && accept!=undefined) ? accept :'video/mp4,video/x-m4v,video/*'">
         </div>
       </ng-container>
       <ng-template #noVideo>
-        <div [id]="id" (click)="openSelectorFiles('input-file-'+id)"
+        <div [id]="id" (click)="openSelectorFiles('input-file-'+label)"
           class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
           style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
           <a class="text-center">+</a>
-          <input (change)="toAdd($event,'video')" [id]="'input-file-'+id" style="display: none;" type="file"
+          <input (change)="toAdd($event,'video')" [id]="'input-file-'+label" style="display: none;" type="file"
             [attr.multiple]="multiple ? multiple : null"
             [attr.accept]=" (accept!='' && accept!=null && accept!=undefined) ? accept :'video/mp4,video/x-m4v,video/*'">
         </div>
