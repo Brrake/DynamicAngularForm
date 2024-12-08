@@ -1,157 +1,24 @@
 <ng-container *ngFor="let formScheme of formSchemes;let idx = index">
   <ng-container *ngIf="(formScheme.active_page) || (formSchemes.length == 1)">
     <h2 [id]="'title-'+idx" class="mb-3 text-start">{{getTranslatedName(formScheme,'title')}}</h2>
-    <p [id]="'description-'+idx" *ngIf="getTranslatedName(formScheme,'description')" class="lead mb-6 text-start">{{getTranslatedName(formScheme,'description')}}
+    <p [id]="'description-'+idx" *ngIf="getTranslatedName(formScheme,'description')" class="lead mb-6 text-start">
+      {{getTranslatedName(formScheme,'description')}}
     </p>
     <form [id]="formScheme.formId || 'defId'" [formGroup]="formGroup[idx]" (ngSubmit)="onSubmitForm(idx)" class="mt-4">
       <ng-container *ngFor="let field of formScheme.fields;let fieldIdx = index">
-        <div [class]="(field.visible == false ? 'hidden':'')" class="mb-4" [id]="formScheme.formId+'-'+field.formControlName+'-main'">
-          <ng-container [ngSwitch]="field.type">
-            <div *ngIf="field.top_label" class="text-left" [id]="formScheme.formId+'-'+field.formControlName+'-toplabel'">
-              <p class="col-form-label" style="color: #60697b;">{{getTranslatedName(field,'top_label')}}</p>
-            </div>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.slider)" class="form-floating password-field">
-              <ngx-slider [id]="formScheme.formId+'-'+field.formControlName"
-                [formControlName]="field.formControlName || ''" (value)="field.default_value"
-                [options]="getSliderOptions(field.options)" />
-            </div>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)" class="form-floating password-field">
-              <input [style]=""
-                [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
-                [id]="formScheme.formId+'-'+field.formControlName" autocomplete="on" type="password"
-                [class]="'form-control '+((formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched) ? 'pr-3':'pr-2')"
-                [placeholder]="getTranslatedName(field)" [name]="field.formControlName"
-                [formControlName]="field.formControlName || ''">
-              <span
-                [class]="'password-toggle '+((formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched) ? 'pw-invalid':'')"><i
-                  class="uil uil-eye"></i></span>
-              <label [id]="formScheme.formId+'-'+field.formControlName+'-label'" [for]="formScheme.formId+'-'+field.formControlName">{{getTranslatedName(field)}}</label>
-            </div>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.checkbox)" class="mb-3 d-flex"
-              style="align-items: center;justify-content: space-between;">
-              <label [id]="formScheme.formId+'-'+field.formControlName+'-label'" [for]="formScheme.formId+'-'+field.formControlName" class="col-form-label">{{getTranslatedName(field)}}
-                :</label>
-              <input
-                [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
-                [id]="formScheme.formId+'-'+field.formControlName" [name]="field.formControlName"
-                [formControlName]="field.formControlName || ''" style="margin-left: 15px;" class="form-check-input"
-                type="checkbox">
-            </div>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.otp)" class="mb-3 d-flex"
-              style="align-items: center;justify-content: center;">
-              <ng-otp-input [id]="formScheme.formId+'-'+field.formControlName" (onInputChange)="onOtpChange($event,idx, field.formControlName || '')"
-                [config]="{length:field.length || 6, inputClass:'otp-input',allowNumbersOnly:true,placeholder:'0'}"></ng-otp-input>
-            </div>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.select)" class="form-select-wrapper">
-              <select
-                [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
-                [id]="formScheme.formId+'-'+field.formControlName" [formControlName]="field.formControlName  || ''"
-                [name]="field.formControlName" class="form-select">
-                <option value="" disabled selected>{{getTranslatedName(field)}}</option>
-                <option *ngFor="let value of field.values" [value]="value.value">
-                  {{getTranslatedName(value,'name')}}</option>
-              </select>
-            </div>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.g_recaptcha)">
+        <div [class]="(field.visible == false ? 'hidden':'')" class="mb-4"
+          [id]="formScheme.formId+'-'+field.formControlName+'-main'">
 
-              <div class="row mt-3" *ngIf="field.version == 'v2' || !field.version">
-                <div class="col-sm-12 mb-2 g-recaptcha">
-                  <re-captcha [id]="formScheme.formId+'-'+field.formControlName" class="d-flex justify-content-center"
-                    style="transform:scale(1);-webkit-transform:scale(1);transform-origin:0 0;-webkit-transform-origin:0 0;"
-                    [formControlName]="field.formControlName  || ''"
-                    [class.is-invalid]="formGroup[idx].get(field.formControlName  || '')?.invalid && (formGroup[idx].get(field.formControlName  || '')?.dirty || formGroup[idx].get(field.formControlName  || '')?.touched)"></re-captcha>
-                </div>
-              </div>
+          <div *ngIf="field.top_label" class="text-left" [id]="formScheme.formId+'-'+field.formControlName+'-toplabel'">
+            <p class="col-form-label" style="color: #60697b;">{{getTranslatedName(field,'top_label')}}</p>
+          </div>
+          <form-element [id]="formScheme.formId+'-'+field.formControlName" [type]="field.type"
+            [label]="getTranslatedName(field)" [formName]="field.formControlName || ''" [form]="formGroup[idx]"
+            [values]="field.values || []" [options]="field.options || {}" [length]="field.length || 6"
+            [controls]="field.controls || ''" [width]="field.width || ''" [src]="field.src || ''"
+            [multiple]="field.multiple || false" [accept]="field.accept || ''" [minDate]="field.minDate || ''"
+            [maxDate]="field.maxDate || ''" [version]="field.version || ''" [errors]="field.errors || []" (onChooseMedia)="onChooseMedia($event)" />
 
-            </div>
-            <p [id]="formScheme.formId+'-section_info-'+fieldIdx" *ngSwitchCase="getRealFieldType(FieldTypesEnum.section_info)" class="lead mb-6 text-start">
-              {{getTranslatedName(field,'default_value')}}</p>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.show_image)" class="mb-4">
-              <img [id]="formScheme.formId+'-'+field.formControlName" [width]="field.width" [src]="field.src">
-            </div>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.show_video)" class="mb-4">
-              <video [id]="formScheme.formId+'-'+field.formControlName" [controls]="field.controls" [width]="field.width" [src]="field.src"></video>
-            </div>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.telephone)" class="mb-4">
-              <input
-                [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
-                (input)="updatePhoneField($event,idx,field.formControlName || '')"
-                [value]="formGroup[idx].get(field.formControlName || '')?.value.default || ''" class="form-control"
-                [id]="'phone-'+fieldIdx">
-            </div>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_image)" [id]="formScheme.formId+'-'+field.formControlName"
-              (click)="openSelectorFiles('input-file-'+(getTranslatedName(field) || 'def'))"
-              class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
-              [style]="'font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;'+ (getDisplayImg(fieldIdx)!='' ? 'background-image: url('+getDisplayImg(fieldIdx)+');':'')">
-              <a [hidden]="getDisplayImg(fieldIdx)!=''">+</a>
-              <input (change)="toAdd($event,fieldIdx)" [id]="'input-file-'+(getTranslatedName(field) || 'def')" style="display: none;"
-                type="file" [attr.multiple]="field.multiple ? field.multiple : null"
-                [attr.accept]=" field.accept ? field.accept :'image/png, image/gif, image/jpeg, image/jpg'">
-            </div>
-            <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_video)">
-              <ng-container *ngIf="getDisplayVideo(fieldIdx)!='';else noVideo">
-                <div [id]="formScheme.formId+'-'+field.formControlName" (click)="openSelectorFiles('input-file-'+(getTranslatedName(field) || 'def'))"
-                  class="video-container pointer lift mb-8"
-                  style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
-                  <video [src]="getDisplayVideo(fieldIdx)" [controls]="field.controls ? field.controls : null" [width]="field.width" playsinline autoplay [muted]="'muted'" loop id="bg-video">
-                  </video>
-                  <input (change)="toAdd($event,fieldIdx,'video')" [id]="'input-file-'+(getTranslatedName(field) || 'def')"
-                    style="display: none;" type="file" [attr.multiple]="field.multiple ? field.multiple : null"
-                    [attr.accept]=" field.accept ? field.accept :'video/mp4,video/x-m4v,video/*'">
-                </div>
-              </ng-container>
-              <ng-template #noVideo>
-                <div [id]="formScheme.formId+'-'+field.formControlName" (click)="openSelectorFiles('input-file-'+(getTranslatedName(field) || 'def'))"
-                  class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
-                  style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
-                  <a>+</a>
-                  <input (change)="toAdd($event,fieldIdx,'video')" [id]="'input-file-'+(getTranslatedName(field) || 'def')"
-                    style="display: none;" type="file" [attr.multiple]="field.multiple ? field.multiple : null"
-                    [attr.accept]=" field.accept ? field.accept :'video/mp4,video/x-m4v,video/*'">
-                </div>
-              </ng-template>
-            </ng-container>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.textarea)" class="form-floating">
-              <textarea (input)="sanitizeInput(field.formControlName || '',idx)"
-                [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
-                [id]="formScheme.formId+'-'+field.formControlName" [formControlName]="field.formControlName || ''"
-                class="form-control" [placeholder]="getTranslatedName(field)" style="height: 150px"></textarea>
-              <label [id]="formScheme.formId+'-'+field.formControlName+'-label'" [for]="formScheme.formId+'-'+field.formControlName">{{getTranslatedName(field)}}</label>
-            </div>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.date)" class="form-floating">
-              <div [id]="formScheme.formId+'-'+field.formControlName" class="input-group">
-                <input class="form-control" [minDate]="field.minDate || defMinDate" [maxDate]="field.maxDate || defMaxDate"
-                  [placeholder]="getTranslatedName(field) ? getTranslatedName(field) : 'yyyy-mm-dd'" [name]="field.formControlName"
-                  [formControlName]="field.formControlName || ''" ngbDatepicker #d="ngbDatepicker" />
-                <button class="btn bi bi-calendar3" (click)="d.toggle()" type="button"><i
-                    class="uil uil-calendar-alt"></i></button>
-              </div>
-            </div>
-            <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.time)" class="form-floating">
-              <div [id]="formScheme.formId+'-'+field.formControlName" class="input-group d-grid">
-                <p>{{getTranslatedName(field)}}</p>
-                <ngb-timepicker [seconds]="true" class="d-flex justify-content-center"
-                  [formControlName]="field.formControlName || ''">
-                </ngb-timepicker>
-              </div>
-            </div>
-            <div *ngSwitchDefault class="form-floating">
-              <input (input)="sanitizeInput(field.formControlName || '',idx)" [id]="formScheme.formId+'-'+field.formControlName" [type]="field.type"
-                [ngClass]="{'is-invalid': formGroup[idx].get(field.formControlName || '')?.invalid && formGroup[idx].get(field.formControlName || '')?.touched}"
-                class="form-control" [placeholder]="getTranslatedName(field)" [formControlName]="field.formControlName  || ''"
-                [name]="field.formControlName">
-              <label [id]="formScheme.formId+'-'+field.formControlName+'-label'" [for]="formScheme.formId+'-'+field.formControlName">{{getTranslatedName(field)}}</label>
-            </div>
-            <div
-              *ngIf="!formGroup[idx].get(field.formControlName || '')?.valid && (formGroup[idx].get(field.formControlName || '')?.dirty || formGroup[idx].get(field.formControlName || '')?.touched)"
-              class="alert alert-danger">
-              <div *ngFor="let error of field.errors">
-                <div [hidden]="!formGroup[idx].get(field?.formControlName || '')?.errors?.[error.name.toLowerCase()]">
-                  {{getTranslatedName(error,'text')}}
-                </div>
-              </div>
-            </div>
-          </ng-container>
         </div>
       </ng-container>
       <div *ngFor="let error of formScheme.custom_validators">
@@ -165,18 +32,18 @@
       </div>
       <div class="d-flex justify-content-center">
         <div *ngFor="let button of formScheme.buttons" [ngSwitch]="button.type" class="mb-3">
-          <button-loader [margin]="button.margin || false" (onSubmit)="onClose()" *ngSwitchCase="ButtonsEnum.close" [isFormValid]="true"
-            [text]="getTranslatedName(button)" type="button" [text_color]="button.text_color" [color]="button.button_color"
-            data-bs-dismiss="modal" />
+          <button-loader [margin]="button.margin || false" (onSubmit)="onClose()" *ngSwitchCase="ButtonsEnum.close"
+            [isFormValid]="true" [text]="getTranslatedName(button)" type="button" [text_color]="button.text_color"
+            [color]="button.button_color" data-bs-dismiss="modal" />
           <button-loader [margin]="button.margin || false" *ngSwitchCase="ButtonsEnum.test" [isFormValid]="true"
-            [text]="getTranslatedName(button)" type="button" (onSubmit)="onTestSubmit()" [text_color]="button.text_color"
-            [color]="button.button_color" />
+            [text]="getTranslatedName(button)" type="button" (onSubmit)="onTestSubmit()"
+            [text_color]="button.text_color" [color]="button.button_color" />
           <button-loader [margin]="button.margin || false" *ngSwitchCase="ButtonsEnum.back" [isFormValid]="true"
             [text]="getTranslatedName(button)" type="button" (onSubmit)="onBackPage(button.page || 0)"
             [text_color]="button.text_color" [color]="button.button_color" />
           <button-loader [margin]="button.margin || false" *ngSwitchCase="ButtonsEnum.submit"
-            [loadSpinner]="loadSpinner" [isFormValid]="formGroup[idx].valid" [text]="getTranslatedName(button)" type="submit"
-            [text_color]="button.text_color" [color]="button.button_color" />
+            [loadSpinner]="loadSpinner" [isFormValid]="formGroup[idx].valid" [text]="getTranslatedName(button)"
+            type="submit" [text_color]="button.text_color" [color]="button.button_color" />
         </div>
       </div>
     </form>
@@ -196,7 +63,8 @@
         </p>
       </div>
       <div *ngSwitchCase="AddonsEnum.google_login" class="mt-3">
-        <div [id]="'google-uppertext-'+idx" class="divider-icon my-4" *ngIf="addon.upper_text">{{getTranslatedName(addon,'upper_text')}}
+        <div [id]="'google-uppertext-'+idx" class="divider-icon my-4" *ngIf="addon.upper_text">
+          {{getTranslatedName(addon,'upper_text')}}
         </div>
         <nav class="nav social justify-content-center text-center">
           <google-login (loginWithGoogle)="handleGoogleLoginV2($event)" [type]="addon.type || ''"

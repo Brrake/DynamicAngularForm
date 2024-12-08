@@ -12,12 +12,14 @@ import { DynamicModalComponent } from "../public-api";
 import { NgOtpInputModule } from "ng-otp-input";
 import { RouterModule } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
+import { FormElementComponent } from "./components/form-element/form-element.component";
 
 @NgModule({
   declarations: [
     DynamicFormComponent,
     ButtonLoaderComponent,
     DynamicModalComponent,
+    FormElementComponent,
     GoogleLoginComponent
   ],
   imports : [
@@ -37,6 +39,7 @@ import { TranslateModule } from "@ngx-translate/core";
     DynamicFormComponent,
     ButtonLoaderComponent,
     DynamicModalComponent,
+    FormElementComponent,
     GoogleLoginComponent
   ],
   providers: [

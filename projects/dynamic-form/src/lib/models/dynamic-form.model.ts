@@ -93,6 +93,7 @@ export enum AddonType {
 export enum FieldType {
   text = 'text',
   date = 'date',
+  radio = 'radio',
   otp = 'otp',
   time = 'time',
   select = 'select',

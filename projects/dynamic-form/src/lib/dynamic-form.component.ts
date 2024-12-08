@@ -83,7 +83,7 @@ export class DynamicFormComponent implements OnInit {
               const phone = document.getElementById("phone-" + j) as HTMLInputElement
               let iti = intlTelInput(phone, {
                 initialCountry: "auto",
-                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/23.0.11/js/utils.js",
+                loadUtilsOnInit: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/23.0.11/js/utils.js",
                 customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
                   return "e.g. " + selectedCountryPlaceholder;
                 },
@@ -121,16 +121,7 @@ export class DynamicFormComponent implements OnInit {
       }
     }
   }
-  onOtpChange(event: any, formIdx: number, formControlName: string) {
-    this.formGroup[formIdx].patchValue({ [formControlName]: event })
-  }
-  updatePhoneField(event: any, formIdx: number, formControlName: string): void {
-    const newDefault = event.target.value;
-    let currIti = this.itis_info.find(iti => iti.formControlName == formControlName);
-    const newValue = { formatted: `${currIti.iti?.getNumber()}`, default: newDefault };
-    this.formGroup[formIdx].get(formControlName)?.setValue(newValue);
-  }
-  addFormControl(fieldName: string, default_value: string, validators: any, formGroupIndex: number, fieldDisabled: boolean) {
+  private addFormControl(fieldName: string, default_value: string, validators: any, formGroupIndex: number, fieldDisabled: boolean) {
     let valArr = []
     for (let i = 0; i < validators?.length; i++) {
       const val = validators[i]
@@ -174,15 +165,6 @@ export class DynamicFormComponent implements OnInit {
       value: default_value,
       disabled: fieldDisabled
     }, Validators.compose(valArr)));
-  }
-  getSliderOptions(options: any) {
-    let body = {
-      ...options,
-      getPointerColor: (value: number) => {
-        return 'var(--bs-primary)'
-      }
-    }
-    return body
   }
   updateForm(formGroup: number, values: any) {
     this.formGroup[formGroup].patchValue(values)
@@ -254,39 +236,7 @@ export class DynamicFormComponent implements OnInit {
     this.emittedForms = []
     this.ngOnInit()
   }
-  getDisplayImg(idx: number) {
-    if (this.displayImg[idx] != '' && this.displayImg[idx] != undefined) {
-      return this.displayImg[idx]
-    }
-    return ''
-  }
-  getDisplayVideo(idx: number) {
-    if (this.displayVideo[idx] != '' && this.displayVideo[idx] != undefined) {
-      return this.displayVideo[idx]
-    }
-    return ''
-  }
-  openSelectorFiles(id: string) {
-    const selector = document.getElementById(id) as HTMLElement
-    selector.click()
-  }
-  toAdd(event: any, idx: number, mode: string = 'img') {
-    if (mode == 'img') {
-      this.addTree = []
-      this.displayImg[idx] = URL.createObjectURL(event.target.files[0])
-      for (let file of event.target.files) {
-        var src = URL.createObjectURL(file);
-        this.addTree.push({ file: file, src: src });
-      }
-    } else if (mode == 'video') {
-      this.addVideoTree = []
-      this.displayVideo[idx] = URL.createObjectURL(event.target.files[0])
-      for (let file of event.target.files) {
-        var src = URL.createObjectURL(file);
-        this.addVideoTree.push({ file: file, src: src });
-      }
-    }
-  }
+
   handleGoogleLoginV2(response: any) {
     this.loginWithGoogle.emit(response);
   }
@@ -310,19 +260,18 @@ export class DynamicFormComponent implements OnInit {
   closeModal() {
     if (this.isOnModal) setTimeout(() => { document.getElementById('closeModalButt')?.click() });
   }
-  getRealFieldType(fieldType: string) {
-    return fieldType.replace(/_/g, '-').toLowerCase().trim()
-  }
-  sanitizeInput(formControlName: string, idx: number) {
-    const control = this.formGroup[idx].get(formControlName);
-    if (control) {
-      const sanitizedValue = control.value.replace(/<[^>]*>/g, "");
-      control.setValue(sanitizedValue, { emitEvent: false });
-    }
-  }
+
   getTranslatedName(field:any, key: string = 'name'): string {
     const currLang = this.translate.currentLang
     if(currLang != 'it' && field[key+'_'+currLang] != undefined) return field[key+'_'+currLang]
     return field[key]
+  }
+
+  onChooseMedia(event:any){
+    if(event.mode == 'img'){
+      this.addTree = event.files
+    } else if(event.mode == 'video'){
+      this.addVideoTree = event.files
+    }
   }
 }
