@@ -143,12 +143,6 @@ export class DynamicFormComponent implements OnInit {
   updateForm(formGroup: number, values: any) {
     this.formGroup[formGroup].patchValue(values)
   }
-  handleFormChanges(formGroup: number){
-    this.formGroup[formGroup].valueChanges.subscribe((formValues) => {
-      console.log('Form changed:', formValues);
-      // Respond to any form-wide changes here if needed
-    });
-  }
   onSubmitForm(idx: number) {
     // Se vuole usare recaptcha v3
     //this.formSchemes[idx].active_page = false
