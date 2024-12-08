@@ -1,53 +1,74 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FieldType, SelectValueScheme } from '../../models/dynamic-form.model';
 import { TranslateService } from '@ngx-translate/core';
+import intlTelInput, { Iti } from 'intl-tel-input';
+import { createIsValidNumberValidator } from '../../custom_validators/createIsValidNumberValidator.validator';
+
 @Component({
   selector: 'form-element',
   templateUrl: './form-element.component.html',
   styleUrls: ['./form-element.component.scss']
 })
-export class FormElementComponent {
-  @Input() id:string = '';
-  @Input() type:FieldType = FieldType.text;
-  @Input() label:string = 'Example';
-  @Input() form:any;
-  @Input() formName:string = 'example';
+export class FormElementComponent implements OnInit {
+  @Input() id: string = '';
+  @Input() type: FieldType = FieldType.text;
+  @Input() label: string = 'Example';
+  @Input() form: any;
+  @Input() formName: string = 'example';
   // Select
-  @Input() values:SelectValueScheme[] = [];
+  @Input() values: SelectValueScheme[] = [];
   // Slider
-  @Input() options:any;
+  @Input() options: any;
   // OTP
-  @Input() length:number = 6;
+  @Input() length: number = 6;
   // show_video and show_image
-  @Input() controls:string='';
-  @Input() width!:string;
-  @Input() src:string='';
+  @Input() controls: string = '';
+  @Input() width!: string;
+  @Input() src: string = '';
   // add_image
-  @Input() multiple:boolean=false;
-  @Input() accept:string='';
+  @Input() multiple: boolean = false;
+  @Input() accept: string = '';
   @Output() onChooseMedia: EventEmitter<any> = new EventEmitter()
 
   // Date
-  @Input() minDate:any;
-  @Input() maxDate:any;
+  @Input() minDate: any;
+  @Input() maxDate: any;
   defMinDate = { year: 1930, month: 1, day: 1 }
-  defMaxDate = { year: new Date().setFullYear(new Date().getFullYear()+5), month: 12, day: 31 }
+  defMaxDate = { year: new Date().setFullYear(new Date().getFullYear() + 5), month: 12, day: 31 }
   //G-Recaptcha
-  @Input() version:string = '';
+  @Input() version: string = '';
 
   // Errors
-  @Input() errors:any[] = [];
+  @Input() errors: any[] = [];
 
 
-  displayImg: string = ''
-  displayVideo: string = ''
-  private addTree: any = []
-  private addVideoTree: any = []
+  displayMedia: string = ''
   private itis_info: any[] = []
   public FieldTypesEnum: typeof FieldType = FieldType
 
-  constructor(private translate:TranslateService) { }
-
+  constructor(private translate: TranslateService) { }
+  ngOnInit() {
+    if (this.type == this.FieldTypesEnum.telephone) {
+      setTimeout(() => {
+        const phone = document.getElementById(this.id) as HTMLInputElement
+        let iti = intlTelInput(phone, {
+          initialCountry: "auto",
+          loadUtilsOnInit: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/23.0.11/js/utils.js",
+          customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
+            return "e.g. " + selectedCountryPlaceholder;
+          },
+          geoIpLookup: function (success, failure) {
+            fetch("https://ipapi.co/json")
+              .then(function (res) { return res.json(); })
+              .then(function (data) { success(data.country_code); })
+              .catch(function () { failure(); });
+          }
+        }) as Iti;
+        this.itis_info.push({ iti: iti, formControlName: this.formName as string })
+        this.form.addValidators(createIsValidNumberValidator(() => iti))
+      })
+    }
+  }
   sanitizeInput(formControlName: string) {
     const control = this.form.get(formControlName);
     if (control) {
@@ -85,33 +106,20 @@ export class FormElementComponent {
     selector.click()
   }
   toAdd(event: any, mode: string = 'img') {
-    if (mode == 'img') {
-      this.addTree = []
-      this.displayImg = URL.createObjectURL(event.target.files[0])
-      for (let file of event.target.files) {
-        var src = URL.createObjectURL(file);
-        this.addTree.push({ file: file, src: src });
-      }
-      this.onChooseMedia.emit({
-        files:this.addTree,
-        mode:mode
-      });
-    } else if (mode == 'video') {
-      this.addVideoTree = []
-      this.displayVideo = URL.createObjectURL(event.target.files[0])
-      for (let file of event.target.files) {
-        var src = URL.createObjectURL(file);
-        this.addVideoTree.push({ file: file, src: src });
-      }
-      this.onChooseMedia.emit({
-        files:this.addVideoTree,
-        mode:mode
-      });
+    let addTree = []
+    this.displayMedia = URL.createObjectURL(event.target.files[0])
+    for (let file of event.target.files) {
+      var src = URL.createObjectURL(file);
+      addTree.push({ file: file, src: src });
     }
+    this.onChooseMedia.emit({
+      files: addTree,
+      mode: mode
+    });
   }
-  getTranslatedName(field:any, key: string = 'name'): string {
+  getTranslatedName(field: any, key: string = 'name'): string {
     const currLang = this.translate.currentLang
-    if(currLang != 'it' && field[key+'_'+currLang] != undefined) return field[key+'_'+currLang]
+    if (currLang != 'it' && field[key + '_' + currLang] != undefined) return field[key + '_' + currLang]
     return field[key]
   }
 }

@@ -1,5 +1,5 @@
 <ng-container [ngSwitch]="type">
-  <div *ngSwitchCase="getRealFieldType('g_recaptcha')">
+  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.g_recaptcha)">
     <div class="row mt-3" *ngIf="version == 'v2' || !version">
       <div class="col-sm-12 mb-2 g-recaptcha">
         <re-captcha [id]="id" class="d-flex justify-content-center"
@@ -9,7 +9,7 @@
       </div>
     </div>
   </div>
-  <ng-container *ngSwitchCase="getRealFieldType('textarea')">
+  <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.textarea)">
     <div class="form-floating mb-4" [formGroup]="form">
       <textarea [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
         [name]="formName" (input)="sanitizeInput(formName)" [formControlName]="formName" [id]="id" class="form-control"
@@ -17,21 +17,21 @@
       <label [for]="id">{{label}}</label>
     </div>
   </ng-container>
-  <ng-container *ngSwitchCase="getRealFieldType('checkbox')">
+  <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.checkbox)">
     <div class="form-check text-end" [formGroup]="form">
       <input [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
         [name]="formName" [formControlName]="formName" class="form-check-input" type="checkbox" value="" [id]="id">
       <label class="form-check-label" [for]="id"> {{label}} </label>
     </div>
   </ng-container>
-  <ng-container *ngSwitchCase="getRealFieldType('radio')">
+  <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.radio)">
     <div class="form-check" [formGroup]="form">
       <input [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
         [name]="formName" [formControlName]="formName" class="form-check-input" type="radio" [id]="id">
       <label class="form-check-label" [for]="id"> {{label}} </label>
     </div>
   </ng-container>
-  <ng-container *ngSwitchCase="getRealFieldType('select')">
+  <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.select)">
     <div class="form-select-wrapper" [formGroup]="form">
       <select [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
         [id]="id" [formControlName]="formName" [name]="formName" class="form-select">
@@ -41,10 +41,10 @@
       </select>
     </div>
   </ng-container>
-  <div [formGroup]="form" *ngSwitchCase="getRealFieldType('slider')" class="form-floating password-field">
+  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.slider)" class="form-floating password-field">
     <ngx-slider [id]="id" [formControlName]="formName || ''" [options]="getSliderOptions(options)" />
   </div>
-  <div [formGroup]="form" *ngSwitchCase="getRealFieldType('password')" class="form-floating password-field">
+  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)" class="form-floating password-field">
     <input [style]="" [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
       [id]="id" autocomplete="on" type="password"
       [class]="'form-control '+((form.get(formName || '')?.invalid && form.get(formName || '')?.touched) ? 'pr-3':'pr-2')"
@@ -54,35 +54,35 @@
         class="uil uil-eye"></i></span>
     <label [for]="id">{{label}}</label>
   </div>
-  <div *ngSwitchCase="getRealFieldType('otp')" class="mb-3 d-flex" style="align-items: center;justify-content: center;">
+  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.otp)" class="mb-3 d-flex" style="align-items: center;justify-content: center;">
     <ng-otp-input [id]="id" (onInputChange)="onOtpChange($event, formName || '')"
       [config]="{length:length, inputClass:'otp-input',allowNumbersOnly:true,placeholder:'_'}" />
   </div>
-  <div [formGroup]="form" *ngSwitchCase="getRealFieldType('telephone')" class="mb-4">
+  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.telephone)" class="mb-4">
     <input [ngClass]="{'is-invalid': form.get(formName)?.invalid && form.get(formName)?.touched}"
       (input)="updatePhoneField($event,formName)" [value]="form.get(formName || '')?.value.default || ''"
       class="form-control" [id]="id">
   </div>
-  <p [id]="id" *ngSwitchCase="getRealFieldType('section_info')" class="lead mb-6 text-start">{{label}}</p>
-  <div *ngSwitchCase="getRealFieldType('show_image')" class="mb-4">
+  <p [id]="id" *ngSwitchCase="getRealFieldType(FieldTypesEnum.section_info)" class="lead mb-6 text-start">{{label}}</p>
+  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.show_image)" class="mb-4">
     <img [id]="id" [width]="width" [src]="src">
   </div>
-  <div *ngSwitchCase="getRealFieldType('show_video')" class="mb-4">
+  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.show_video)" class="mb-4">
     <video [id]="id" [controls]="controls" [width]="width" [src]="src"></video>
   </div>
-  <div *ngSwitchCase="getRealFieldType('add_image')" [id]="id" (click)="openSelectorFiles('input-file-'+label)"
+  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_image)" [id]="id" (click)="openSelectorFiles('input-file-'+label)"
     class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
-    [style]="'font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;'+ (displayImg!='' ? 'background-image: url('+displayImg+');':'')">
-    <a class="text-center" [hidden]="displayImg!=''">+</a>
+    [style]="'font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;'+ (displayMedia!='' ? 'background-image: url('+displayMedia+');':'')">
+    <a class="text-center" [hidden]="displayMedia!=''">+</a>
     <input (change)="toAdd($event)" [id]="'input-file-'+label" style="display: none;" type="file"
       [attr.multiple]="multiple ? multiple : null"
       [attr.accept]="(accept!='' && accept!=null && accept!=undefined) ? accept :'image/png, image/gif, image/jpeg, image/jpg'">
   </div>
-  <ng-container *ngSwitchCase="getRealFieldType('add_video')">
-    <ng-container *ngIf="displayVideo!='';else noVideo">
+  <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_video)">
+    <ng-container *ngIf="displayMedia!='';else noVideo">
       <div [id]="id" (click)="openSelectorFiles('input-file-'+label)" class="video-container pointer lift mb-8"
         style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
-        <video [src]="displayVideo" [controls]="controls ? controls : null" [width]="width" playsinline autoplay
+        <video [src]="displayMedia" [controls]="controls ? controls : null" [width]="width" playsinline autoplay
           [muted]="'muted'" loop id="bg-video">
         </video>
         <input (change)="toAdd($event,'video')" [id]="'input-file-'+label" style="display: none;" type="file"
@@ -101,7 +101,7 @@
       </div>
     </ng-template>
   </ng-container>
-  <div *ngSwitchCase="getRealFieldType('date')" class="form-floating">
+  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.date)" class="form-floating">
     <div [formGroup]="form" [id]="id" class="input-group">
       <input class="form-control" [minDate]="minDate ? minDate: defMinDate" [maxDate]="maxDate ? maxDate :defMaxDate"
         [placeholder]="label ? label : 'yyyy-mm-dd'" [name]="formName" [formControlName]="formName" ngbDatepicker
@@ -110,7 +110,7 @@
           class="uil uil-calendar-alt"></i></button>
     </div>
   </div>
-  <div *ngSwitchCase="getRealFieldType('time')" class="form-floating">
+  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.time)" class="form-floating">
     <div [formGroup]="form" [id]="id" class="input-group d-grid">
       <p>{{label}}</p>
       <ngb-timepicker [seconds]="true" class="d-flex justify-content-center" [formControlName]="formName">

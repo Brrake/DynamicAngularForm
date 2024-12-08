@@ -1,11 +1,9 @@
-import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID } from '@angular/core';
 import { AddonType, ButtonType, DynamicFormScheme, Errors, FieldType, HrefTypes } from './models/dynamic-form.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { linkValidator } from './custom_validators/link.validator';
 import { confirmPasswordValidator } from './custom_validators/confirm-password.validator';
-import intlTelInput, { Iti } from 'intl-tel-input';
 import { phoneValidator } from './custom_validators/phoneValidator.validator';
-import { createIsValidNumberValidator } from './custom_validators/createIsValidNumberValidator.validator';
 import { isPlatformBrowser } from '@angular/common';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { TranslateService } from '@ngx-translate/core';
@@ -33,15 +31,12 @@ export class DynamicFormComponent implements OnInit {
   public ButtonsEnum: typeof ButtonType = ButtonType
   public hrefTypes: typeof HrefTypes = HrefTypes
 
-  defMinDate = { year: 1930, month: 1, day: 1 }
-  defMaxDate = { year: new Date().setFullYear(new Date().getFullYear()+5), month: 12, day: 31 }
 
   displayImg: string[] = []
   displayVideo: string[] = []
   addTree: any = []
   addVideoTree: any = []
   formGroup: FormGroup[] = []
-  itis_info: any[] = []
   emittedForms: any[] = []
 
   constructor(
@@ -77,27 +72,6 @@ export class DynamicFormComponent implements OnInit {
             if (currField.default_value) {
               this.displayVideo[j] = currField.default_value as string
             }
-          }
-          if (currField.type == this.FieldTypesEnum.telephone) {
-            setTimeout(() => {
-              const phone = document.getElementById("phone-" + j) as HTMLInputElement
-              let iti = intlTelInput(phone, {
-                initialCountry: "auto",
-                loadUtilsOnInit: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/23.0.11/js/utils.js",
-                customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
-                  return "e.g. " + selectedCountryPlaceholder;
-                },
-                geoIpLookup: function (success, failure) {
-                  fetch("https://ipapi.co/json")
-                    .then(function (res) { return res.json(); })
-                    .then(function (data) { success(data.country_code); })
-                    .catch(function () { failure(); });
-                }
-              }) as Iti;
-              this.itis_info.push({ iti: iti, formControlName: currField.formControlName as string })
-              this.formGroup[i].addValidators(createIsValidNumberValidator(() => iti))
-            })
-
           }
         }
         for (let j = 0; j < formScheme?.custom_validators?.length; j++) {
