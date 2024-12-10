@@ -108,6 +108,7 @@ HTML ->
 | `goToPage(page: number)`    | Navigate to a different form page                | false    |
 | `closeModal()`          | Close current modal                 | false    |
 | `openModal()`          | Open current modal                 | false    |
+| `formInit()`  | Handle modal form change         | false    |
 
 ---
 
@@ -134,7 +135,8 @@ HTML ->
 | `loginWithGoogle()`   | Handle Google login result        | false    |
 | `onCloseForm()`       | Handle form close                 | false    |
 | `onBack()`            | Handle form back                  | false    |
-| `formValueChanges()`  | Handle modal value change         | false    |
+| `formValueChanges()`  | Handle form value change         | false    |
+| `formInit()`  | Handle form form change         | false    |
 
 #### Functions
 

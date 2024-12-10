@@ -26,6 +26,9 @@ export class DynamicFormComponent implements OnInit {
   @Output() onBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() formValueChanges = new EventEmitter<any>();
 
+  @Output() formInit = new EventEmitter<{ id: string; form: FormGroup }>();
+
+
   public FieldTypesEnum: typeof FieldType = FieldType
   public AddonsEnum: typeof AddonType = AddonType
   public ButtonsEnum: typeof ButtonType = ButtonType
@@ -86,6 +89,7 @@ export class DynamicFormComponent implements OnInit {
             }
           }
         }
+        this.formInit.emit({ id: formScheme.formId, form: this.formGroup[i] });
         this.formGroup[i].valueChanges.subscribe((value) => {
           this.formValueChanges.emit({
             value,

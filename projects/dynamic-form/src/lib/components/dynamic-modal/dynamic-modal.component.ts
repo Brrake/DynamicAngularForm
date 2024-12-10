@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DynamicFormComponent } from '../../dynamic-form.component';
 import { DynamicFormScheme } from '../../models/dynamic-form.model';
+import { FormGroup } from '@angular/forms';
 
 
 
@@ -26,6 +27,7 @@ export class DynamicModalComponent implements OnInit {
   @Output() loginWithGoogle: EventEmitter<any> = new EventEmitter<any>();
   @Output() onBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() formValueChanges = new EventEmitter<any>();
+  @Output() formInit = new EventEmitter<{ id: string; form: FormGroup }>();
 
   isLoaded = true
 
@@ -34,13 +36,16 @@ export class DynamicModalComponent implements OnInit {
   ngOnInit() {
 
   }
-  onClose = () => {
+  onClose() {
     this.isLoaded = false
 
     this.dynForm?.resetAndGoToPage(0)
 
     this.onCloseModal.emit(true)
     this.isLoaded = true
+  }
+  onFormInit(event:any) {
+    this.formInit.emit(event)
   }
   isFormValid(idx: number): boolean {
     return this.dynForm?.isFormValid(idx) || false
