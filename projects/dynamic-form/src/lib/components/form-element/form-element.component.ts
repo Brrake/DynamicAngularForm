@@ -26,6 +26,7 @@ export class FormElementComponent implements OnInit {
   @Input() width!: string;
   @Input() src: string = '';
   // add_image
+  @Input() displayMedia: string = ''
   @Input() multiple: boolean = false;
   @Input() accept: string = '';
   @Output() onChooseMedia: EventEmitter<any> = new EventEmitter()
@@ -42,7 +43,6 @@ export class FormElementComponent implements OnInit {
   @Input() errors: any[] = [];
 
 
-  displayMedia: string = ''
   private itis_info: any[] = []
   public FieldTypesEnum: typeof FieldType = FieldType
 

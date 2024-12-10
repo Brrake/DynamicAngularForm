@@ -14,6 +14,7 @@
           </div>
           <form-element [id]="formScheme.formId+'-'+field.formControlName" [type]="field.type"
             [label]="getTranslatedName(field)" [formName]="field.formControlName || ''" [form]="formGroup[idx]"
+            [displayMedia]="field.default_value?.toString() || ''"
             [values]="field.values || []" [options]="field.options || {}" [length]="field.length || 6"
             [controls]="field.controls || ''" [width]="field.width || ''" [src]="field.src || ''"
             [multiple]="field.multiple || false" [accept]="field.accept || ''" [minDate]="field.minDate || ''"
