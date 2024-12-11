@@ -15,6 +15,7 @@ export class FormElementComponent implements OnInit {
   @Input() label: string = 'Example';
   @Input() form: any;
   @Input() formName: string = 'example';
+  @Input() disabled: boolean = false;
   // Select
   @Input() values: SelectValueScheme[] = [];
   // Slider

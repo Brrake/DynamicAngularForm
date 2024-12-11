@@ -13,12 +13,13 @@
             <p class="col-form-label" style="color: #60697b;">{{getTranslatedName(field,'top_label')}}</p>
           </div>
           <form-element [id]="formScheme.formId+'-'+field.formControlName" [type]="field.type"
-            [label]="getTranslatedName(field)" [formName]="field.formControlName || ''" [form]="formGroup[idx]"
-            [displayMedia]="field.default_value?.toString() || ''"
-            [values]="field.values || []" [options]="field.options || {}" [length]="field.length || 6"
-            [controls]="field.controls || ''" [width]="field.width || ''" [src]="field.src || ''"
-            [multiple]="field.multiple || false" [accept]="field.accept || ''" [minDate]="field.minDate || ''"
-            [maxDate]="field.maxDate || ''" [version]="field.version || ''" [errors]="field.errors || []" (onChooseMedia)="onChooseMedia($event)" />
+            [disabled]="field.disabled || false" [label]="getTranslatedName(field)"
+            [formName]="field.formControlName || ''" [form]="formGroup[idx]"
+            [displayMedia]="field.default_value?.toString() || ''" [values]="field.values || []"
+            [options]="field.options || {}" [length]="field.length || 6" [controls]="field.controls || ''"
+            [width]="field.width || ''" [src]="field.src || ''" [multiple]="field.multiple || false"
+            [accept]="field.accept || ''" [minDate]="field.minDate || ''" [maxDate]="field.maxDate || ''"
+            [version]="field.version || ''" [errors]="field.errors || []" (onChooseMedia)="onChooseMedia($event)" />
 
         </div>
       </ng-container>
