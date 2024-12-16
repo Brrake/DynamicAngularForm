@@ -43,6 +43,8 @@ export class FormElementComponent implements OnInit {
   // Errors
   @Input() errors: any[] = [];
 
+  @Output() onChange = new EventEmitter<any>()
+
 
   private itis_info: any[] = []
   public FieldTypesEnum: typeof FieldType = FieldType
@@ -69,6 +71,10 @@ export class FormElementComponent implements OnInit {
         this.form.addValidators(createIsValidNumberValidator(() => iti))
       })
     }
+    if(!this.form) return
+    this.form.valueChanges.subscribe((e:any) => {
+      this.onChange.emit(e)
+    })
   }
   sanitizeInput(formControlName: string) {
     if(!this.form) return
