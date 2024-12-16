@@ -71,6 +71,7 @@ export class FormElementComponent implements OnInit {
     }
   }
   sanitizeInput(formControlName: string) {
+    if(!this.form) return
     const control = this.form.get(formControlName);
     if (control) {
       const sanitizedValue = control.value.replace(/<[^>]*>/g, "");
