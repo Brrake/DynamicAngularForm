@@ -1,6 +1,6 @@
 {
   "name": "dynamic-angular-form",
-  "version": "2.0.70",
+  "version": "2.0.71",
   "description": "Simple, easy and performance dynamic form for angular",
   "author": "Brrake <daviderubiu5@gmail.com>",
   "license": "MIT",
@@ -26,6 +26,7 @@
   "dependencies": {
     "@angular-slider/ngx-slider": "^17.0.2",
     "@ng-bootstrap/ng-bootstrap": "^16.0.0",
+    "nouislider": "^15.8.1",
     "ng-recaptcha": "^13.2.1",
     "intl-tel-input": "^24.1.3",
     "ng-otp-input": "^1.9.3",

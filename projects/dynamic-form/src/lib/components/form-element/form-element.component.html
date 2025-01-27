@@ -41,8 +41,11 @@
       </select>
     </div>
   </ng-container>
-  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.slider)" class="form-floating password-field">
+  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.slider)" class="form-floating">
     <ngx-slider [id]="id" [formControlName]="formName || ''" [options]="getSliderOptions(options)" />
+  </div>
+  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.slider_noui)" class="form-floating">
+    <div id="slider"></div>
   </div>
   <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)" class="form-floating password-field">
     <input [style]="" [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
