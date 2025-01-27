@@ -218,7 +218,8 @@ HTML ->
 | `checkbox`      | Represents a checkbox input field. |
 | `g_recaptcha`   | Represents a Google reCAPTCHA field. |
 | `section_info`  | Represents a section information field. |
-| `slider`        | Represents a slider input field. |
+| `slider`        | Represents a slider from @angular-slider/ngx-slider input field. |
+| `slider_noui`        | Represents a slider from nouislider input field. |
 | `telephone`     | Represents a telephone input field. |
 | `add_image`     | Represents an add image field.   |
 | `show_image`    | Represents a show image field.   |

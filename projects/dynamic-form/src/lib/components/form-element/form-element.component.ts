@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import intlTelInput, { Iti } from 'intl-tel-input';
 import { createIsValidNumberValidator } from '../../custom_validators/createIsValidNumberValidator.validator';
 import noUiSlider from 'nouislider';
+import 'nouislider/dist/nouislider.css';
 
 @Component({
   selector: 'form-element',
@@ -75,8 +76,9 @@ export class FormElementComponent implements OnInit {
     if (this.type == this.FieldTypesEnum.slider_noui) {
       setTimeout(() => {
         const slider = document.getElementById('slider') as HTMLElement;
-        const sliderOptions = this.options;
-        noUiSlider.create(slider, sliderOptions);
+        noUiSlider.create(slider, {
+          ...this.options
+        });
       })
     }
     if(!this.form) return
