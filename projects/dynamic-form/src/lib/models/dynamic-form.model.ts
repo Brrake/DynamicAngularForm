@@ -92,6 +92,7 @@ export enum AddonType {
 //Field Types
 export enum FieldType {
   text = 'text',
+  number = 'number',
   date = 'date',
   radio = 'radio',
   otp = 'otp',

@@ -44,6 +44,8 @@ export class FormElementComponent implements OnInit {
   // Errors
   @Input() errors: any[] = [];
 
+  @Output() onChange = new EventEmitter<any>()
+
 
   private itis_info: any[] = []
   public FieldTypesEnum: typeof FieldType = FieldType
@@ -77,8 +79,13 @@ export class FormElementComponent implements OnInit {
         noUiSlider.create(slider, sliderOptions);
       })
     }
+    if(!this.form) return
+    this.form.valueChanges.subscribe((e:any) => {
+      this.onChange.emit(e)
+    })
   }
   sanitizeInput(formControlName: string) {
+    if(!this.form) return
     const control = this.form.get(formControlName);
     if (control) {
       const sanitizedValue = control.value.replace(/<[^>]*>/g, "");
