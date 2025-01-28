@@ -24,7 +24,7 @@
         </div>
       </ng-container>
       <div *ngFor="let error of formScheme.custom_validators">
-        <div [hidden]="!formGroup[idx]!.errors?.[error.error_name]" class="mt-4 alert alert-danger">
+        <div [hidden]="!formGroup[idx]!.errors?.[error.error_name]" class="mt-4 alert alert-danger custom">
           {{getTranslatedName(error,'text')}}
         </div>
       </div>
