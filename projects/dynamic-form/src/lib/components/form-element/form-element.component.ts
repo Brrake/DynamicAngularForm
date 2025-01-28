@@ -3,6 +3,8 @@ import { FieldType, SelectValueScheme } from '../../models/dynamic-form.model';
 import { TranslateService } from '@ngx-translate/core';
 import intlTelInput, { Iti } from 'intl-tel-input';
 import { createIsValidNumberValidator } from '../../custom_validators/createIsValidNumberValidator.validator';
+import noUiSlider from 'nouislider';
+import 'nouislider/dist/nouislider.css';
 
 @Component({
   selector: 'form-element',
@@ -69,6 +71,14 @@ export class FormElementComponent implements OnInit {
         }) as Iti;
         this.itis_info.push({ iti: iti, formControlName: this.formName as string })
         this.form.addValidators(createIsValidNumberValidator(() => iti))
+      })
+    }
+    if (this.type == this.FieldTypesEnum.slider_noui) {
+      setTimeout(() => {
+        const slider = document.getElementById('slider') as HTMLElement;
+        noUiSlider.create(slider, {
+          ...this.options
+        });
       })
     }
     if(!this.form) return
