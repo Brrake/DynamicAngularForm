@@ -107,7 +107,7 @@
       </div>
     </ng-template>
   </ng-container>
-  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.date)" class="form-floating">
+  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.date)" class="form-floating mb-4">
     <div [formGroup]="form" [id]="id" class="input-group">
       <input class="form-control" [minDate]="minDate ? minDate: defMinDate" [maxDate]="maxDate ? maxDate :defMaxDate"
         [placeholder]="label ? label : 'yyyy-mm-dd'" [name]="formName" [formControlName]="formName" ngbDatepicker
