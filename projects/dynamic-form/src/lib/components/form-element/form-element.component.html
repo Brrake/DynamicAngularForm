@@ -32,7 +32,7 @@
     </div>
   </ng-container>
   <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.select)">
-    <div class="form-select-wrapper" [formGroup]="form">
+    <div class="form-select-wrapper mb-4" [formGroup]="form">
       <select [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
         [id]="id" [formControlName]="formName" [name]="formName" class="form-select">
         <option value="" disabled selected>{{label}}</option>
@@ -50,7 +50,7 @@
     <div id="slider"></div>
   </div>
   -->
-  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)" class="form-floating password-field">
+  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)" class="form-floating password-field mb-4">
     <input [style]="" [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
       [id]="id" autocomplete="on" type="password"
       [class]="'form-control '+((form.get(formName || '')?.invalid && form.get(formName || '')?.touched) ? 'pr-3':'pr-2')"
