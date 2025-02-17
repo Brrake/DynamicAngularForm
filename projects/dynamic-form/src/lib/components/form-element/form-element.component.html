@@ -1,7 +1,7 @@
 <ng-container [ngSwitch]="type">
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.g_recaptcha)">
     <div class="row mt-3" *ngIf="version == 'v2' || !version">
-      <div class="col-sm-12 mb-2 g-recaptcha">
+      <div class="col-sm-12 mb-2 g-recaptcha" [formGroup]="form">
         <re-captcha [id]="id" class="d-flex justify-content-center"
           style="transform:scale(1);-webkit-transform:scale(1);transform-origin:0 0;-webkit-transform-origin:0 0;"
           [formControlName]="formName"
