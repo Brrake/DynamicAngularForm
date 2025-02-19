@@ -52,7 +52,7 @@
   -->
   <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)" class="form-floating password-field">
     <input [style]="" [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
-      [id]="id" autocomplete="on" type="password"
+      [id]="id" [autocomplete]="autocomplete ? 'on':'off'" type="password"
       [class]="'form-control '+((form.get(formName || '')?.invalid && form.get(formName || '')?.touched) ? 'pr-3':'pr-2')"
       [placeholder]="label" [name]="formName || ''" [formControlName]="formName || ''">
     <span
@@ -125,7 +125,7 @@
   </div>
   <ng-container *ngSwitchDefault>
     <div class="form-floating mb-4" [formGroup]="form">
-      <input [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
+      <input [autocomplete]="autocomplete ? 'on':'off'" [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
         [name]="formName" (input)="sanitizeInput(formName)" [formControlName]="formName" [id]="id" [type]="type"
         class="form-control" [placeholder]="label">
       <label [for]="id">{{label}}</label>
