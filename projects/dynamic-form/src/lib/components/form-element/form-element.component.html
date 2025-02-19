@@ -1,7 +1,7 @@
 <ng-container [ngSwitch]="type">
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.g_recaptcha)">
     <div class="row mt-3" *ngIf="version == 'v2' || !version">
-      <div class="col-sm-12 mb-2 g-recaptcha">
+      <div class="col-sm-12 mb-2 g-recaptcha" [formGroup]="form">
         <re-captcha [id]="id" class="d-flex justify-content-center"
           style="transform:scale(1);-webkit-transform:scale(1);transform-origin:0 0;-webkit-transform-origin:0 0;"
           [formControlName]="formName"
@@ -32,7 +32,7 @@
     </div>
   </ng-container>
   <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.select)">
-    <div class="form-select-wrapper" [formGroup]="form">
+    <div class="form-select-wrapper mb-4" [formGroup]="form">
       <select [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
         [id]="id" [formControlName]="formName" [name]="formName" class="form-select">
         <option value="" disabled selected>{{label}}</option>
@@ -50,7 +50,7 @@
     <div id="slider"></div>
   </div>
   -->
-  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)" class="form-floating password-field">
+  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)" class="form-floating password-field mb-4">
     <input [style]="" [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
       [id]="id" [autocomplete]="autocomplete ? 'on':'off'" type="password"
       [class]="'form-control '+((form.get(formName || '')?.invalid && form.get(formName || '')?.touched) ? 'pr-3':'pr-2')"
@@ -107,7 +107,7 @@
       </div>
     </ng-template>
   </ng-container>
-  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.date)" class="form-floating">
+  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.date)" class="form-floating mb-4">
     <div [formGroup]="form" [id]="id" class="input-group">
       <input class="form-control" [minDate]="minDate ? minDate: defMinDate" [maxDate]="maxDate ? maxDate :defMaxDate"
         [placeholder]="label ? label : 'yyyy-mm-dd'" [name]="formName" [formControlName]="formName" ngbDatepicker

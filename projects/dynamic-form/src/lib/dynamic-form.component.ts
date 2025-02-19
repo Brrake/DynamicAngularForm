@@ -45,7 +45,7 @@ export class DynamicFormComponent implements OnInit {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private recaptchaV3Service: ReCaptchaV3Service,
-    private translate : TranslateService
+    private translate: TranslateService
   ) {
   }
   ngOnInit() {
@@ -167,18 +167,22 @@ export class DynamicFormComponent implements OnInit {
         .subscribe((token) => {
           this.formGroup[idx].value[fieldName] = token
           this.emittedForms.push(this.formGroup[idx])
-          this.onSubmit.emit({ forms: this.formGroup, files: {
-            images:this.addTree,
-            videos: this.addVideoTree
-          }, formEmittingIndex: idx, emittedForms: this.emittedForms });
+          this.onSubmit.emit({
+            forms: this.formGroup, files: {
+              images: this.addTree,
+              videos: this.addVideoTree
+            }, formEmittingIndex: idx, emittedForms: this.emittedForms
+          });
         });
       return
     }
     this.emittedForms.push(this.formGroup[idx])
-    this.onSubmit.emit({ forms: this.formGroup, files: {
-      images:this.addTree,
-      videos: this.addVideoTree
-    } , formEmittingIndex: idx, emittedForms: this.emittedForms });
+    this.onSubmit.emit({
+      forms: this.formGroup, files: {
+        images: this.addTree,
+        videos: this.addVideoTree
+      }, formEmittingIndex: idx, emittedForms: this.emittedForms
+    });
   }
   onTestSubmit() {
     console.log(this.formGroup)
@@ -198,11 +202,30 @@ export class DynamicFormComponent implements OnInit {
     this.emittedForms = []
     this.addTree = []
     this.addVideoTree = []
+    for (let i = 0; i < this.formGroup.length; i++) {
+      this.formGroup[i].reset()
+      const currScheme = this.formSchemes[i]?.fields as any
+      let patchForm: Record<string, any> = {};
+      for (let j = 0; j < currScheme.length; j++) {
+        if (currScheme[j]) {
+          patchForm[currScheme[j].formControlName] = currScheme[j].default_value
+        }
+      }
+      this.formGroup[i].patchValue(patchForm)
+    }
     this.onCloseForm.emit(true)
   }
   resetAndGoToPage(page: number) {
     for (let i = 0; i < this.formSchemes.length; i++) {
       this.formGroup[i].reset()
+      const currScheme = this.formSchemes[i]?.fields as any
+      let patchForm: Record<string, any> = {};
+      for (let j = 0; j < currScheme.length; j++) {
+        if (currScheme[j]) {
+          patchForm[currScheme[j].formControlName] = currScheme[j].default_value
+        }
+      }
+      this.formGroup[i].patchValue(patchForm)
     }
     this.goToPage(page)
     this.emittedForms = []
@@ -233,16 +256,16 @@ export class DynamicFormComponent implements OnInit {
     if (this.isOnModal) setTimeout(() => { document.getElementById('closeModalButt')?.click() });
   }
 
-  getTranslatedName(field:any, key: string = 'name'): string {
+  getTranslatedName(field: any, key: string = 'name'): string {
     const currLang = this.translate.currentLang
-    if(currLang != 'it' && field[key+'_'+currLang] != undefined) return field[key+'_'+currLang]
+    if (currLang != 'it' && field[key + '_' + currLang] != undefined) return field[key + '_' + currLang]
     return field[key]
   }
 
-  onChooseMedia(event:any){
-    if(event.mode == 'img'){
+  onChooseMedia(event: any) {
+    if (event.mode == 'img') {
       this.addTree = event.files
-    } else if(event.mode == 'video'){
+    } else if (event.mode == 'video') {
       this.addVideoTree = event.files
     }
   }
