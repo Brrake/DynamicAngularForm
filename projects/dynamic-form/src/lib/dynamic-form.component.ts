@@ -5,7 +5,7 @@ import { linkValidator } from './custom_validators/link.validator';
 import { confirmPasswordValidator } from './custom_validators/confirm-password.validator';
 import { phoneValidator } from './custom_validators/phoneValidator.validator';
 import { isPlatformBrowser } from '@angular/common';
-import { ReCaptchaV3Service } from 'ng-recaptcha';
+import { ReCaptchaV3Service } from 'ng-recaptcha-2';
 import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'dynamic-form',
