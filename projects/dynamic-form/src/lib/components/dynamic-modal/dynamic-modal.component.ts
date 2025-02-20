@@ -8,7 +8,8 @@ import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'dynamic-modal',
   templateUrl: './dynamic-modal.component.html',
-  styleUrls: ['./dynamic-modal.component.scss']
+  styleUrls: ['./dynamic-modal.component.scss'],
+  standalone: false
 })
 export class DynamicModalComponent implements OnInit {
 

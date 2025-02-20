@@ -9,7 +9,8 @@ import 'nouislider/dist/nouislider.css';
 @Component({
   selector: 'form-element',
   templateUrl: './form-element.component.html',
-  styleUrls: ['./form-element.component.scss']
+  styleUrls: ['./form-element.component.scss'],
+  standalone: false
 })
 export class FormElementComponent implements OnInit {
   @Input() id: string = '';

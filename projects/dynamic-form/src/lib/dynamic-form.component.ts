@@ -10,7 +10,8 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'dynamic-form',
   templateUrl: './dynamic-form.component.html',
-  styleUrls: ['./dynamic-form.component.scss']
+  styleUrls: ['./dynamic-form.component.scss'],
+  standalone: false
 })
 export class DynamicFormComponent implements OnInit {
 

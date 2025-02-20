@@ -10,7 +10,8 @@ declare global {
 @Component({
   selector: 'google-login',
   templateUrl: './google-login.component.html',
-  styleUrls: ['./google-login.component.css']
+  styleUrls: ['./google-login.component.css'],
+  standalone: false
 })
 export class GoogleLoginComponent implements OnInit, OnDestroy {
   @Output() loginWithGoogle: EventEmitter<any> = new EventEmitter<any>();

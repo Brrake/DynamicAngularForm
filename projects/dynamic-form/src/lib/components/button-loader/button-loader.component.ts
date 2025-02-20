@@ -4,7 +4,8 @@ import { ButtonType } from '../../models/dynamic-form.model';
 @Component({
   selector: 'button-loader',
   templateUrl: './button-loader.component.html',
-  styleUrls: ['./button-loader.component.scss']
+  styleUrls: ['./button-loader.component.scss'],
+  standalone: false
 })
 export class ButtonLoaderComponent implements OnInit {
   @Input() loadSpinner: boolean = false
