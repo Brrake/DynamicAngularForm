@@ -1,4 +1,4 @@
-@import url("../../assets/css/intlTelInput.min.css");
+@import url("../../../../assets/css/intlTelInput.min.css");
 
 .form-check-input:checked {
   background-color: var(--bs-primary);
@@ -82,12 +82,15 @@ fieldset:disabled .btn {
   align-items: center;
   display: flex;
 }
-.pr-2{
-  padding-right: 2rem!important;
+
+.pr-2 {
+  padding-right: 2rem !important;
 }
-.pr-3{
-  padding-right: 3.3rem!important;
+
+.pr-3 {
+  padding-right: 3.3rem !important;
 }
+
 .video-container {
   position: relative;
   width: 100%;
