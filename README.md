@@ -18,14 +18,14 @@ The library come with preinstalled `@angular-slider/ngx-slider` for the renderin
 
 First of all you need to install the library running :
 ```
- npm i dynamic-angular-form@<version>
+ npm i dynamic-angular-form@19.0.2
 ```
 
 | Angular Version   | Lib Version        |
 |-------------------|--------------------|
-| `v19`             | `19.0.1`           |
-| `v18`             | `18.0.0`           |
-| `v17`             | `17.0.1`           |
+| `v19`             | `19`           |
+| `v18`             | `18`           |
+| `v17`             | `17`           |
 
 
 Subsequently you need to import the module into `app.module.ts`
