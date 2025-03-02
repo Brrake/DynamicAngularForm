@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-
+const { exec } = require('child_process');
 // Set the file path
 const filePath = path.join(__dirname,'../projects','dynamic-form','package.json');
 
@@ -57,4 +57,24 @@ fs.readFile(filePath, 'utf8', (err, data) => {
         console.log(`Old Version: ${version}`);
         console.log(`New Version: ${newVersion}`);
     });
+    /*exec('git tag v'+newVersion, (err, stdout, stderr) => {
+      if (err) {
+        // node couldn't execute the command
+        return;
+      }
+
+      // the *entire* stdout and stderr (buffered)
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+    });
+    exec('git push origin v'+newVersion, (err, stdout, stderr) => {
+      if (err) {
+        // node couldn't execute the command
+        return;
+      }
+
+      // the *entire* stdout and stderr (buffered)
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+    });*/
 });
