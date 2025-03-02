@@ -17,13 +17,18 @@ call cd ..
 call npm run build
 call cd .\dist\dynamic-form\
 call npm publish
-for /f "delims=" %%v in ('powershell -Command "(Get-Content package.json | ConvertFrom-Json).version"') do set VERSION=%%v
+for /f "delims=" %%v in ('powershell -Command "(Get-Content projects/dynamic-form/package.json | ConvertFrom-Json).version"') do set VERSION=%%v
 echo The version is: %VERSION%
 set /p CONFIRM=Do you want to publish GitHub Tags? (y/n):
+if /i "%CONFIRM%"=="y" goto :create_tag
+if /i "%CONFIRM%"=="yes" goto :create_tag
+if /i "%CONFIRM%"=="Y" goto :create_tag
+if /i "%CONFIRM%"=="YES" goto :create_tag
 
+:create_tag
 if /i "%CONFIRM%"=="y" (
     git tag v%VERSION%
     git push origin v%VERSION%
 ) else (
-    echo Command not executed.
+    echo No tags created
 )
