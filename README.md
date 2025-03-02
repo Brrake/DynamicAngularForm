@@ -10,7 +10,7 @@ For the installation we need to use the following versions of :
 
 Node.JS : [v20.13.1](https://nodejs.org/dist/v20.13.1/node-v20.13.1-x64.msi)
 
-Angular : 17 - 18
+Angular : 17 - 18 - 19
 
 The library come with preinstalled `@angular-slider/ngx-slider` for the rendering of Slider form inputs, `@ng-bootstrap/ng-bootstrap` for the Date and Time Picker and `ng-recaptcha-2` for the rendering og Google Recaptcha security feature.
 
@@ -18,8 +18,16 @@ The library come with preinstalled `@angular-slider/ngx-slider` for the renderin
 
 First of all you need to install the library running :
 ```
- npm i dynamic-angular-form
+ npm i dynamic-angular-form@19.0.2
 ```
+
+| Angular Version   | Lib Version        |
+|-------------------|--------------------|
+| `v19`             | `19`           |
+| `v18`             | `18`           |
+| `v17`             | `17`           |
+
+
 Subsequently you need to import the module into `app.module.ts`
 ``` angular
 @NgModule({
