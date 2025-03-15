@@ -23,6 +23,8 @@ export class DynamicModalComponent implements OnInit {
   @Input() loadSpinner: boolean = false
   @Input() isSubmitFailed: boolean = false
   @Input() errorMessage: string = '';
+  @Input() modalBackdrop: string = '';
+  
   @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
   @Output() onCloseModal: EventEmitter<any> = new EventEmitter<any>();
   @Output() loginWithGoogle: EventEmitter<any> = new EventEmitter<any>();
