@@ -29,6 +29,8 @@ export interface FieldScheme {
   default_value?: string | number | boolean | { year: number, month: number, day: number } | { hour: number, minute: number }
   values?: SelectValueScheme[]
   top_label?: string
+  seconds?: boolean
+  meridian?: boolean
   validators?: ValidatorScheme[]
   errors?: ErrorScheme[]
 }
