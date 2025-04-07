@@ -1,5 +1,5 @@
 <div [class]="'modal fade '+(modalPopup ? 'modal-popup' : '')" [id]="modalId" tabindex="-1"
-  data-target="#modal">
+  data-target="#modal" [attr.data-bs-backdrop]="modalBackdrop">
   <div class="modal-dialog modal-dialog-centered modal-sm justify-content-center">
     <div class="text-start mb-3">
       <div class="modal-content text-center">
