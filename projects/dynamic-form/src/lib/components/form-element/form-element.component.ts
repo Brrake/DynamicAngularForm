@@ -43,6 +43,10 @@ export class FormElementComponent implements OnInit {
   defMaxDate = { year: new Date().setFullYear(new Date().getFullYear() + 5), month: 12, day: 31 }
   //G-Recaptcha
   @Input() version: string = '';
+  
+  // Time
+  @Input() meridian:boolean = false
+  @Input() seconds:boolean = true
 
   // Errors
   @Input() errors: any[] = [];

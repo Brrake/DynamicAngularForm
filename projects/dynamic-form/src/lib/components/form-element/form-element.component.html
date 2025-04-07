@@ -119,7 +119,7 @@
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.time)" class="form-floating">
     <div [formGroup]="form" [id]="id" class="input-group d-grid">
       <p>{{label}}</p>
-      <ngb-timepicker [seconds]="true" class="d-flex justify-content-center" [formControlName]="formName">
+      <ngb-timepicker [meridian]="meridian" [disabled]="disabled" [seconds]="seconds" class="d-flex justify-content-center" [formControlName]="formName">
       </ngb-timepicker>
     </div>
   </div>
