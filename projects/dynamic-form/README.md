@@ -384,5 +384,6 @@ HTML ->
 | `text`           | `string`| `'sign_in_with'`| Refer to Google Docs                            | false    |
 | `shape`          | `string`| `'rectangular'`| Refer to Google Docs                             | false    |
 | `logo_alignment` | `string`| `'left'`       | Refer to Google Docs                             | false    |
+| `auto_prompt` | `string`| `'false'`       | Refer to Google Docs                             | false    |
 
 ---
