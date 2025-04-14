@@ -53,6 +53,7 @@ export interface AddonScheme {
   href_type?: HrefTypes
   text?: string
   shape?: string
+  auto_prompt?: string
   logo_alignment?: string
 }
 export enum HrefTypes {

@@ -264,6 +264,7 @@ HTML ->
 | `text`          | `string (optional)`      | Text displayed in the addon.                                  |google_login           |
 | `shape`         | `string (optional)`      | Shape of the addon (e.g., square, circle).                    |google_login           |
 | `logo_alignment`| `string (optional)`      | Alignment of the logo within the addon.                       |google_login           |
+| `auto_prompt`   | `string (optional)`      | Auto promt google login on page load.                         |google_login           |
 
 ### `AddonType` (Enum)
 
