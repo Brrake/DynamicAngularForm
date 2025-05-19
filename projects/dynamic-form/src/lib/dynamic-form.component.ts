@@ -151,6 +151,7 @@ export class DynamicFormComponent implements OnInit {
   onSubmitForm(idx: number) {
     // Se vuole usare recaptcha v3
     //this.formSchemes[idx].active_page = false
+    if(this.formGroup[idx].invalid) return
 
     let isV3GRecaptcha = false
     let fieldName = ''
