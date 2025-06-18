@@ -24,6 +24,15 @@
       <label class="form-check-label" [for]="id"> {{label}} </label>
     </div>
   </ng-container>
+  <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.switch)">
+    <div class="d-flex justify-content-between">
+      <p>{{label}}</p>
+      <label class="switch" [formGroup]="form">
+        <input type="checkbox" [name]="formName" [formControlName]="formName" [id]="id">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </ng-container>
   <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.radio)">
     <div class="form-check" [formGroup]="form">
       <input [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
@@ -41,7 +50,8 @@
       </select>
     </div>
   </ng-container>
-  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.slider || FieldTypesEnum.slider_noui)" class="form-floating">
+  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.slider || FieldTypesEnum.slider_noui)"
+    class="form-floating">
     <ngx-slider [id]="id" [formControlName]="formName || ''" [options]="getSliderOptions(options)" />
   </div>
 
@@ -50,7 +60,8 @@
     <div id="slider"></div>
   </div>
   -->
-  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)" class="form-floating password-field mb-4">
+  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)"
+    class="form-floating password-field mb-4">
     <input [style]="" [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
       [id]="id" [autocomplete]="autocomplete ? 'on':'off'" type="password"
       [class]="'form-control '+((form.get(formName || '')?.invalid && form.get(formName || '')?.touched) ? 'pr-3':'pr-2')"
@@ -60,7 +71,8 @@
         class="uil uil-eye"></i></span>
     <label [for]="id">{{label}}</label>
   </div>
-  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.otp)" class="mb-3 d-flex" style="align-items: center;justify-content: center;">
+  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.otp)" class="mb-3 d-flex"
+    style="align-items: center;justify-content: center;">
     <ng-otp-input [id]="id" (onInputChange)="onOtpChange($event, formName || '')"
       [config]="{length:length, inputClass:'otp-input',allowNumbersOnly:true,placeholder:'_'}" />
   </div>
@@ -76,7 +88,8 @@
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.show_video)" class="mb-4">
     <video [id]="id" [controls]="controls" [width]="width" [src]="src"></video>
   </div>
-  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_image)" [id]="id" (click)="openSelectorFiles('input-file-'+label)"
+  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_image)" [id]="id"
+    (click)="openSelectorFiles('input-file-'+label)"
     class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
     [style]="'font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;'+ (displayMedia!='' ? 'background-image: url('+displayMedia+');':'')">
     <a class="text-center" [hidden]="displayMedia!=''">+</a>
@@ -91,8 +104,8 @@
         <video [src]="displayMedia" [controls]="controls ? controls : null" [width]="width" playsinline autoplay
           [muted]="'muted'" loop id="bg-video">
         </video>
-        <input [disabled]="disabled" (change)="toAdd($event,'video')" [id]="'input-file-'+label" style="display: none;" type="file"
-          [attr.multiple]="multiple ? multiple : null"
+        <input [disabled]="disabled" (change)="toAdd($event,'video')" [id]="'input-file-'+label" style="display: none;"
+          type="file" [attr.multiple]="multiple ? multiple : null"
           [attr.accept]=" (accept!='' && accept!=null && accept!=undefined) ? accept :'video/mp4,video/x-m4v,video/*'">
       </div>
     </ng-container>
@@ -101,8 +114,8 @@
         class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
         style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
         <a class="text-center">+</a>
-        <input [disabled]="disabled" (change)="toAdd($event,'video')" [id]="'input-file-'+label" style="display: none;" type="file"
-          [attr.multiple]="multiple ? multiple : null"
+        <input [disabled]="disabled" (change)="toAdd($event,'video')" [id]="'input-file-'+label" style="display: none;"
+          type="file" [attr.multiple]="multiple ? multiple : null"
           [attr.accept]=" (accept!='' && accept!=null && accept!=undefined) ? accept :'video/mp4,video/x-m4v,video/*'">
       </div>
     </ng-template>
@@ -119,13 +132,15 @@
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.time)" class="form-floating">
     <div [formGroup]="form" [id]="id" class="input-group d-grid">
       <p>{{label}}</p>
-      <ngb-timepicker [meridian]="meridian" [disabled]="disabled" [seconds]="seconds" class="d-flex justify-content-center" [formControlName]="formName">
+      <ngb-timepicker [meridian]="meridian" [disabled]="disabled" [seconds]="seconds"
+        class="d-flex justify-content-center" [formControlName]="formName">
       </ngb-timepicker>
     </div>
   </div>
   <ng-container *ngSwitchDefault>
     <div class="form-floating mb-4" [formGroup]="form">
-      <input [autocomplete]="autocomplete ? 'on':'off'" [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
+      <input [autocomplete]="autocomplete ? 'on':'off'"
+        [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
         [name]="formName" (input)="sanitizeInput(formName)" [formControlName]="formName" [id]="id" [type]="type"
         class="form-control" [placeholder]="label">
       <label [for]="id">{{label}}</label>

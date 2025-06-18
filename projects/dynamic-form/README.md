@@ -227,6 +227,7 @@ HTML ->
 | `password`      | Represents a password input field. |
 | `textarea`      | Represents a textarea input field. |
 | `checkbox`      | Represents a checkbox input field. |
+| `switch`          | Represents a switch input field.   |
 | `g_recaptcha`   | Represents a Google reCAPTCHA field. |
 | `section_info`  | Represents a section information field. |
 | `slider`        | Represents a slider from @angular-slider/ngx-slider input field. |
