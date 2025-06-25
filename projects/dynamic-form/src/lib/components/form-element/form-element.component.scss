@@ -72,10 +72,6 @@ fieldset:disabled .btn {
   background-color: var(--bs-primary);
 }
 
-.hidden {
-  display: none;
-}
-
 .pw-invalid {
   margin-right: 25px;
   line-height: normal;
@@ -145,4 +141,7 @@ input:checked + .slider {
 }
 input:checked + .slider:before {
   transform: translateX(26px);
+}
+::ng-deep .iti__dropdown-content{
+  z-index: 100!important;
 }
