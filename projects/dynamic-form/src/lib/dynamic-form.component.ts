@@ -151,7 +151,7 @@ export class DynamicFormComponent implements OnInit {
   onSubmitForm(idx: number) {
     // Se vuole usare recaptcha v3
     //this.formSchemes[idx].active_page = false
-    if(this.formGroup[idx].invalid) return
+    if (this.formGroup[idx].invalid) return { success: false }
 
     let isV3GRecaptcha = false
     let fieldName = ''
@@ -176,15 +176,16 @@ export class DynamicFormComponent implements OnInit {
             }, formEmittingIndex: idx, emittedForms: this.emittedForms
           });
         });
-      return
+    } else {
+      this.emittedForms.push(this.formGroup[idx])
+      this.onSubmit.emit({
+        forms: this.formGroup, files: {
+          images: this.addTree,
+          videos: this.addVideoTree
+        }, formEmittingIndex: idx, emittedForms: this.emittedForms
+      });
     }
-    this.emittedForms.push(this.formGroup[idx])
-    this.onSubmit.emit({
-      forms: this.formGroup, files: {
-        images: this.addTree,
-        videos: this.addVideoTree
-      }, formEmittingIndex: idx, emittedForms: this.emittedForms
-    });
+    return { success: true }
   }
   onTestSubmit() {
     console.log(this.formGroup)
