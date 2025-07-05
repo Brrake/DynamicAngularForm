@@ -21,7 +21,7 @@
             [options]="field.options || {}" [length]="field.length || 6" [controls]="field.controls || ''"
             [width]="field.width || ''" [src]="field.src || ''" [multiple]="field.multiple || false"
             [accept]="field.accept || ''" [minDate]="field.minDate || ''" [maxDate]="field.maxDate || ''"
-            [version]="field.version || ''" [errors]="field.errors || []" (onChooseMedia)="onChooseMedia($event)" />
+            [version]="field.version || ''" [errors]="field.errors || []" (onChooseMedia)="onChooseMedia($event,formScheme.formId+'-'+field.formControlName)" />
 
         </div>
       </ng-container>

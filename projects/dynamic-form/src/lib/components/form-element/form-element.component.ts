@@ -134,9 +134,10 @@ export class FormElementComponent implements OnInit {
     this.displayMedia = URL.createObjectURL(event.target.files[0])
     for (let file of event.target.files) {
       var src = URL.createObjectURL(file);
-      addTree.push({ file: file, src: src });
+      addTree.push({ file: file, src: src,id: this.id, });
     }
     this.onChooseMedia.emit({
+      id: this.id,
       files: addTree,
       mode: mode
     });

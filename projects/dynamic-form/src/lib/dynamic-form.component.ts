@@ -265,11 +265,20 @@ export class DynamicFormComponent implements OnInit {
     return field[key]
   }
 
-  onChooseMedia(event: any) {
+  onChooseMedia(event: any,id:string) {
     if (event.mode == 'img') {
+      this.addTree = this.addTree.filter((file:any)=>{file.id!=id})
+      this.addTree = [
+        ...this.addTree,
+        ...event.files
+      ]
       this.addTree = event.files
     } else if (event.mode == 'video') {
-      this.addVideoTree = event.files
+      this.addVideoTree = this.addVideoTree.filter((file:any)=>{file.id!=id})
+      this.addVideoTree = [
+        ...this.addVideoTree,
+        ...event.files
+      ]
     }
   }
 }
