@@ -46,7 +46,7 @@
             [text]="getTranslatedName(button)" type="button" (onSubmit)="onBackPage(button.page || 0)"
             [text_color]="button.text_color" [color]="button.button_color" />
           <button-loader [margin]="button.margin || false" *ngSwitchCase="ButtonsEnum.submit"
-            [loadSpinner]="loadSpinner" [isFormValid]="formGroup[idx].valid" [text]="getTranslatedName(button)"
+            [loadSpinner]="loadSpinner" [isFormValid]="formGroup[idx].valid && !disableSubmit" [text]="getTranslatedName(button)"
             type="submit" [text_color]="button.text_color" [color]="button.button_color" />
         </div>
       </div>

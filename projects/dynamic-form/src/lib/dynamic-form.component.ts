@@ -20,6 +20,7 @@ export class DynamicFormComponent implements OnInit {
   @Input() isSubmitFailed: boolean = false
   @Input() errorMessage: string = '';
   @Input() isOnModal: boolean = false;
+  @Input() disableSubmit: boolean = false
 
   @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
   @Output() onCloseForm: EventEmitter<any> = new EventEmitter<any>();

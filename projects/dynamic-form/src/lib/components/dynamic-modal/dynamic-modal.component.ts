@@ -24,6 +24,7 @@ export class DynamicModalComponent implements OnInit {
   @Input() isSubmitFailed: boolean = false
   @Input() errorMessage: string = '';
   @Input() modalBackdrop: string | boolean = true;
+  @Input() disableSubmit: boolean = false
 
   @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
   @Output() onCloseModal: EventEmitter<any> = new EventEmitter<any>();
