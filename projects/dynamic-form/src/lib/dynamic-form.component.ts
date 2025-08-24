@@ -92,11 +92,17 @@ export class DynamicFormComponent implements OnInit {
           }
         }
         this.formInit.emit({ id: formScheme.formId, form: this.formGroup[i] });
-        this.formGroup[i].valueChanges.subscribe((value) => {
-          this.formValueChanges.emit({
-            value,
-            formIdx: i
-          }); // Emit changes to parent component
+        Object.keys(this.formGroup[i].controls).forEach(controlName => {
+          this.formGroup[i].controls[controlName].valueChanges.subscribe(value => {
+            this.formValueChanges.emit({
+              control: controlName,
+              value:{
+                ...this.formGroup[i].value,
+                [controlName]: value
+              },
+              formIdx: i
+            });
+          });
         });
       }
     }
