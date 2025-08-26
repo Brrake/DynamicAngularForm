@@ -43,6 +43,10 @@ export class FormElementComponent implements OnInit {
   defMaxDate = { year: new Date().setFullYear(new Date().getFullYear() + 5), month: 12, day: 31 }
   //G-Recaptcha
   @Input() version: string = '';
+  
+  // Time
+  @Input() meridian:boolean = false
+  @Input() seconds:boolean = true
 
   // Errors
   @Input() errors: any[] = [];
@@ -131,9 +135,10 @@ export class FormElementComponent implements OnInit {
     this.displayMedia = URL.createObjectURL(event.target.files[0])
     for (let file of event.target.files) {
       var src = URL.createObjectURL(file);
-      addTree.push({ file: file, src: src });
+      addTree.push({ file: file, src: src,id: this.id, });
     }
     this.onChooseMedia.emit({
+      id: this.id,
       files: addTree,
       mode: mode
     });
