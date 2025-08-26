@@ -90,7 +90,7 @@ export class FormElementComponent implements OnInit {
   }
   sanitizeInput(formControlName: string) {
     if(!this.form) return
-    const control = this.form.get(formControlName);
+    const control = this.form?.get(formControlName);
     if (control) {
       const sanitizedValue = control.value.replace(/<[^>]*>/g, "");
       control.setValue(sanitizedValue, { emitEvent: false });
@@ -118,7 +118,8 @@ export class FormElementComponent implements OnInit {
     const newDefault = event.target.value;
     let currIti = this.itis_info.find(iti => iti.formControlName == formControlName);
     const newValue = { formatted: `${currIti.iti?.getNumber()}`, default: newDefault };
-    this.form.get(formControlName)?.setValue(newValue);
+
+    this.form.patchValue({ [formControlName]: newValue })
   }
   // add image
   openSelectorFiles(id: string) {
@@ -138,7 +139,7 @@ export class FormElementComponent implements OnInit {
     });
   }
   getTranslatedName(field: any, key: string = 'name'): string {
-    const currLang = this.translate.currentLang
+    const currLang = this.translate.getCurrentLang();
     if (currLang != 'it' && field[key + '_' + currLang] != undefined) return field[key + '_' + currLang]
     return field[key]
   }
