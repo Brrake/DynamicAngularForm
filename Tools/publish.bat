@@ -15,9 +15,10 @@ call node update_version.js
 :no_update_version
 call cd ..
 call npm run build
-call cd .\dist\dynamic-form\
-call npm publish
 for /f "delims=" %%v in ('powershell -Command "(Get-Content projects/dynamic-form/package.json | ConvertFrom-Json).version"') do set VERSION=%%v
+call cd .\dist\dynamic-form\
+set /p OTP=Insert OTP Code :
+call npm publish --otp %OTP%
 echo The version is: %VERSION%
 set /p CONFIRM=Do you want to publish GitHub Tags? (y/n):
 if /i "%CONFIRM%"=="y" goto :create_tag

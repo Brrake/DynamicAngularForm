@@ -22,6 +22,7 @@ export class GoogleLoginComponent implements OnInit, OnDestroy {
   @Input() text: string = 'sign_in_with'
   @Input() shape: string = 'rectangular'
   @Input() logo_alignment: string = 'left'
+  @Input() auto_prompt: string = 'false'
   script ?: HTMLScriptElement
 
   constructor(@Inject(GOOGLE_CLIENT_ID_KEY) public googleClientId: string) { }

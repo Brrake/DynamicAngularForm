@@ -29,6 +29,8 @@ export interface FieldScheme {
   default_value?: string | number | boolean | { year: number, month: number, day: number } | { hour: number, minute: number }
   values?: SelectValueScheme[]
   top_label?: string
+  seconds?: boolean
+  meridian?: boolean
   validators?: ValidatorScheme[]
   errors?: ErrorScheme[]
 }
@@ -51,6 +53,7 @@ export interface AddonScheme {
   href_type?: HrefTypes
   text?: string
   shape?: string
+  auto_prompt?: string
   logo_alignment?: string
 }
 export enum HrefTypes {
@@ -93,6 +96,7 @@ export enum AddonType {
 //Field Types
 export enum FieldType {
   text = 'text',
+  switch = 'switch',
   number = 'number',
   date = 'date',
   radio = 'radio',

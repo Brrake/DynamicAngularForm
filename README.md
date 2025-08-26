@@ -212,19 +212,21 @@ HTML ->
 | `disabled`       | `boolean (optional)`                                          | Indicates if the field is disabled.                                                                   | ALL                                             |
 | `visible`        | `boolean (optional)`                                          | Indicates if the field is visible.                                                                    | ALL                                             |
 | `formControlName`| `string (optional)`                                           | Form control name, typically used with reactive forms.                                                | ALL                                             |
-| `autocomplete`        | `boolean (optional)`                                          | Indicates if the field has autocomplete.                                                         | text, password                                  |
-| `default_value_{LANGUAGE}`| `string (optional)`                                           | Name translated of the field.                                                                         | section_info                                             |
+| `autocomplete`        | `boolean (optional)`                                     | Indicates if the field has autocomplete.                                                              | text, password                                  |
+| `default_value_{LANGUAGE}`| `string (optional)`                                  | Name translated of the field.                                                                         | section_info                                    |
 | `src`            | `string (optional)`                                           | Source URL or path for certain field types (e.g., images).                                            | show_image                                      |
 | `options`        | `any (optional)`                                              | Additional options for the field.                                                                     | slider                                          |
 | `length`         | `number (optional)`                                           | Length of the field.                                                                                  | otp                                             |
-| `minDate`        | `{ year:number, month:number, day:number } (optional)`        | minDate of datepicker.                                                                                 | date                                            |
-| `maxDate`        | `{ year:number, month:number, day:number } (optional)`        | maxDate of datepicker.                                                                                 | date                                            |
+| `minDate`        | `{ year:number, month:number, day:number } (optional)`        | minDate of datepicker.                                                                                | date                                            |
+| `maxDate`        | `{ year:number, month:number, day:number } (optional)`        | maxDate of datepicker.                                                                                | date                                            |
 | `values`         | `SelectValueScheme[] (optional)`                              | Array of selectable values for fields like dropdowns or radios.                                       | select                                          |
-| `multiple`       | `boolean (optional)`                                          | Multiple upload of files.                                                                               | add_image, add_video                            |
+| `multiple`       | `boolean (optional)`                                          | Multiple upload of files.                                                                             | add_image, add_video                            |
 | `accept`         | `string (optional)`                                           | Accept types for input files.                                                                         | add_image, add_video                            |
 | `width`          | `string (optional)`                                           | Width of the field.                                                                                   | add_image, add_video, show_image, show_video    |
-| `controls`       | `string (optional)`                                           | Controls of the video field.                                                                             | show_video, add_video                           |
+| `controls`       | `string (optional)`                                           | Controls of the video field.                                                                          | show_video, add_video                           |
 | `version`        | `string (optional)`                                           | Version of the field.                                                                                 | g_recaptcha                                     |
+| `seconds`        | `boolean (optional)`                                          | Show or hide seconds field                                                                            | time                                            |
+| `meridian`        | `boolean (optional)`                                         | Show or hide meridian selector                                                                        | time                                            |
 
 ## `FieldType` (Enum)
 
@@ -240,6 +242,7 @@ HTML ->
 | `password`      | Represents a password input field. |
 | `textarea`      | Represents a textarea input field. |
 | `checkbox`      | Represents a checkbox input field. |
+| `switch`          | Represents a switch input field.   |
 | `g_recaptcha`   | Represents a Google reCAPTCHA field. |
 | `section_info`  | Represents a section information field. |
 | `slider`        | Represents a slider from @angular-slider/ngx-slider input field. |
@@ -277,6 +280,7 @@ HTML ->
 | `text`          | `string (optional)`      | Text displayed in the addon.                                  |google_login           |
 | `shape`         | `string (optional)`      | Shape of the addon (e.g., square, circle).                    |google_login           |
 | `logo_alignment`| `string (optional)`      | Alignment of the logo within the addon.                       |google_login           |
+| `auto_prompt`   | `string (optional)`      | Auto promt google login on page load.                         |google_login           |
 
 ### `AddonType` (Enum)
 
@@ -396,5 +400,6 @@ HTML ->
 | `text`           | `string`| `'sign_in_with'`| Refer to Google Docs                            | false    |
 | `shape`          | `string`| `'rectangular'`| Refer to Google Docs                             | false    |
 | `logo_alignment` | `string`| `'left'`       | Refer to Google Docs                             | false    |
+| `auto_prompt` | `string`| `'false'`       | Refer to Google Docs                             | false    |
 
 ---

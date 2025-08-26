@@ -20,6 +20,7 @@ export class DynamicFormComponent implements OnInit {
   @Input() isSubmitFailed: boolean = false
   @Input() errorMessage: string = '';
   @Input() isOnModal: boolean = false;
+  @Input() disableSubmit: boolean = false
 
   @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
   @Output() onCloseForm: EventEmitter<any> = new EventEmitter<any>();
@@ -91,11 +92,17 @@ export class DynamicFormComponent implements OnInit {
           }
         }
         this.formInit.emit({ id: formScheme.formId, form: this.formGroup[i] });
-        this.formGroup[i].valueChanges.subscribe((value) => {
-          this.formValueChanges.emit({
-            value,
-            formIdx: i
-          }); // Emit changes to parent component
+        Object.keys(this.formGroup[i].controls).forEach(controlName => {
+          this.formGroup[i].controls[controlName].valueChanges.subscribe(value => {
+            this.formValueChanges.emit({
+              control: controlName,
+              value:{
+                ...this.formGroup[i].value,
+                [controlName]: value
+              },
+              formIdx: i
+            });
+          });
         });
       }
     }
@@ -151,6 +158,7 @@ export class DynamicFormComponent implements OnInit {
   onSubmitForm(idx: number) {
     // Se vuole usare recaptcha v3
     //this.formSchemes[idx].active_page = false
+    if (this.formGroup[idx].invalid) return { success: false }
 
     let isV3GRecaptcha = false
     let fieldName = ''
@@ -175,15 +183,16 @@ export class DynamicFormComponent implements OnInit {
             }, formEmittingIndex: idx, emittedForms: this.emittedForms
           });
         });
-      return
+    } else {
+      this.emittedForms.push(this.formGroup[idx])
+      this.onSubmit.emit({
+        forms: this.formGroup, files: {
+          images: this.addTree,
+          videos: this.addVideoTree
+        }, formEmittingIndex: idx, emittedForms: this.emittedForms
+      });
     }
-    this.emittedForms.push(this.formGroup[idx])
-    this.onSubmit.emit({
-      forms: this.formGroup, files: {
-        images: this.addTree,
-        videos: this.addVideoTree
-      }, formEmittingIndex: idx, emittedForms: this.emittedForms
-    });
+    return { success: true }
   }
   onTestSubmit() {
     console.log(this.formGroup)
@@ -263,11 +272,19 @@ export class DynamicFormComponent implements OnInit {
     return field[key]
   }
 
-  onChooseMedia(event: any) {
+  onChooseMedia(event: any, id: string) {
     if (event.mode == 'img') {
-      this.addTree = event.files
+      this.addTree = this.addTree.filter((file: any) => file.id != id)
+      this.addTree = [
+        ...this.addTree,
+        ...event.files
+      ]
     } else if (event.mode == 'video') {
-      this.addVideoTree = event.files
+      this.addVideoTree = this.addVideoTree.filter((file: any) => file.id != id)
+      this.addVideoTree = [
+        ...this.addVideoTree,
+        ...event.files
+      ]
     }
   }
 }
