@@ -60,7 +60,7 @@ export class FormElementComponent implements OnInit {
         const phone = document.getElementById(this.id) as HTMLInputElement
         let iti = intlTelInput(phone, {
           initialCountry: "auto",
-          loadUtilsOnInit: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/23.0.11/js/utils.js",
+          //loadUtilsOnInit: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/23.0.11/js/utils.js",
           customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
             return "e.g. " + selectedCountryPlaceholder;
           },
