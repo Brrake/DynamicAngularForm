@@ -62,6 +62,21 @@ export class AppModule { }
 export class AppModule { }
 ```
 
+You need to import the style sheet if using telehone input into `angular.json`
+
+``` angular
+  ...
+
+  "scripts":{
+    ...
+    "node_modules/intl-tel-input/build/css/intlTelInput.css"
+    ...
+  }
+
+  ...
+ 
+```
+
 ## Models and Usage
 Below you will find all the information you need to correctly use the templates and the various components
 
