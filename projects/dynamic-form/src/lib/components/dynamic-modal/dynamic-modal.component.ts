@@ -40,6 +40,7 @@ export class DynamicModalComponent implements OnInit {
   ngOnInit() {
 
   }
+  /** Emitters **/
   onClose() {
     this.isLoaded = false
 
@@ -48,17 +49,8 @@ export class DynamicModalComponent implements OnInit {
     this.onCloseModal.emit(true)
     this.isLoaded = true
   }
-  onFormInit(event:any) {
+  onFormInit(event: any) {
     this.formInit.emit(event)
-  }
-  isFormValid(idx: number): boolean {
-    return this.dynForm?.isFormValid(idx) || false
-  }
-  updateForm(idx:number, values:any) {
-    this.dynForm?.updateForm(idx, values)
-  }
-  goToPage(page: number) {
-    this.dynForm?.goToPage(page)
   }
   onSubmitForm(event: any) {
     this.onSubmit.emit(event);
@@ -66,18 +58,28 @@ export class DynamicModalComponent implements OnInit {
   onFormValueChanges(event: any) {
     this.formValueChanges.emit(event);
   }
-  submitDynamicForm(idx: number) {
-    this.dynForm?.onSubmitForm(idx);
-  }
-  closeModal(){
-    this.onClose()
-    document.getElementById('closeDefModal-'+this.modalId)?.click()
-  }
-
   handleGoogleLoginV2(response: any) {
     this.loginWithGoogle.emit(response);
   }
+
+
+  isFormValid(idx: number): boolean {
+    return this.dynForm?.isFormValid(idx) || false
+  }
+  updateForm(idx: number, values: any) {
+    this.dynForm?.updateForm(idx, values)
+  }
+  goToPage(page: number) {
+    this.dynForm?.goToPage(page)
+  }
+  submitDynamicForm(idx: number) {
+    this.dynForm?.onSubmitForm(idx);
+  }
+  closeModal() {
+    this.onClose()
+    document.getElementById('closeDefModal-' + this.modalId)?.click()
+  }
   openModal() {
-    document.getElementById('openModal-'+this.modalId)?.click()
+    document.getElementById('openModal-' + this.modalId)?.click()
   }
 }
