@@ -101,6 +101,8 @@ Below you will find all the information you need to correctly use the templates 
 | `loadSpinner`     | `boolean`          | `false`       | Load spinner into the submit button                                          | false    |
 | `isSubmitFailed`  | `boolean`          | `false`       | Enable custom error message after submit                                     | false    |
 | `errorMessage`    | `string`           | `''`          | Load custom error message after submit                                       | false    |
+| `modalBackdrop`    | `string \| boolean` | `true`          | Change Modal Backdrop                                       | false    |
+| `disableSubmit`    | `boolean` | `false`          | Disable Form Submit                                       | false    |
 
 #### Output
 
@@ -111,6 +113,7 @@ Below you will find all the information you need to correctly use the templates 
 | `onCloseModal()`      | Handle modal close                | false    |
 | `onBack()`            | Handle modal back                 | false    |
 | `formValueChanges()`  | Handle modal value change         | false    |
+| `formInit()`  | Handle modal initialization         | false    |
 
 #### Functions
 
@@ -125,14 +128,14 @@ HTML ->
 ```
 
 
-| Method              | Description                       | Required |
-|---------------------|-----------------------------------|----------|
-| `isFormValid(idx: number)`        | Check if a form in a certain index is valid      | false    |
-| `updateForm(idx:number, values:any)` | Patch values of a certain form        | false    |
-| `goToPage(page: number)`    | Navigate to a different form page                | false    |
-| `closeModal()`          | Close current modal                 | false    |
-| `openModal()`          | Open current modal                 | false    |
-| `formInit()`  | Handle modal form change         | false    |
+| Method              | Description                       |
+|---------------------|-----------------------------------|
+| `isFormValid(idx: number)`        | Check if a form in a certain index is valid      |
+| `updateForm(idx:number, values:any)` | Patch values of a certain form        |
+| `goToPage(page: number)`    | Navigate to a different form page                |
+| `closeModal()`          | Close current modal                 |
+| `openModal()`          | Open current modal                 |
+| `submitDynamicForm()`  | Submit form manually         |
 
 ---
 
@@ -150,6 +153,8 @@ HTML ->
 | `loadSpinner`     | `boolean`          | `false`       | Load spinner into the submit button                                          | false    |
 | `isSubmitFailed`  | `boolean`          | `false`       | Enable custom error message after submit                                     | false    |
 | `errorMessage`    | `string`           | `''`          | Load custom error message after submit                                       | false    |
+| `isOnModal`    | `boolean`           | `false`          | Specify if the form is on modal                                       | false    |
+| `disableSubmit`    | `boolean` | `false`          | Disable Form Submit                                       | false    |
 
 #### Output
 
@@ -179,6 +184,8 @@ HTML ->
 | `isFormValid(idx: number)`        | Check if a form in a certain index is valid      | false    |
 | `updateForm(idx:number, values:any)` | Patch values of a certain form        | false    |
 | `goToPage(page: number)`    | Navigate to a different form page                | false    |
+| `closeModal()`    | If the form is contained into a modal, then close parent modal                | false    |
+| `onSubmitForm()`    | Submit form manually                | false    |
 
 
 ---
