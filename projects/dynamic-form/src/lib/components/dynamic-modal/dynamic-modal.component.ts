@@ -16,7 +16,7 @@ export class DynamicModalComponent implements OnInit {
   @ViewChild('dyn_form') dynForm: DynamicFormComponent | undefined;
 
 
-  @Input() modalId: string = 'dafault-id';
+  @Input() modalId: string = 'default-id';
   @Input() modalPopup: boolean = false
   @Input() modalCloseButton: boolean = false
   @Input() formSchemes: DynamicFormScheme[] = []
