@@ -1,3 +1,5 @@
+import { FormGroup } from "@angular/forms"
+
 export interface DynamicFormScheme {
   formId: string
   title: string
@@ -140,4 +142,13 @@ export enum ButtonType {
   ROUNDER = 'rounded-xl',
   PILL = 'rounded-pill',
   CIRCLE = 'btn-circle'
+}
+export interface DynamicSubmitEvent {
+  forms: FormGroup[],
+  files: {
+    images: any[],
+    videos: any[]
+  },
+  formEmittingIndex: number,
+  emittedForms: any[]
 }

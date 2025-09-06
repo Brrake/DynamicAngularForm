@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID } from '@angular/core';
-import { AddonType, ButtonType, DynamicFormScheme, Errors, FieldType, HrefTypes } from './models/dynamic-form.model';
+import { AddonType, ButtonType, DynamicFormScheme, DynamicSubmitEvent, Errors, FieldType, HrefTypes } from './models/dynamic-form.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { linkValidator } from './custom_validators/link.validator';
 import { confirmPasswordValidator } from './custom_validators/confirm-password.validator';
@@ -22,7 +22,7 @@ export class DynamicFormComponent implements OnInit {
   @Input() isOnModal: boolean = false;
   @Input() disableSubmit: boolean = false
 
-  @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onSubmit: EventEmitter<DynamicSubmitEvent> = new EventEmitter<DynamicSubmitEvent>();
   @Output() onCloseForm: EventEmitter<any> = new EventEmitter<any>();
   @Output() loginWithGoogle: EventEmitter<any> = new EventEmitter<any>();
   @Output() onBack: EventEmitter<any> = new EventEmitter<any>();
@@ -96,7 +96,7 @@ export class DynamicFormComponent implements OnInit {
           this.formGroup[i].controls[controlName].valueChanges.subscribe(value => {
             this.formValueChanges.emit({
               control: controlName,
-              value:{
+              value: {
                 ...this.formGroup[i].value,
                 [controlName]: value
               },
