@@ -144,11 +144,11 @@ export enum ButtonType {
   CIRCLE = 'btn-circle'
 }
 export interface DynamicSubmitEvent {
-  forms: FormGroup[],
+  forms: Partial<FormGroup>[],
   files: {
     images: any[],
     videos: any[]
   },
   formEmittingIndex: number,
-  emittedForms: any[]
+  emittedForms: Partial<FormGroup>[]
 }
