@@ -62,14 +62,13 @@
   -->
   <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)"
     class="form-floating password-field mb-4">
-    <input [style]="" [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
-      [id]="id" [autocomplete]="autocomplete ? 'on':'off'" type="password"
-      [class]="'form-control '+((form.get(formName || '')?.invalid && form.get(formName || '')?.touched) ? 'pr-3':'pr-2')"
-      [placeholder]="label" [name]="formName || ''" [formControlName]="formName || ''">
-    <span
-      [class]="'password-toggle '+((form.get(formName || '')?.invalid && form.get(formName || '')?.touched) ? 'pw-invalid':'')"><i
-        class="uil uil-eye"></i></span>
-    <label [for]="id">{{label}}</label>
+    <ion-input [type]="pwdToggle ? 'text':'password'" labelPlacement="floating" fill="outline" [errorText]="getErrorText()"
+      [autocomplete]="autocomplete ? 'on':'off'" [formControlName]="formName" (ionInput)="sanitizeInput(formName)"
+      [label]="label" [name]="formName" [placeholder]="label">
+      <ion-button (click)="pwdToggle=!pwdToggle" fill="clear" slot="end" aria-label="Show/hide">
+        <ion-icon slot="icon-only" name="eye" aria-hidden="true"></ion-icon>
+      </ion-button>
+    </ion-input>
   </div>
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.otp)" class="mb-3 d-flex"
     style="align-items: center;justify-content: center;">
@@ -122,36 +121,30 @@
   </ng-container>
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.date)" class="form-floating mb-4">
     <div [formGroup]="form" [id]="id" class="input-group">
+      <!--
       <input class="form-control" [minDate]="minDate ? minDate: defMinDate" [maxDate]="maxDate ? maxDate :defMaxDate"
         [placeholder]="label ? label : 'yyyy-mm-dd'" [name]="formName" [formControlName]="formName" ngbDatepicker
         #d="ngbDatepicker" />
       <button class="btn bi bi-calendar3" (click)="d.toggle()" type="button"><i
           class="uil uil-calendar-alt"></i></button>
+          -->
     </div>
   </div>
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.time)" class="form-floating">
     <div [formGroup]="form" [id]="id" class="input-group d-grid">
       <p>{{label}}</p>
+      <!--
       <ngb-timepicker [meridian]="meridian" [disabled]="disabled" [seconds]="seconds"
         class="d-flex justify-content-center" [formControlName]="formName">
       </ngb-timepicker>
+    -->
     </div>
   </div>
   <ng-container *ngSwitchDefault>
     <div class="form-floating mb-4" [formGroup]="form">
-      <input [autocomplete]="autocomplete ? 'on':'off'"
-        [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
-        [name]="formName" (input)="sanitizeInput(formName)" [formControlName]="formName" [id]="id" [type]="type"
-        class="form-control" [placeholder]="label">
-      <label [for]="id">{{label}}</label>
+      <ion-input labelPlacement="floating" fill="outline" [errorText]="getErrorText()"
+        [autocomplete]="autocomplete ? 'on':'off'" [formControlName]="formName" (ionInput)="sanitizeInput(formName)"
+        [label]="label" [name]="formName" [placeholder]="label"></ion-input>
     </div>
   </ng-container>
-  <div *ngIf="!form.get(formName)?.valid && (form.get(formName || '')?.dirty || form.get(formName || '')?.touched)"
-    class="alert alert-danger">
-    <div *ngFor="let error of errors">
-      <div [hidden]="!form.get(formName || '')?.errors?.[error.name.toLowerCase()]">
-        {{getTranslatedName(error,'text')}}
-      </div>
-    </div>
-  </div>
 </ng-container>

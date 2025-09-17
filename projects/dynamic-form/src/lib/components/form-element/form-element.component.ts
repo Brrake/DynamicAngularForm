@@ -53,6 +53,8 @@ export class FormElementComponent implements OnInit {
 
   @Output() onChange = new EventEmitter<any>()
 
+  pwdToggle: boolean = false
+
 
   private itis_info: any[] = []
   public FieldTypesEnum: typeof FieldType = FieldType
@@ -141,6 +143,12 @@ export class FormElementComponent implements OnInit {
       files: addTree,
       mode: mode
     });
+  }
+  getErrorText(){
+    for(let error of this.errors){
+      if(this.form.get(this.formName || '')?.errors?.[error.name.toLowerCase()]) return this.getTranslatedName(error,'text')
+    }
+  return ""
   }
   getTranslatedName(field: any, key: string = 'name'): string {
     const currLang = this.translate.currentLang

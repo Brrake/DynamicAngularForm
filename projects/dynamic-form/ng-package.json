@@ -6,7 +6,7 @@
   },
   "allowedNonPeerDependencies": [
     "@angular-slider/ngx-slider",
-    "@ng-bootstrap/ng-bootstrap",
+    "@ionic/angular",
     "ng-recaptcha-2",
     "nouislider",
     "ng-otp-input",
