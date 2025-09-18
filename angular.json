@@ -10,7 +10,6 @@
       "prefix": "lib",
       "architect": {
         "build": {
-
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "project": "projects/dynamic-form/ng-package.json"

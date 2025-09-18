@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { DynamicFormComponent } from '../../dynamic-form.component';
 import { DynamicFormScheme } from '../../models/dynamic-form.model';
 import { FormGroup } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
 
 
 
@@ -35,10 +36,14 @@ export class DynamicModalComponent implements OnInit {
 
   isLoaded = true
 
-  constructor() {
+  constructor(
+    private modalCtrl:ModalController
+  ) {
   }
   ngOnInit() {
-
+    if (this.modalPopup) {
+      this.openModal()
+    }
   }
   onClose() {
     this.isLoaded = false
@@ -48,13 +53,13 @@ export class DynamicModalComponent implements OnInit {
     this.onCloseModal.emit(true)
     this.isLoaded = true
   }
-  onFormInit(event:any) {
+  onFormInit(event: any) {
     this.formInit.emit(event)
   }
   isFormValid(idx: number): boolean {
     return this.dynForm?.isFormValid(idx) || false
   }
-  updateForm(idx:number, values:any) {
+  updateForm(idx: number, values: any) {
     this.dynForm?.updateForm(idx, values)
   }
   goToPage(page: number) {
@@ -69,15 +74,18 @@ export class DynamicModalComponent implements OnInit {
   submitDynamicForm(idx: number) {
     this.dynForm?.onSubmitForm(idx);
   }
-  closeModal(){
+  closeModal() {
     this.onClose()
-    document.getElementById('closeDefModal-'+this.modalId)?.click()
+     this.modalCtrl.dismiss();
   }
 
   handleGoogleLoginV2(response: any) {
     this.loginWithGoogle.emit(response);
   }
-  openModal() {
-    document.getElementById('openModal-'+this.modalId)?.click()
+  async openModal() {
+    const modal = await this.modalCtrl.create({
+      component: DynamicModalComponent
+    });
+    await modal.present();
   }
 }

@@ -6,14 +6,15 @@
     </p>
     <form [id]="formScheme.formId || 'defId'" [formGroup]="formGroup[idx]" (ngSubmit)="onSubmitForm(idx)" class="mt-4">
       <ng-container *ngFor="let field of formScheme.fields;let fieldIdx = index">
-        <div [class]="(field.visible == false ? 'hidden':'')" class="mb-4"
+        <div [ngClass]="{'hidden': field.visible == false}" class="mb-4"
           [id]="formScheme.formId+'-'+field.formControlName+'-main'">
 
-          <div *ngIf="field.top_label" class="text-left" [id]="formScheme.formId+'-'+field.formControlName+'-toplabel'">
+          <div *ngIf="field.top_label && field.type != FieldTypesEnum.select" class="text-left" [id]="formScheme.formId+'-'+field.formControlName+'-toplabel'">
             <p class="col-form-label" style="color: #60697b;">{{getTranslatedName(field,'top_label')}}</p>
           </div>
           <form-element [id]="formScheme.formId+'-'+field.formControlName" [type]="field.type"
-          [seconds]="field.seconds || false" [meridian]="field.meridian || false"
+          [seconds]="field.seconds || false"
+          [topLabel]="getTranslatedName(field,'top_label')"
             [disabled]="field.disabled || false" [label]="getTranslatedName(field)"
             [autocomplete]="field.autocomplete || false"
             [formName]="field.formControlName || ''" [form]="formGroup[idx]"

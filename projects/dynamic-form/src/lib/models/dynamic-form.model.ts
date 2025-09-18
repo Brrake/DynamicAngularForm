@@ -32,7 +32,6 @@ export interface FieldScheme {
   values?: SelectValueScheme[]
   top_label?: string
   seconds?: boolean
-  meridian?: boolean
   validators?: ValidatorScheme[]
   errors?: ErrorScheme[]
 }

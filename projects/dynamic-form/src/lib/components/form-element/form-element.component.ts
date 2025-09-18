@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FieldType, SelectValueScheme } from '../../models/dynamic-form.model';
 import { TranslateService } from '@ngx-translate/core';
-import intlTelInput, { Iti } from 'intl-tel-input';
+
 import { createIsValidNumberValidator } from '../../custom_validators/createIsValidNumberValidator.validator';
 import noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
@@ -16,6 +16,7 @@ export class FormElementComponent implements OnInit {
   @Input() id: string = '';
   @Input() type: FieldType = FieldType.text;
   @Input() label: string = 'Example';
+  @Input() topLabel: string = 'Example';
   @Input() form: any;
   @Input() formName: string = 'example';
   @Input() disabled: boolean = false;
@@ -39,48 +40,30 @@ export class FormElementComponent implements OnInit {
   // Date
   @Input() minDate: any;
   @Input() maxDate: any;
-  defMinDate = { year: 1930, month: 1, day: 1 }
-  defMaxDate = { year: new Date().setFullYear(new Date().getFullYear() + 5), month: 12, day: 31 }
+  defMinDate = { }
+  defMaxDate = { }
   //G-Recaptcha
   @Input() version: string = '';
-  
+
   // Time
-  @Input() meridian:boolean = false
-  @Input() seconds:boolean = true
+  @Input() meridian: boolean = false
+  @Input() seconds: boolean = true
 
   // Errors
   @Input() errors: any[] = [];
 
   @Output() onChange = new EventEmitter<any>()
 
-  pwdToggle: boolean = false
-
-
-  private itis_info: any[] = []
   public FieldTypesEnum: typeof FieldType = FieldType
 
-  constructor(private translate: TranslateService) { }
+  constructor(private translate: TranslateService) {
+    this.defMinDate = { year: 1930, month: 1, day: 1 }
+    let dateY = new Date()
+    dateY.setFullYear(dateY.getFullYear() + 5)
+    this.defMaxDate = { year: dateY.getFullYear(), month: 12, day: 31 }
+  }
   ngOnInit() {
-    if (this.type == this.FieldTypesEnum.telephone) {
-      setTimeout(() => {
-        const phone = document.getElementById(this.id) as HTMLInputElement
-        let iti = intlTelInput(phone, {
-          initialCountry: "auto",
-          loadUtilsOnInit: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/23.0.11/js/utils.js",
-          customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
-            return "e.g. " + selectedCountryPlaceholder;
-          },
-          geoIpLookup: function (success, failure) {
-            fetch("https://ipapi.co/json")
-              .then(function (res) { return res.json(); })
-              .then(function (data) { success(data.country_code); })
-              .catch(function () { failure(); });
-          }
-        }) as Iti;
-        this.itis_info.push({ iti: iti, formControlName: this.formName as string })
-        this.form.addValidators(createIsValidNumberValidator(() => iti))
-      })
-    }
+
     if (this.type == this.FieldTypesEnum.slider_noui) {
       setTimeout(() => {
         const slider = document.getElementById('slider') as HTMLElement;
@@ -89,13 +72,16 @@ export class FormElementComponent implements OnInit {
         });
       })
     }
-    if(!this.form) return
-    this.form.valueChanges.subscribe((e:any) => {
+    if (!this.form) return
+    this.form.valueChanges.subscribe((e: any) => {
       this.onChange.emit(e)
     })
   }
+  getFormattedDate(date: any) {
+    return `${date.year}-${date.month < 10 ? '0' + date.month : date.month}-${date.day < 10 ? '0' + date.day : date.day}T00:00:00`;
+  }
   sanitizeInput(formControlName: string) {
-    if(!this.form) return
+    if (!this.form) return
     const control = this.form.get(formControlName);
     if (control) {
       const sanitizedValue = control.value.replace(/<[^>]*>/g, "");
@@ -110,21 +96,10 @@ export class FormElementComponent implements OnInit {
     let body = {
       ...options,
       getPointerColor: (value: number) => {
-        return 'var(--bs-primary)'
+        return 'var(--ion-color-primary)'
       }
     }
     return body
-  }
-  // otp
-  onOtpChange(event: any, formControlName: string) {
-    this.form.patchValue({ [formControlName]: event })
-  }
-  // phone
-  updatePhoneField(event: any, formControlName: string): void {
-    const newDefault = event.target.value;
-    let currIti = this.itis_info.find(iti => iti.formControlName == formControlName);
-    const newValue = { formatted: `${currIti.iti?.getNumber()}`, default: newDefault };
-    this.form.get(formControlName)?.setValue(newValue);
   }
   // add image
   openSelectorFiles(id: string) {
@@ -136,7 +111,7 @@ export class FormElementComponent implements OnInit {
     this.displayMedia = URL.createObjectURL(event.target.files[0])
     for (let file of event.target.files) {
       var src = URL.createObjectURL(file);
-      addTree.push({ file: file, src: src,id: this.id, });
+      addTree.push({ file: file, src: src, id: this.id, });
     }
     this.onChooseMedia.emit({
       id: this.id,
@@ -144,11 +119,11 @@ export class FormElementComponent implements OnInit {
       mode: mode
     });
   }
-  getErrorText(){
-    for(let error of this.errors){
-      if(this.form.get(this.formName || '')?.errors?.[error.name.toLowerCase()]) return this.getTranslatedName(error,'text')
+  getErrorText() {
+    for (let error of this.errors) {
+      if (this.form.get(this.formName || '')?.errors?.[error.name.toLowerCase()]) return this.getTranslatedName(error, 'text')
     }
-  return ""
+    return ""
   }
   getTranslatedName(field: any, key: string = 'name'): string {
     const currLang = this.translate.currentLang

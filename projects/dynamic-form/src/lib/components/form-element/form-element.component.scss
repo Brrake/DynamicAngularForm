@@ -1,8 +1,8 @@
 @import url("../../../../assets/css/intlTelInput.min.css");
 
 .form-check-input:checked {
-  background-color: var(--bs-primary);
-  border-color: var(--bs-primary);
+  background-color: var(--ion-color-primary);
+  border-color: var(--ion-color-primary);
 }
 
 .ngx-slider-active:after {
@@ -10,11 +10,11 @@
 }
 
 .bi-calendar3 {
-  border-color: var(--bs-primary) !important;
+  border-color: var(--ion-color-primary) !important;
 }
 
 .bi-calendar3:hover {
-  background-color: var(--bs-primary) !important;
+  background-color: var(--ion-color-primary) !important;
 
   .uil-calendar-alt {
     color: #fff !important;
@@ -22,7 +22,7 @@
 }
 
 .uil-calendar-alt {
-  color: var(--bs-primary) !important;
+  color: var(--ion-color-primary) !important;
 }
 
 .pointer {
@@ -44,12 +44,12 @@ th {
 .ngb-dp-arrow-btn,
 .ngb-dp-weekday,
 .ngb-tp-chevron {
-  color: var(--bs-primary) !important;
+  color: var(--ion-color-primary) !important;
 }
 
 .form-control:focus,
 .ngb-tp-input:focus {
-  border-color: var(--bs-primary) !important;
+  border-color: var(--ion-color-primary) !important;
 }
 
 .btn-close {
@@ -63,13 +63,13 @@ fieldset:disabled .btn {
   color: var(--bs-btn-disabled-color);
   pointer-events: none;
   background-color: var(--bs-btn-disabled-bg);
-  border-color: var(--bs-primary);
+  border-color: var(--ion-color-primary);
   opacity: var(--bs-btn-disabled-opacity);
   box-shadow: none;
 }
 
 .form-check-input:checked {
-  background-color: var(--bs-primary);
+  background-color: var(--ion-color-primary);
 }
 
 .pw-invalid {
@@ -137,11 +137,35 @@ fieldset:disabled .btn {
   border-radius: 50%;
 }
 input:checked + .slider {
-  background-color: var(--bs-primary);
+  background-color: var(--ion-color-primary);
 }
 input:checked + .slider:before {
   transform: translateX(26px);
 }
 ::ng-deep .iti__dropdown-content{
   z-index: 100!important;
+}
+
+::ng-deep ion-input,
+ion-textarea {
+  text-align: left !important;
+}
+
+::ng-deep .iti__selected-country-primary {
+  background-color: var(--ion-color-light);
+  border: 1px solid var(--ion-color-step-300, var(--ion-background-color-step-300, #b3b3b3))!important;
+  border-start-start-radius: 4px;
+  border-end-start-radius: 4px;
+}
+
+::ng-deep .iti__country-name{
+  color: var(--ion-color-light) !important;
+}
+::ng-deep .telephone-field {
+  margin-left: 45px !important;
+
+  .input-outline-start {
+    border-radius: 0!important;
+    border-left:0!important;
+  }
 }

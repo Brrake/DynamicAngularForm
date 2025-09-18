@@ -12,7 +12,7 @@ Node.JS : [v20.13.1](https://nodejs.org/dist/v20.13.1/node-v20.13.1-x64.msi)
 
 Angular : 17 - 18 - 19 - 20
 
-The library come with preinstalled `@angular-slider/ngx-slider` for the rendering of Slider form inputs, `@ng-bootstrap/ng-bootstrap` for the Date and Time Picker and `ng-recaptcha-2` for the rendering og Google Recaptcha security feature.
+The library come with preinstalled `@angular-slider/ngx-slider` for the rendering of Slider form inputs and `ng-recaptcha-2` for the rendering og Google Recaptcha security feature.
 
 ## Installation
 

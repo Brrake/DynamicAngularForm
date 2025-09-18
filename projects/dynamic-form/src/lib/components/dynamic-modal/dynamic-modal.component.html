@@ -1,24 +1,14 @@
-<div [class]="'modal fade '+(modalPopup ? 'modal-popup' : '')" [id]="modalId" tabindex="-1"
-  data-target="#modal" [attr.data-bs-backdrop]="modalBackdrop">
-  <div class="modal-dialog modal-dialog-centered modal-sm justify-content-center">
-    <div class="text-start mb-3">
-      <div class="modal-content text-center">
-        <div style="max-width: 100vw;" class="modal-body" *ngIf="isLoaded">
-          <button style="height: fit-content;width: fit-content;" (click)="onClose()" *ngIf="modalCloseButton"
-            type="button" class="btnsign btn-close" [attr.data-bs-target]="'#'+modalId" data-bs-toggle="modal"
-            data-bs-dismiss="modal" aria-label="Close"></button>
-          <dynamic-form [disableSubmit]="disableSubmit" (formInit)="onFormInit($event)" [isOnModal]="true" #dyn_form [formSchemes]="formSchemes" [isSubmitFailed]="isSubmitFailed"
-            [loadSpinner]="loadSpinner" [errorMessage]="errorMessage" (onSubmit)="onSubmitForm($event)"
-            (loginWithGoogle)="handleGoogleLoginV2($event)" (formValueChanges)="onFormValueChanges($event)" (onCloseForm)="onClose()" (onBack)="onBack.emit(true)" />
+<ion-modal [trigger]="'openModal-'+modalId" [backdropDismiss]="modalBackdrop=='static'" [keepContentsMounted]="true">
+  <div style="max-width: 100vw;" class="modal-body" *ngIf="isLoaded">
+    <button style="height: fit-content;width: fit-content;" (click)="onClose()" *ngIf="modalCloseButton" type="button"
+      class="btnsign btn-close" [attr.data-bs-target]="'#'+modalId" data-bs-toggle="modal" data-bs-dismiss="modal"
+      aria-label="Close"></button>
+    <dynamic-form [disableSubmit]="disableSubmit" (formInit)="onFormInit($event)" [isOnModal]="true" #dyn_form
+      [formSchemes]="formSchemes" [isSubmitFailed]="isSubmitFailed" [loadSpinner]="loadSpinner"
+      [errorMessage]="errorMessage" (onSubmit)="onSubmitForm($event)" (loginWithGoogle)="handleGoogleLoginV2($event)"
+      (formValueChanges)="onFormValueChanges($event)" (onCloseForm)="onClose()" (onBack)="onBack.emit(true)" />
 
-            <ng-content />
+    <ng-content />
 
-        </div>
-      </div>
-    </div>
   </div>
-</div>
-
-<a [id]="'closeDefModal-'+modalId" style="display: none;" [attr.data-bs-target]="'#'+modalId" data-bs-dismiss="modal"></a>
-
-<a [id]="'openModal-'+modalId" style="display: none;" [attr.data-bs-target]="'#'+modalId" data-bs-toggle="modal"></a>
+</ion-modal>

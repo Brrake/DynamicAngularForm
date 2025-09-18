@@ -65,7 +65,7 @@ export class DynamicFormComponent implements OnInit {
           currField.type != this.FieldTypesEnum.show_video &&
           currField.type != this.FieldTypesEnum.section_info
         ) {
-          this.addFormControl(currField.formControlName as string, currField.default_value as string, currField.validators, i, currField.disabled as boolean)
+          this.addFormControl(currField.formControlName as string, currField.default_value as string, currField.validators, i, currField.disabled as boolean, currField.type)
         }
         if (currField.type == this.FieldTypesEnum.add_image) {
           this.displayImg.fill('', 0, formScheme.fields.length)
@@ -107,7 +107,7 @@ export class DynamicFormComponent implements OnInit {
     }
 
   }
-  private addFormControl(fieldName: string, default_value: string, validators: any, formGroupIndex: number, fieldDisabled: boolean) {
+  private addFormControl(fieldName: string, default_value: string, validators: any, formGroupIndex: number, fieldDisabled: boolean, fieldType: string) {
     let valArr = []
     for (let i = 0; i < validators?.length; i++) {
       const val = validators[i]
@@ -147,8 +147,15 @@ export class DynamicFormComponent implements OnInit {
       }
 
     }
+    let value = default_value
+    if (fieldType == FieldType.date || fieldType == FieldType.time) {
+      if (!value) {
+        value = new Date().toISOString()
+      }
+    }
+
     this.formGroup[formGroupIndex].addControl(fieldName, new FormControl({
-      value: default_value,
+      value: value,
       disabled: fieldDisabled
     }, Validators.compose(valArr)));
   }

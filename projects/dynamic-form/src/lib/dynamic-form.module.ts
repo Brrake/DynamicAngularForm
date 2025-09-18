@@ -8,11 +8,12 @@ import { RECAPTCHA_SETTINGS, RECAPTCHA_V3_SITE_KEY, RecaptchaFormsModule, Recapt
 import { GoogleLoginComponent } from "./components/google-login/google-login.component";
 import { GOOGLE_CLIENT_ID_KEY } from "./config.token";
 import { DynamicModalComponent } from "../public-api";
-import { NgOtpInputModule } from "ng-otp-input";
 import { RouterModule } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
 import { FormElementComponent } from "./components/form-element/form-element.component";
 import { IonicModule } from "@ionic/angular";
+import { IonIntlTelInputModule } from "ion-intl-tel-brk";
+
 
 @NgModule({
   declarations: [
@@ -27,8 +28,8 @@ import { IonicModule } from "@ionic/angular";
     FormsModule,
     NgxSliderModule,
     IonicModule,
+    IonIntlTelInputModule,
     TranslateModule,
-    NgOtpInputModule,
     RecaptchaV3Module,
     RecaptchaFormsModule,
     RecaptchaModule,

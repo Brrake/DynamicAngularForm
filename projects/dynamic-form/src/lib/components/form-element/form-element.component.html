@@ -1,4 +1,4 @@
-<ng-container [ngSwitch]="type">
+<ng-container [ngSwitch]="getRealFieldType(type)">
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.g_recaptcha)">
     <div class="row mt-3" *ngIf="version == 'v2' || !version">
       <div class="col-sm-12 mb-2 g-recaptcha" [formGroup]="form">
@@ -11,17 +11,14 @@
   </div>
   <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.textarea)">
     <div class="form-floating mb-4" [formGroup]="form">
-      <textarea [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
-        [name]="formName" (input)="sanitizeInput(formName)" [formControlName]="formName" [id]="id" class="form-control"
-        [placeholder]="label" style="height: 150px"></textarea>
-      <label [for]="id">{{label}}</label>
+      <ion-textarea [autoGrow]="true" labelPlacement="floating" fill="outline" [errorText]="getErrorText()"
+        [formControlName]="formName" (ionInput)="sanitizeInput(formName)" [label]="label"
+        [placeholder]="label"></ion-textarea>
     </div>
   </ng-container>
   <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.checkbox)">
     <div class="form-check text-end" [formGroup]="form">
-      <input [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
-        [name]="formName" [formControlName]="formName" class="form-check-input" type="checkbox" value="" [id]="id">
-      <label class="form-check-label" [for]="id"> {{label}} </label>
+      <ion-checkbox [name]="formName" [formControlName]="formName">{{label}}</ion-checkbox>
     </div>
   </ng-container>
   <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.switch)">
@@ -42,12 +39,11 @@
   </ng-container>
   <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.select)">
     <div class="form-select-wrapper mb-4" [formGroup]="form">
-      <select [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
-        [id]="id" [formControlName]="formName" [name]="formName" class="form-select">
-        <option value="" disabled selected>{{label}}</option>
-        <option *ngFor="let value of values" [value]="value.value">
-          {{getTranslatedName(value,'name')}}</option>
-      </select>
+      <ion-select [formControlName]="formName" [name]="formName" [label]="topLabel" label-placement="floating">
+        <ion-select-option value="" disabled selected>{{label}}</ion-select-option>
+        <ion-select-option *ngFor="let value of values"
+          [value]="value.value">{{getTranslatedName(value,'name')}}</ion-select-option>
+      </ion-select>
     </div>
   </ng-container>
   <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.slider || FieldTypesEnum.slider_noui)"
@@ -62,23 +58,22 @@
   -->
   <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)"
     class="form-floating password-field mb-4">
-    <ion-input [type]="pwdToggle ? 'text':'password'" labelPlacement="floating" fill="outline" [errorText]="getErrorText()"
+    <ion-input type="password" labelPlacement="floating" fill="outline" [errorText]="getErrorText()"
       [autocomplete]="autocomplete ? 'on':'off'" [formControlName]="formName" (ionInput)="sanitizeInput(formName)"
       [label]="label" [name]="formName" [placeholder]="label">
-      <ion-button (click)="pwdToggle=!pwdToggle" fill="clear" slot="end" aria-label="Show/hide">
-        <ion-icon slot="icon-only" name="eye" aria-hidden="true"></ion-icon>
-      </ion-button>
+      <ion-input-password-toggle slot="end"></ion-input-password-toggle>
     </ion-input>
   </div>
-  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.otp)" class="mb-3 d-flex"
+  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.otp)" [formGroup]="form" class="mb-3 d-flex"
     style="align-items: center;justify-content: center;">
-    <ng-otp-input [id]="id" (onInputChange)="onOtpChange($event, formName || '')"
-      [config]="{length:length, inputClass:'otp-input',allowNumbersOnly:true,placeholder:'_'}" />
+    <ion-input-otp [formControlName]="formName || ''" [id]="id" [readonly] [length]="length"></ion-input-otp>
   </div>
   <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.telephone)" class="mb-4">
-    <input [ngClass]="{'is-invalid': form.get(formName)?.invalid && form.get(formName)?.touched}"
-      (input)="updatePhoneField($event,formName)" [value]="form.get(formName || '')?.value.default || ''"
-      class="form-control" [id]="id">
+
+    <ion-label position="stacked">{{label}}</ion-label>
+    <ion-intl-tel-input fill="outline" [id]="id" [formControlName]="formName">
+    </ion-intl-tel-input>
+
   </div>
   <p [id]="id" *ngSwitchCase="getRealFieldType(FieldTypesEnum.section_info)" class="lead mb-6 text-start">{{label}}</p>
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.show_image)" class="mb-4">
@@ -121,30 +116,36 @@
   </ng-container>
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.date)" class="form-floating mb-4">
     <div [formGroup]="form" [id]="id" class="input-group">
-      <!--
-      <input class="form-control" [minDate]="minDate ? minDate: defMinDate" [maxDate]="maxDate ? maxDate :defMaxDate"
-        [placeholder]="label ? label : 'yyyy-mm-dd'" [name]="formName" [formControlName]="formName" ngbDatepicker
-        #d="ngbDatepicker" />
-      <button class="btn bi bi-calendar3" (click)="d.toggle()" type="button"><i
-          class="uil uil-calendar-alt"></i></button>
-          -->
+      <ion-datetime-button datetime="datetime"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime presentation="date" id="datetime"
+            [min]="minDate ? getFormattedDate(minDate) : getFormattedDate(defMinDate)"
+            [max]="maxDate ? getFormattedDate(maxDate) : getFormattedDate(defMaxDate)" [name]="formName"
+            [formControlName]="formName"></ion-datetime>
+        </ng-template>
+      </ion-modal>
     </div>
   </div>
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.time)" class="form-floating">
     <div [formGroup]="form" [id]="id" class="input-group d-grid">
       <p>{{label}}</p>
-      <!--
-      <ngb-timepicker [meridian]="meridian" [disabled]="disabled" [seconds]="seconds"
-        class="d-flex justify-content-center" [formControlName]="formName">
-      </ngb-timepicker>
-    -->
+      <ion-datetime-button datetime="datetime-1"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime presentation="time" id="datetime-1"
+            [min]="minDate ? getFormattedDate(minDate) : getFormattedDate(defMinDate)"
+            [max]="maxDate ? getFormattedDate(maxDate) : getFormattedDate(defMaxDate)" [name]="formName"
+            [formControlName]="formName"></ion-datetime>
+        </ng-template>
+      </ion-modal>
     </div>
   </div>
   <ng-container *ngSwitchDefault>
     <div class="form-floating mb-4" [formGroup]="form">
-      <ion-input labelPlacement="floating" fill="outline" [errorText]="getErrorText()"
+      <ion-input [type]="type" labelPlacement="floating" fill="outline" [errorText]="getErrorText()"
         [autocomplete]="autocomplete ? 'on':'off'" [formControlName]="formName" (ionInput)="sanitizeInput(formName)"
-        [label]="label" [name]="formName" [placeholder]="label"></ion-input>
+        [label]="label" [placeholder]="label"></ion-input>
     </div>
   </ng-container>
 </ng-container>

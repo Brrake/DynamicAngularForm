@@ -234,7 +234,6 @@ HTML ->
 | `controls`       | `string (optional)`                                           | Controls of the video field.                                                                          | show_video, add_video                           |
 | `version`        | `string (optional)`                                           | Version of the field.                                                                                 | g_recaptcha                                     |
 | `seconds`        | `boolean (optional)`                                          | Show or hide seconds field                                                                            | time                                            |
-| `meridian`        | `boolean (optional)`                                         | Show or hide meridian selector                                                                        | time                                            |
 
 ## `FieldType` (Enum)
 
