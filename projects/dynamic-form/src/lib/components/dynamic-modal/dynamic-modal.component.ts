@@ -1,8 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, PLATFORM_ID, ViewChild } from '@angular/core';
 import { DynamicFormComponent } from '../../dynamic-form.component';
 import { DynamicFormScheme } from '../../models/dynamic-form.model';
 import { FormGroup } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { IonButton, ModalController } from '@ionic/angular';
+import { isPlatformServer } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 
 
@@ -12,12 +14,14 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./dynamic-modal.component.scss'],
   standalone: false
 })
-export class DynamicModalComponent implements OnInit {
+export class DynamicModalComponent implements OnInit, OnChanges {
 
   @ViewChild('dyn_form') dynForm: DynamicFormComponent | undefined;
+  @ViewChild('openButt') openButt!: IonButton;
 
 
   @Input() modalId: string = 'default-id';
+  @Input() modalTitle: string = '';
   @Input() modalPopup: boolean = false
   @Input() modalCloseButton: boolean = false
   @Input() formSchemes: DynamicFormScheme[] = []
@@ -34,24 +38,26 @@ export class DynamicModalComponent implements OnInit {
   @Output() formValueChanges = new EventEmitter<any>();
   @Output() formInit = new EventEmitter<{ id: string; form: FormGroup }>();
 
-  isLoaded = true
 
   constructor(
-    private modalCtrl:ModalController
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private modalCtrl: ModalController,
+    private translate: TranslateService
   ) {
   }
   ngOnInit() {
+    if (isPlatformServer(this.platformId)) return;
     if (this.modalPopup) {
       this.openModal()
     }
   }
+  ngOnChanges(event: any) {
+    if (isPlatformServer(this.platformId)) return;
+    console.log('ng-content:', event);
+  }
   onClose() {
-    this.isLoaded = false
-
     this.dynForm?.resetAndGoToPage(0)
-
     this.onCloseModal.emit(true)
-    this.isLoaded = true
   }
   onFormInit(event: any) {
     this.formInit.emit(event)
@@ -76,16 +82,18 @@ export class DynamicModalComponent implements OnInit {
   }
   closeModal() {
     this.onClose()
-     this.modalCtrl.dismiss();
+    this.modalCtrl.dismiss();
   }
 
   handleGoogleLoginV2(response: any) {
     this.loginWithGoogle.emit(response);
   }
   async openModal() {
-    const modal = await this.modalCtrl.create({
-      component: DynamicModalComponent
-    });
-    await modal.present();
+    const button = document.querySelector('#open-'+this.modalId) as HTMLIonButtonElement;
+    button.click();
+  }
+  get translateClose() {
+    const currLang = this.translate.currentLang
+    return currLang == 'it' ? 'Chiudi' : 'Close'
   }
 }

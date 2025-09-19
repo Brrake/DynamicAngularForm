@@ -1,14 +1,20 @@
-<ion-modal [trigger]="'openModal-'+modalId" [backdropDismiss]="modalBackdrop=='static'" [keepContentsMounted]="true">
-  <div style="max-width: 100vw;" class="modal-body" *ngIf="isLoaded">
-    <button style="height: fit-content;width: fit-content;" (click)="onClose()" *ngIf="modalCloseButton" type="button"
-      class="btnsign btn-close" [attr.data-bs-target]="'#'+modalId" data-bs-toggle="modal" data-bs-dismiss="modal"
-      aria-label="Close"></button>
-    <dynamic-form [disableSubmit]="disableSubmit" (formInit)="onFormInit($event)" [isOnModal]="true" #dyn_form
-      [formSchemes]="formSchemes" [isSubmitFailed]="isSubmitFailed" [loadSpinner]="loadSpinner"
-      [errorMessage]="errorMessage" (onSubmit)="onSubmitForm($event)" (loginWithGoogle)="handleGoogleLoginV2($event)"
-      (formValueChanges)="onFormValueChanges($event)" (onCloseForm)="onClose()" (onBack)="onBack.emit(true)" />
-
-    <ng-content />
-
-  </div>
+<ion-modal [backdropDismiss]="modalBackdrop != 'static'" #modal [id]="'modal-'+modalId">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>{{modalTitle}}</ion-title>
+        <ion-buttons *ngIf="modalCloseButton" slot="end">
+          <ion-button (click)="modal.dismiss();onClose()">{{translateClose}}</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <dynamic-form [disableSubmit]="disableSubmit" (formInit)="onFormInit($event)" [isOnModal]="true" #dyn_form
+        [formSchemes]="formSchemes" [isSubmitFailed]="isSubmitFailed" [loadSpinner]="loadSpinner"
+        [errorMessage]="errorMessage" (onSubmit)="onSubmitForm($event)" (loginWithGoogle)="handleGoogleLoginV2($event)"
+        (formValueChanges)="onFormValueChanges($event)" (onCloseForm)="onClose()" (onBack)="onBack.emit(true)" />
+      <ng-content></ng-content>
+    </ion-content>
+  </ng-template>
 </ion-modal>
+<ion-button style="display: none;" [id]="'open-'+modalId" (click)="modal.present()"></ion-button>

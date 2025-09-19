@@ -121,6 +121,7 @@ export class FormElementComponent implements OnInit {
   }
   getErrorText() {
     for (let error of this.errors) {
+      
       if (this.form.get(this.formName || '')?.errors?.[error.name.toLowerCase()]) return this.getTranslatedName(error, 'text')
     }
     return ""
