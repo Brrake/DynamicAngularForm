@@ -70,9 +70,7 @@
   </div>
   <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.telephone)" class="mb-4">
 
-    <ion-label position="stacked">{{label}}</ion-label>
-    <ion-intl-tel-input fill="outline" [id]="id" [formControlName]="formName">
-    </ion-intl-tel-input>
+    <app-phone-field [errorText]="getErrorText()" (onPhoneSelected)="selectPhoneField($event)" id="search-popover" />
 
   </div>
   <p [id]="id" *ngSwitchCase="getRealFieldType(FieldTypesEnum.section_info)" class="lead mb-6 text-start">{{label}}</p>

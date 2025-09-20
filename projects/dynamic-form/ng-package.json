@@ -4,22 +4,12 @@
   "lib": {
     "entryFile": "src/public-api.ts"
   },
-  "assets": [
-    {
-      "glob": "**/*.tgz",
-      "input": "./libs/",
-      "output": "./"
-    }
-  ],
   "allowedNonPeerDependencies": [
     "@angular-slider/ngx-slider",
     "@ionic/angular",
     "ng-recaptcha-2",
     "nouislider",
-    "ion-intl-tel-input",
     "flag-icon-css",
-    "ion-intl-tel-brk",
-    "ionic-selectable",
     "google-libphonenumber",
     "flag-icons",
     "intl-tel-input"

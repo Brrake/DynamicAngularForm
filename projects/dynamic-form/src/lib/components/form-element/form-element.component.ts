@@ -2,9 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FieldType, SelectValueScheme } from '../../models/dynamic-form.model';
 import { TranslateService } from '@ngx-translate/core';
 
-import { createIsValidNumberValidator } from '../../custom_validators/createIsValidNumberValidator.validator';
 import noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'form-element',
@@ -17,7 +17,7 @@ export class FormElementComponent implements OnInit {
   @Input() type: FieldType = FieldType.text;
   @Input() label: string = 'Example';
   @Input() topLabel: string = 'Example';
-  @Input() form: any;
+  @Input() form: FormGroup = new FormGroup({});
   @Input() formName: string = 'example';
   @Input() disabled: boolean = false;
   @Input() autocomplete: boolean = false;
@@ -40,8 +40,8 @@ export class FormElementComponent implements OnInit {
   // Date
   @Input() minDate: any;
   @Input() maxDate: any;
-  defMinDate = { }
-  defMaxDate = { }
+  defMinDate = {}
+  defMaxDate = {}
   //G-Recaptcha
   @Input() version: string = '';
 
@@ -121,10 +121,13 @@ export class FormElementComponent implements OnInit {
   }
   getErrorText() {
     for (let error of this.errors) {
-      
+
       if (this.form.get(this.formName || '')?.errors?.[error.name.toLowerCase()]) return this.getTranslatedName(error, 'text')
     }
     return ""
+  }
+  selectPhoneField(phone: any) {
+    this.form.get(this.formName || '')?.setValue(phone)
   }
   getTranslatedName(field: any, key: string = 'name'): string {
     const currLang = this.translate.currentLang

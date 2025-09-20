@@ -12,13 +12,14 @@ import { RouterModule } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
 import { FormElementComponent } from "./components/form-element/form-element.component";
 import { IonicModule } from "@ionic/angular";
-import { IonIntlTelInputModule } from "ion-intl-tel-brk";
+import { PhoneFieldComponent } from "./components/phone-field/phone-field.component";
 
 
 @NgModule({
   declarations: [
     DynamicFormComponent,
     ButtonLoaderComponent,
+    PhoneFieldComponent,
     DynamicModalComponent,
     FormElementComponent,
     GoogleLoginComponent
@@ -28,7 +29,6 @@ import { IonIntlTelInputModule } from "ion-intl-tel-brk";
     FormsModule,
     NgxSliderModule,
     IonicModule,
-    IonIntlTelInputModule,
     TranslateModule,
     RecaptchaV3Module,
     RecaptchaFormsModule,
@@ -41,6 +41,7 @@ import { IonIntlTelInputModule } from "ion-intl-tel-brk";
     ButtonLoaderComponent,
     DynamicModalComponent,
     FormElementComponent,
+    PhoneFieldComponent,
     GoogleLoginComponent
   ],
   providers: [

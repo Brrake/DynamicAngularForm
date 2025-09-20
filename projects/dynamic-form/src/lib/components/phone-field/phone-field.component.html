@@ -1,0 +1,31 @@
+<ion-popover #popover [id]="'popover'+id">
+    <ng-template>
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>{{translatePrefix}}</ion-title>
+                <ion-buttons slot="end">
+                    <ion-button (click)="popover.dismiss()">{{translateClose}}</ion-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </ion-header>
+
+        <ion-content>
+            <ion-searchbar [placeholder]="translateSearch" [(ngModel)]="searchText" #searchInput="ngModel"
+                (ionInput)="onSearchCountriesInput()"></ion-searchbar>
+
+            <ion-list>
+                <ion-item style="cursor: pointer;" *ngFor="let phone of filteredPhoneNumbers"
+                    (click)="selectPhoneItem(phone)">
+                    {{ phone.text }}
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </ng-template>
+</ion-popover>
+<ion-row style="align-items: center;">
+    <ion-item [id]="'open'+id"
+        (click)="popover.present()" class="custom-tel-butt" color="dark">
+        {{selectedCountry.code}}
+    </ion-item>
+    <ion-input [errorText]="errorText" class="custom-tel-input" type="tel" fill="outline" [(ngModel)]="numberText" (ionInput)="onTypeNumber($event)" placeholder="328 888 9999"></ion-input>
+</ion-row>

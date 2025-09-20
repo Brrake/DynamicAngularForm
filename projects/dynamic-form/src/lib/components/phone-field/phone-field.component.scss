@@ -1,0 +1,25 @@
+.custom-tel-input {
+    width: 200px;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    ::ng-deep .input-outline-container{
+        padding: 4px 0 4px 0 !important;
+    }
+    ::ng-deep .input-outline-start {
+        border-start-start-radius: 0 !important;
+        border-end-start-radius: 0 !important;
+    }
+}
+
+::ng-deep .custom-tel-butt {
+    margin: 0;
+    height: 100%;
+    cursor: pointer;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+
+    ::ng-deep .item-native {
+        height: 100%!important;
+    }
+}
