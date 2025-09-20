@@ -2,7 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { IonPopover } from '@ionic/angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { countries } from '../../countries';
+import "flag-icons/css/flag-icons.min.css";
 import * as libphonenumber from 'google-libphonenumber';
+import { Country } from '../../models/countries.model';
 @Component({
   selector: 'app-phone-field',
   templateUrl: './phone-field.component.html',
@@ -15,9 +17,9 @@ export class PhoneFieldComponent implements OnInit {
   @Input() errorText: string = '';
   @Output() onPhoneSelected = new EventEmitter<any>();
 
-  countries = countries
+  countries: Country[] = countries
 
-  selectedCountry: any = {
+  selectedCountry: Country = {
     code: '+39',
     country: 'IT'
   };
@@ -26,7 +28,7 @@ export class PhoneFieldComponent implements OnInit {
 
   searchText: string = '';
   numberText: string = '';
-  filteredPhoneNumbers: any[] = [];
+  filteredPhoneNumbers: Country[] = [];
 
   constructor(
     private translate: TranslateService
@@ -37,7 +39,7 @@ export class PhoneFieldComponent implements OnInit {
   }
   onSearchCountriesInput() {
     this.filteredPhoneNumbers = this.countries.filter(i =>
-      i.text.toLowerCase().includes(this.searchText.toLowerCase())
+      (i.text || '').toLowerCase().includes(this.searchText.toLowerCase())
     );
   }
 

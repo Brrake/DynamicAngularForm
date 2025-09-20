@@ -9,7 +9,6 @@
     "@ionic/angular",
     "ng-recaptcha-2",
     "nouislider",
-    "flag-icon-css",
     "google-libphonenumber",
     "flag-icons",
     "intl-tel-input"

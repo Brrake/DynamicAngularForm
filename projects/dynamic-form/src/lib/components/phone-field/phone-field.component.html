@@ -16,7 +16,7 @@
             <ion-list>
                 <ion-item style="cursor: pointer;" *ngFor="let phone of filteredPhoneNumbers"
                     (click)="selectPhoneItem(phone)">
-                    {{ phone.text }}
+                    <span style="margin-right: 7px;" [class]="'fi fi-'+(phone.country | lowercase)"></span> {{ phone.text }}
                 </ion-item>
             </ion-list>
         </ion-content>

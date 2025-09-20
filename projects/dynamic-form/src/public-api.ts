@@ -11,5 +11,6 @@ export * from './lib/components/phone-field/phone-field.component';
 export * from './lib/dynamic-form.module';
 export * from './lib/countries';
 export * from './lib/models/dynamic-form.model';
+export * from './lib/models/countries.model';
 export * from './lib/custom_validators/link.validator';
 export * from './lib/custom_validators/confirm-password.validator';

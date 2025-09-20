@@ -1,4 +1,6 @@
-export const countries = [
+import { Country } from "../public-api";
+
+export const countries: Country[] = [
     {
         "text": "+1 United States",
         "code": "+1",
