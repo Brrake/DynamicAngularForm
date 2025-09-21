@@ -110,7 +110,6 @@ export enum FieldType {
   g_recaptcha = 'g-recaptcha',
   section_info = 'section-info',
   slider = 'slider',
-  slider_noui = 'slider-noui',
   telephone = 'telephone',
   add_image = 'add-image',
   show_image = 'show-image',

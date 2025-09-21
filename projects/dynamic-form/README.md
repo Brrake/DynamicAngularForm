@@ -12,7 +12,7 @@ Node.JS : [v20.13.1](https://nodejs.org/dist/v20.13.1/node-v20.13.1-x64.msi)
 
 Angular : 17 - 18 - 19 - 20
 
-The library come with preinstalled `@angular-slider/ngx-slider` for the rendering of Slider form inputs, `@ng-bootstrap/ng-bootstrap` for the Date and Time Picker and `ng-recaptcha-2` for the rendering og Google Recaptcha security feature.
+The library come with preinstalled `@angular-slider/ngx-slider` for the rendering of Slider form inputs and `ng-recaptcha-2` for the rendering og Google Recaptcha security feature.
 
 ## Installation
 
@@ -25,8 +25,6 @@ First of all you need to install the library running :
 |-------------------|--------------------|--------------------|
 | `v20`             | `20`           | `v22.18.0`  |
 | `v19`             | `19`           | `v20.13.1`  |
-| `v18`             | `18`           | `v20.13.1`  |
-| `v17`             | `17`           | `v20.13.1`  |
 
 
 Subsequently you need to import the module into `app.module.ts`
@@ -95,6 +93,7 @@ Below you will find all the information you need to correctly use the templates 
 | Property          | Type               | Default       | Description                                                                  | Required |
 |-------------------|--------------------|---------------|------------------------------------------------------------------------------|----------|
 | `modalId`         | `string`           | `'default-id'` | Assign a custom modal ID                                                     | false    |
+| `modalTitle`         | `string`           | `'default-id'` | Assign a custom modal title                                                  | false    |
 | `modalPopup`      | `boolean`          | `false`       | Make the modal popup onload automatically                                    | false    |
 | `modalCloseButton`| `boolean`          | `false`       | Enable close modal button, will appear as an "x" button in the top-right corner | false |
 | `formSchemes`     | [`DynamicFormScheme`](#dynamicformscheme) | `[]`          | Scheme of the form to visualize                                              | false    |
@@ -227,7 +226,7 @@ HTML ->
 | `length`         | `number (optional)`                                           | Length of the field.                                                                                  | otp                                             |
 | `minDate`        | `{ year:number, month:number, day:number } (optional)`        | minDate of datepicker.                                                                                | date                                            |
 | `maxDate`        | `{ year:number, month:number, day:number } (optional)`        | maxDate of datepicker.                                                                                | date                                            |
-| `values`         | `SelectValueScheme[] (optional)`                              | Array of selectable values for fields like dropdowns or radios.                                       | select                                          |
+| `values`         | `SelectValueScheme[] (optional)`                              | Array of selectable values for fields like dropdowns or radios.                                       | select, radio                                   |
 | `multiple`       | `boolean (optional)`                                          | Multiple upload of files.                                                                             | add_image, add_video                            |
 | `accept`         | `string (optional)`                                           | Accept types for input files.                                                                         | add_image, add_video                            |
 | `width`          | `string (optional)`                                           | Width of the field.                                                                                   | add_image, add_video, show_image, show_video    |
@@ -253,7 +252,6 @@ HTML ->
 | `g_recaptcha`   | Represents a Google reCAPTCHA field. |
 | `section_info`  | Represents a section information field. |
 | `slider`        | Represents a slider from @angular-slider/ngx-slider input field. |
-| `slider_noui`        | Represents a slider from nouislider input field. |
 | `telephone`     | Represents a telephone input field. |
 | `add_image`     | Represents an add image field.   |
 | `show_image`    | Represents a show image field.   |

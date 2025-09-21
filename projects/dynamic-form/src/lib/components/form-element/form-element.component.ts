@@ -1,9 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FieldType, SelectValueScheme } from '../../models/dynamic-form.model';
 import { TranslateService } from '@ngx-translate/core';
-
-import noUiSlider from 'nouislider';
-import 'nouislider/dist/nouislider.css';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -63,15 +60,6 @@ export class FormElementComponent implements OnInit {
     this.defMaxDate = { year: dateY.getFullYear(), month: 12, day: 31 }
   }
   ngOnInit() {
-
-    if (this.type == this.FieldTypesEnum.slider_noui) {
-      setTimeout(() => {
-        const slider = document.getElementById('slider') as HTMLElement;
-        noUiSlider.create(slider, {
-          ...this.options
-        });
-      })
-    }
     if (!this.form) return
     this.form.valueChanges.subscribe((e: any) => {
       this.onChange.emit(e)
@@ -121,7 +109,6 @@ export class FormElementComponent implements OnInit {
   }
   getErrorText() {
     for (let error of this.errors) {
-
       if (this.form.get(this.formName || '')?.errors?.[error.name.toLowerCase()]) return this.getTranslatedName(error, 'text')
     }
     return ""

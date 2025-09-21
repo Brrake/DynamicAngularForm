@@ -8,7 +8,6 @@
     "@angular-slider/ngx-slider",
     "@ionic/angular",
     "ng-recaptcha-2",
-    "nouislider",
     "google-libphonenumber",
     "flag-icons",
     "intl-tel-input"
