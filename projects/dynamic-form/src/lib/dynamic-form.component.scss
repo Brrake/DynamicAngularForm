@@ -9,3 +9,19 @@
 .hidden {
   display: none!important;
 }
+.color-dark{
+  color: var(--ion-color-dark)!important;
+}
+.d-flex{
+  display: flex;
+}
+.justify-content-center{
+  justify-content: center;
+}
+.align-items-center{
+  align-items: center;
+}
+.my-4{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}

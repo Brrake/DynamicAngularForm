@@ -32,14 +32,16 @@
   </ng-container>
   <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.radio)">
     <div class="form-check" [formGroup]="form">
-      <input [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
-        [name]="formName" [formControlName]="formName" class="form-check-input" type="radio" [id]="id">
-      <label class="form-check-label" [for]="id"> {{label}} </label>
+      <ion-radio-group [errorText]="getErrorText()" [helperText]="label" [formControlName]="formName" [name]="formName">
+        <ion-item *ngFor="let value of values">
+          <ion-radio [value]="value.value">{{ getTranslatedName(value,'name') }}</ion-radio>
+        </ion-item>
+      </ion-radio-group>
     </div>
   </ng-container>
   <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.select)">
     <div class="form-select-wrapper mb-4" [formGroup]="form">
-      <ion-select [formControlName]="formName" [name]="formName" [label]="topLabel" label-placement="floating">
+      <ion-select [formControlName]="formName" [name]="formName" [label]="topLabel" [errorText]="getErrorText()" label-placement="floating">
         <ion-select-option value="" disabled selected>{{label}}</ion-select-option>
         <ion-select-option *ngFor="let value of values"
           [value]="value.value">{{getTranslatedName(value,'name')}}</ion-select-option>
@@ -82,8 +84,8 @@
   </div>
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_image)" [id]="id"
     (click)="openSelectorFiles('input-file-'+label)"
-    class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
-    [style]="'font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;'+ (displayMedia!='' ? 'background-image: url('+displayMedia+');':'')">
+    class="add-block shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
+    [ngStyle]="{'background-image': 'url('+displayMedia+')'}">
     <a class="text-center" [hidden]="displayMedia!=''">+</a>
     <input [disabled]="disabled" (change)="toAdd($event)" [id]="'input-file-'+label" style="display: none;" type="file"
       [attr.multiple]="multiple ? multiple : null"
@@ -103,8 +105,7 @@
     </ng-container>
     <ng-template #noVideo>
       <div [id]="id" (click)="openSelectorFiles('input-file-'+label)"
-        class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
-        style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
+        class="add-block shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8">
         <a class="text-center">+</a>
         <input [disabled]="disabled" (change)="toAdd($event,'video')" [id]="'input-file-'+label" style="display: none;"
           type="file" [attr.multiple]="multiple ? multiple : null"

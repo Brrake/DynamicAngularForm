@@ -25,7 +25,7 @@
 <ion-row style="align-items: center;">
     <ion-item [id]="'open'+id"
         (click)="popover.present()" class="custom-tel-butt" color="dark">
-        {{selectedCountry.code}}
+        <span style="margin-right: 7px;" [class]="'fi fi-'+(selectedCountry.country | lowercase)"></span>{{selectedCountry.code}}
     </ion-item>
     <ion-input [errorText]="errorText" class="custom-tel-input" type="tel" fill="outline" [(ngModel)]="numberText" (ionInput)="onTypeNumber($event)" placeholder="328 888 9999"></ion-input>
 </ion-row>

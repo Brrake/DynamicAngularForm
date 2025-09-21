@@ -12,7 +12,7 @@
       <dynamic-form [disableSubmit]="disableSubmit" (formInit)="onFormInit($event)" [isOnModal]="true" #dyn_form
         [formSchemes]="formSchemes" [isSubmitFailed]="isSubmitFailed" [loadSpinner]="loadSpinner"
         [errorMessage]="errorMessage" (onSubmit)="onSubmitForm($event)" (loginWithGoogle)="handleGoogleLoginV2($event)"
-        (formValueChanges)="onFormValueChanges($event)" (onCloseForm)="onClose()" (onBack)="onBack.emit(true)" />
+        (formValueChanges)="onFormValueChanges($event)" (onCloseForm)="modal.dismiss();onClose()" (onBack)="onBack.emit(true)" />
       <ng-content></ng-content>
     </ion-content>
   </ng-template>
