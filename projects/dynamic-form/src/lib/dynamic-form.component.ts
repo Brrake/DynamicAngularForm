@@ -107,7 +107,7 @@ export class DynamicFormComponent implements OnInit {
     }
 
   }
-  private addFormControl(fieldName: string, default_value: string, validators: any, formGroupIndex: number, fieldDisabled: boolean, fieldType: string) {
+  private addFormControl(fieldName: string, default_value: any, validators: any, formGroupIndex: number, fieldDisabled: boolean, fieldType: string) {
     let valArr = []
     for (let i = 0; i < validators?.length; i++) {
       const val = validators[i]
@@ -148,16 +148,36 @@ export class DynamicFormComponent implements OnInit {
 
     }
     let value = default_value
-    if (fieldType == FieldType.date || fieldType == FieldType.time) {
+    const today = new Date();
+    if (fieldType == FieldType.date) {
       if (!value) {
-        value = new Date().toISOString()
+        value = today.toISOString()
+      } else {
+        if(!value?.year) value.year = today.getFullYear()
+        if(!value?.month) value.month = this.formatDateDigital((today.getMonth() + 1).toString())
+        if(!value?.day) value.day = this.formatDateDigital(today.getDate().toString())
+        const iso = value.year + '-' + this.formatDateDigital(value.month) + '-' + this.formatDateDigital(value.day) + 'T00:00:00.000Z'
+        value = new Date(iso).toISOString()
+      }
+    } else if (fieldType == FieldType.time) {
+      if (!value) {
+        value = today.toISOString()
+      } else {
+        if(!value?.hour) value.hour = 0
+        if(!value?.minute) value.minute = 0
+        if(!value?.second) value.second = 0
+        const hours = this.formatDateDigital(value.hour) + ':' + this.formatDateDigital(value.minute) + ':' + this.formatDateDigital(value.second) + '.000Z'
+        const iso = today.getFullYear() + '-' + this.formatDateDigital((today.getMonth() + 1).toString()) + '-' + this.formatDateDigital(today.getDate().toString()) + 'T' + hours
+        value = new Date(iso).toISOString()
       }
     }
-
     this.formGroup[formGroupIndex].addControl(fieldName, new FormControl({
       value: value,
       disabled: fieldDisabled
     }, Validators.compose(valArr)));
+  }
+  formatDateDigital(digit: string): string {
+    return parseInt(digit) < 10 ? '0' + digit : digit
   }
   updateForm(formGroup: number, values: any) {
     this.formGroup[formGroup].patchValue(values)
@@ -166,6 +186,7 @@ export class DynamicFormComponent implements OnInit {
     // Se vuole usare recaptcha v3
     //this.formSchemes[idx].active_page = false
     if (this.formGroup[idx].invalid) return { success: false }
+    this.formateDateForm(idx)
 
     let isV3GRecaptcha = false
     let fieldName = ''
@@ -201,7 +222,38 @@ export class DynamicFormComponent implements OnInit {
     }
     return { success: true }
   }
+  formateDateForm(idx: number) {
+    let dateFormNames = []
+    let timeFormNames = []
+    for (let i = 0; i < this.formSchemes[idx].fields.length; i++) {
+      const currField = this.formSchemes[idx].fields[i]
+      if (currField.type == this.FieldTypesEnum.date) {
+        dateFormNames.push(currField.formControlName)
+      } else if (currField.type == this.FieldTypesEnum.time) {
+        timeFormNames.push(currField.formControlName)
+      }
+    }
+    for (const key in this.formGroup[idx].controls) {
+      const date = new Date(this.formGroup[idx].controls[key].getRawValue())
+      if (dateFormNames.includes(key)) {
+        const finalDate = {
+          year: date.getFullYear(),
+          month: date.getMonth() + 1,
+          day: date.getDate()
+        }
+        this.formGroup[idx].controls[key].setValue(finalDate)
+      } else if (timeFormNames.includes(key)) {
+        const finalDate = {
+          hour: date.getHours(),
+          month: date.getMinutes(),
+          day: date.getSeconds()
+        }
+        this.formGroup[idx].controls[key].setValue(finalDate)
+      }
+    }
+  }
   onTestSubmit() {
+    this.formateDateForm(0)
     console.log(this.formGroup)
     console.log(this.addTree)
     console.log(this.addVideoTree)

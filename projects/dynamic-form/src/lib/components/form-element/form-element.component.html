@@ -112,17 +112,16 @@
       <ion-datetime-button datetime="datetime"></ion-datetime-button>
       <ion-modal [keepContentsMounted]="true">
         <ng-template>
-          <ion-datetime presentation="date" id="datetime"
+          <ion-datetime [formControlName]="formName" presentation="date" id="datetime"
             [min]="minDate ? getFormattedDate(minDate) : getFormattedDate(defMinDate)"
-            [max]="maxDate ? getFormattedDate(maxDate) : getFormattedDate(defMaxDate)" [name]="formName"
-            [formControlName]="formName"></ion-datetime>
+            [max]="maxDate ? getFormattedDate(maxDate) : getFormattedDate(defMaxDate)" [name]="formName">
+          </ion-datetime>
         </ng-template>
       </ion-modal>
     </div>
   </div>
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.time)" class="form-floating">
     <div [formGroup]="form" [id]="id" class="input-group d-grid">
-      <p>{{label}}</p>
       <ion-datetime-button datetime="datetime-1"></ion-datetime-button>
       <ion-modal [keepContentsMounted]="true">
         <ng-template>
