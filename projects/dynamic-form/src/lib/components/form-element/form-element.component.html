@@ -66,7 +66,7 @@
   <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)"
     class="form-floating password-field mb-4">
     <input [style]="" [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
-      [id]="id" [autocomplete]="autocomplete ? 'on':'off'" type="password"
+      [id]="id" [autocomplete]="autocomplete ? 'on':'off'" [type]="showPassword ? 'text':'password'"
       [class]="'form-control '+((form.get(formName || '')?.invalid && form.get(formName || '')?.touched) ? 'pr-3':'pr-2')"
       [placeholder]="label" [name]="formName || ''" [formControlName]="formName || ''">
     <span (click)="showPassword = !showPassword"
