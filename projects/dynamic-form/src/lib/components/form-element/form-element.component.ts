@@ -53,6 +53,8 @@ export class FormElementComponent implements OnInit {
 
   @Output() onChange = new EventEmitter<any>()
 
+  showPassword = false
+
 
   private itis_info: any[] = []
   public FieldTypesEnum: typeof FieldType = FieldType
