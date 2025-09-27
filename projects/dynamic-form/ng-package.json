@@ -4,6 +4,13 @@
   "lib": {
     "entryFile": "src/public-api.ts"
   },
+  "assets": [
+    {
+      "glob": "**/*",
+      "input": "src/lib/flags",
+      "output": "assets/flags"
+    }
+  ],
   "allowedNonPeerDependencies": [
     "@angular-slider/ngx-slider",
     "@ionic/angular",

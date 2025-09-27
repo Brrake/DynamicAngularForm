@@ -16,7 +16,7 @@
             <ion-list>
                 <ion-item style="cursor: pointer;" *ngFor="let phone of filteredPhoneNumbers"
                     (click)="selectPhoneItem(phone)">
-                    <span style="margin-right: 7px;" [class]="'fi fi-'+(phone.country | lowercase)"></span> {{ phone.text }}
+                    <span class="fi" [ngStyle]="{ 'background-image': 'url(\'assets/flags/4x3/' + (phone.country | lowercase) + '.svg\')' }"></span> {{ phone.text }}
                 </ion-item>
             </ion-list>
         </ion-content>
@@ -25,7 +25,7 @@
 <ion-row style="align-items: center;">
     <ion-item [id]="'open'+id"
         (click)="popover.present()" class="custom-tel-butt" color="dark">
-        <span style="margin-right: 7px;" [class]="'fi fi-'+(selectedCountry.country | lowercase)"></span>{{selectedCountry.code}}
+        <span class="fi" [ngStyle]="{ 'background-image': 'url(\'assets/flags/4x3/' + (selectedCountry.country | lowercase) + '.svg\')' }"></span>{{selectedCountry.code}}
     </ion-item>
     <ion-input [errorText]="errorText" class="custom-tel-input" type="tel" fill="outline" [(ngModel)]="numberText" (ionInput)="onTypeNumber($event)" placeholder="328 888 9999"></ion-input>
 </ion-row>
