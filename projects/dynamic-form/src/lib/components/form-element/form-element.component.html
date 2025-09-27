@@ -1,4 +1,4 @@
-<ng-container [ngSwitch]="type">
+<ng-container [ngSwitch]="getRealFieldType(type)">
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.g_recaptcha)">
     <div class="row mt-3" *ngIf="version == 'v2' || !version">
       <div class="col-sm-12 mb-2 g-recaptcha" [formGroup]="form">
@@ -34,10 +34,13 @@
     </div>
   </ng-container>
   <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.radio)">
-    <div class="form-check" [formGroup]="form">
-      <input [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
-        [name]="formName" [formControlName]="formName" class="form-check-input" type="radio" [id]="id">
-      <label class="form-check-label" [for]="id"> {{label}} </label>
+    <div [formGroup]="form">
+      <div class="form-check" *ngFor="let value of values">
+        <input [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
+          [value]="value.value" [formControlName]="formName" class="form-check-input" type="radio" [name]="formName"
+          [id]="id">
+        <label class="form-check-label" [for]="id"> {{getTranslatedName(value,'name')}} </label>
+      </div>
     </div>
   </ng-container>
   <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.select)">
@@ -66,8 +69,7 @@
       [id]="id" [autocomplete]="autocomplete ? 'on':'off'" type="password"
       [class]="'form-control '+((form.get(formName || '')?.invalid && form.get(formName || '')?.touched) ? 'pr-3':'pr-2')"
       [placeholder]="label" [name]="formName || ''" [formControlName]="formName || ''">
-    <span
-      (click)="showPassword = !showPassword"
+    <span (click)="showPassword = !showPassword"
       [class]="'password-toggle '+((form.get(formName || '')?.invalid && form.get(formName || '')?.touched) ? 'pw-invalid':'')"><i
         class="uil" [ngClass]="{'uil-eye': !showPassword, 'uil-eye-slash': showPassword}"></i></span>
     <label [for]="id">{{label}}</label>
