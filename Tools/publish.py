@@ -32,7 +32,7 @@ if __name__ == '__main__':
         print('✅ Build completed')
 
     npm_otp = input("Insert OTP Code: ").strip().lower()
-    subprocess.call([npm_cmd, 'publish','--otp', npm_otp ,'--tag',release], cwd=main_dir)
+    subprocess.call([npm_cmd, 'publish','--otp', npm_otp ,'--tag',release], cwd=dist_dir)
     print('✅ Publish completed')
         
     github_tags = input("Do you want to publish GitHub Tags? (Y/N): ").strip().lower()
