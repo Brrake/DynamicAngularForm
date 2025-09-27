@@ -14,7 +14,6 @@
   "allowedNonPeerDependencies": [
     "@ionic/angular",
     "ng-recaptcha-2",
-    "google-libphonenumber",
-    "flag-icons"
+    "google-libphonenumber"
   ]
 }
