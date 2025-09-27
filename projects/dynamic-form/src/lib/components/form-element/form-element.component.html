@@ -46,7 +46,16 @@
     </div>
   </ng-container>
   <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.slider)" class="form-floating">
-    <ngx-slider [id]="id" [formControlName]="formName || ''" [options]="getSliderOptions(options)" />
+    <ion-range
+      [id]="id"
+      [min]="options.floor ? options.floor : 0"
+      [max]="options.ceil ? options.ceil : 10"
+      [formControlName]="formName || ''"
+      [pin]="true"
+      [ticks]="true"
+      [snaps]="true"
+    ></ion-range>
+    <br>
   </div>
   <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)"
     class="form-floating password-field mb-4">

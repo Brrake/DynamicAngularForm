@@ -80,16 +80,6 @@ export class FormElementComponent implements OnInit {
   getRealFieldType(fieldType: string) {
     return fieldType.replace(/_/g, '-').toLowerCase().trim()
   }
-  // slider
-  getSliderOptions(options: any) {
-    let body = {
-      ...options,
-      getPointerColor: (value: number) => {
-        return 'var(--ion-color-primary)'
-      }
-    }
-    return body
-  }
   // add image
   openSelectorFiles(id: string) {
     const selector = document.getElementById(id) as HTMLElement

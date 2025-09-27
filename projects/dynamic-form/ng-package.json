@@ -12,7 +12,6 @@
     }
   ],
   "allowedNonPeerDependencies": [
-    "@angular-slider/ngx-slider",
     "@ionic/angular",
     "ng-recaptcha-2",
     "google-libphonenumber",

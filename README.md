@@ -13,7 +13,7 @@ Node.JS : [v20.13.1](https://nodejs.org/dist/v20.13.1/node-v20.13.1-x64.msi)
 Angular : 19 - 20
 Ionic : 
 
-The library come with preinstalled `@angular-slider/ngx-slider` for the rendering of Slider form inputs and `ng-recaptcha-2` for the rendering og Google Recaptcha security feature.
+The library come with preinstalled `ng-recaptcha-2` for the rendering the Google Recaptcha security feature.
 
 ## Installation
 

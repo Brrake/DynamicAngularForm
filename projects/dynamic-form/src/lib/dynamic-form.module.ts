@@ -2,7 +2,6 @@ import { ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DynamicFormComponent } from "./dynamic-form.component";
-import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { ButtonLoaderComponent } from "./components/button-loader/button-loader.component";
 import { RECAPTCHA_SETTINGS, RECAPTCHA_V3_SITE_KEY, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RecaptchaV3Module } from "ng-recaptcha-2";
 import { GoogleLoginComponent } from "./components/google-login/google-login.component";
@@ -27,10 +26,8 @@ import { DynamicModalComponent } from "./components/dynamic-modal/dynamic-modal.
   imports : [
     CommonModule,
     FormsModule,
-    NgxSliderModule,
     IonicModule,
     TranslateModule,
-
     RecaptchaV3Module,
     RecaptchaFormsModule,
     RecaptchaModule,

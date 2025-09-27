@@ -22,7 +22,7 @@
         </ion-content>
     </ng-template>
 </ion-popover>
-<ion-row style="align-items: center;">
+<ion-row style="align-items: center;justify-content: center;">
     <ion-item [id]="'open'+id"
         (click)="popover.present()" class="custom-tel-butt" color="dark">
         <span class="fi" [ngStyle]="{ 'background-image': 'url(\'assets/flags/4x3/' + (selectedCountry.country | lowercase) + '.svg\')' }"></span>{{selectedCountry.code}}

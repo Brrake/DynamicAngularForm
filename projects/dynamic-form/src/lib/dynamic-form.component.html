@@ -1,86 +1,94 @@
-<ng-container *ngFor="let formScheme of formSchemes;let idx = index">
-  <ng-container *ngIf="(formScheme.active_page) || (formSchemes.length == 1)">
-    <h2 [id]="'title-'+idx" class="mb-3 text-start">{{getTranslatedName(formScheme,'title')}}</h2>
-    <p [id]="'description-'+idx" *ngIf="getTranslatedName(formScheme,'description')" class="lead mb-6 text-start">
-      {{getTranslatedName(formScheme,'description')}}
-    </p>
-    <form [id]="formScheme.formId || 'defId'" [formGroup]="formGroup[idx]" (ngSubmit)="onSubmitForm(idx)" class="mt-4">
-      <ng-container *ngFor="let field of formScheme.fields;let fieldIdx = index">
-        <div [ngClass]="{'hidden': field.visible == false}" class="mb-4"
-          [id]="formScheme.formId+'-'+field.formControlName+'-main'">
+  <ng-container *ngFor="let formScheme of formSchemes;let idx = index">
+    <ng-container *ngIf="(formScheme.active_page) || (formSchemes.length == 1)">
+      <h2 [id]="'title-'+idx" class="mb-3 text-start">{{getTranslatedName(formScheme,'title')}}</h2>
+      <p [id]="'description-'+idx" *ngIf="getTranslatedName(formScheme,'description')" class="lead mb-6 text-start">
+        {{getTranslatedName(formScheme,'description')}}
+      </p>
+      <form [id]="formScheme.formId || 'defId'" [formGroup]="formGroup[idx]" (ngSubmit)="onSubmitForm(idx)"
+        class="mt-4">
+        <ng-container *ngFor="let field of formScheme.fields;let fieldIdx = index">
+          <div [ngClass]="{'hidden': field.visible == false}" class="mb-4"
+            [id]="formScheme.formId+'-'+field.formControlName+'-main'">
 
-          <div *ngIf="field.top_label && field.type != FieldTypesEnum.select" class="text-left" [id]="formScheme.formId+'-'+field.formControlName+'-toplabel'">
-            <p class="col-form-label" style="color: #60697b;">{{getTranslatedName(field,'top_label')}}</p>
+            <div *ngIf="field.top_label && field.type != FieldTypesEnum.select" class="text-left"
+              [id]="formScheme.formId+'-'+field.formControlName+'-toplabel'">
+              <p style="color: var(--ion-color-dark);">{{getTranslatedName(field,'top_label')}}
+              </p>
+            </div>
+            <form-element [id]="formScheme.formId+'-'+field.formControlName" [type]="field.type"
+              [seconds]="field.seconds || false" [topLabel]="getTranslatedName(field,'top_label')"
+              [disabled]="field.disabled || false" [label]="getTranslatedName(field)"
+              [autocomplete]="field.autocomplete || false" [formName]="field.formControlName || ''"
+              [form]="formGroup[idx]" [displayMedia]="field.default_value?.toString() || ''"
+              [values]="field.values || []" [options]="field.options || {}" [length]="field.length || 6"
+              [controls]="field.controls || ''" [width]="field.width || ''" [src]="field.src || ''"
+              [multiple]="field.multiple || false" [accept]="field.accept || ''" [minDate]="field.minDate || ''"
+              [maxDate]="field.maxDate || ''" [version]="field.version || ''" [errors]="field.errors || []"
+              [validators]="field.validators || []"
+              (onChooseMedia)="onChooseMedia($event,formScheme.formId+'-'+field.formControlName)" />
+
           </div>
-          <form-element [id]="formScheme.formId+'-'+field.formControlName" [type]="field.type"
-          [seconds]="field.seconds || false"
-          [topLabel]="getTranslatedName(field,'top_label')"
-            [disabled]="field.disabled || false" [label]="getTranslatedName(field)"
-            [autocomplete]="field.autocomplete || false"
-            [formName]="field.formControlName || ''" [form]="formGroup[idx]"
-            [displayMedia]="field.default_value?.toString() || ''" [values]="field.values || []"
-            [options]="field.options || {}" [length]="field.length || 6" [controls]="field.controls || ''"
-            [width]="field.width || ''" [src]="field.src || ''" [multiple]="field.multiple || false"
-            [accept]="field.accept || ''" [minDate]="field.minDate || ''" [maxDate]="field.maxDate || ''"
-            [version]="field.version || ''" [errors]="field.errors || []" [validators]="field.validators || []" (onChooseMedia)="onChooseMedia($event,formScheme.formId+'-'+field.formControlName)" />
+
+        </ng-container>
+        <div *ngFor="let error of formScheme.custom_validators">
+          <div [hidden]="!formGroup[idx]!.errors?.[error.error_name]" class="mt-4 alert alert-danger custom">
+            {{getTranslatedName(error,'text')}}
+          </div>
+        </div>
+        <ng-content />
+        <div *ngIf="isSubmitFailed" class="alert alert-danger">
+          {{errorMessage}}
+        </div>
+        <div class="d-flex justify-content-center">
+          <div *ngFor="let button of formScheme.buttons" [ngSwitch]="button.type" class="mb-3">
+            <button-loader [margin]="button.margin || false" (onSubmit)="onClose()" *ngSwitchCase="ButtonsEnum.close"
+              [isFormValid]="true" [text]="getTranslatedName(button)" type="button" [text_color]="button.text_color"
+              [color]="button.button_color" />
+            <button-loader [margin]="button.margin || false" *ngSwitchCase="ButtonsEnum.test" [isFormValid]="true"
+              [text]="getTranslatedName(button)" type="button" (onSubmit)="onTestSubmit()"
+              [text_color]="button.text_color" [color]="button.button_color" />
+            <button-loader [margin]="button.margin || false" *ngSwitchCase="ButtonsEnum.back" [isFormValid]="true"
+              [text]="getTranslatedName(button)" type="button" (onSubmit)="onBackPage(button.page || 0)"
+              [text_color]="button.text_color" [color]="button.button_color" />
+            <button-loader [margin]="button.margin || false" *ngSwitchCase="ButtonsEnum.submit"
+              [loadSpinner]="loadSpinner" [isFormValid]="formGroup[idx].valid && !disableSubmit"
+              [text]="getTranslatedName(button)" type="submit" [text_color]="button.text_color"
+              [color]="button.button_color" />
+          </div>
+        </div>
+      </form>
+      <div *ngFor="let addon of formScheme.addons" [ngSwitch]="addon.name">
+        <div *ngSwitchCase="AddonsEnum.highlight">
+          <p class="mb-0" style="text-align: center;">
+            <a class="color-dark" *ngIf="addon.normal_text"
+              [id]="'register-text-'+idx">{{getTranslatedName(addon,'normal_text')}} </a>
+            <ng-container *ngIf="addon.href_type == hrefTypes.MODAL;else default">
+              <a [id]="'register-button-'+idx" [attr.data-bs-target]="'#'+addon.href"
+                class="hover">{{getTranslatedName(addon,'highlight_text')}}</a>
+            </ng-container>
+            <ng-template #default>
+              <a (click)="closeModal()" [id]="'register-button-'+idx" [routerLink]="['/'+addon.href]"
+                class="hover">{{getTranslatedName(addon,'highlight_text')}}</a>
+            </ng-template>
+
+          </p>
+        </div>
+        <div *ngSwitchCase="AddonsEnum.google_login" class="mt-3">
+          <div [id]="'google-uppertext-'+idx" class="d-flex justify-content-center divider-icon my-4"
+            *ngIf="addon.upper_text">
+            {{getTranslatedName(addon,'upper_text')}}
+          </div>
+          <nav class="d-flex justify-content-center text-center">
+            <google-login (loginWithGoogle)="handleGoogleLoginV2($event)" [type]="addon.type || ''"
+              [size]="addon.size || ''" [gStyle]="addon.style || 0" [theme]="addon.theme || ''"
+              [text]="addon.text || ''" [shape]="addon.shape || ''" [logo_alignment]="addon.logo_alignment || ''"
+              [auto_prompt]="addon.auto_prompt || 'false'" />
+          </nav>
 
         </div>
-        
-      </ng-container>
-      <div *ngFor="let error of formScheme.custom_validators">
-        <div [hidden]="!formGroup[idx]!.errors?.[error.error_name]" class="mt-4 alert alert-danger custom">
-          {{getTranslatedName(error,'text')}}
-        </div>
       </div>
-      <ng-content />
-      <div *ngIf="isSubmitFailed" class="alert alert-danger">
-        {{errorMessage}}
-      </div>
-      <div class="d-flex justify-content-center">
-        <div *ngFor="let button of formScheme.buttons" [ngSwitch]="button.type" class="mb-3">
-          <button-loader [margin]="button.margin || false" (onSubmit)="onClose()" *ngSwitchCase="ButtonsEnum.close"
-            [isFormValid]="true" [text]="getTranslatedName(button)" type="button" [text_color]="button.text_color"
-            [color]="button.button_color" />
-          <button-loader [margin]="button.margin || false" *ngSwitchCase="ButtonsEnum.test" [isFormValid]="true"
-            [text]="getTranslatedName(button)" type="button" (onSubmit)="onTestSubmit()"
-            [text_color]="button.text_color" [color]="button.button_color" />
-          <button-loader [margin]="button.margin || false" *ngSwitchCase="ButtonsEnum.back" [isFormValid]="true"
-            [text]="getTranslatedName(button)" type="button" (onSubmit)="onBackPage(button.page || 0)"
-            [text_color]="button.text_color" [color]="button.button_color" />
-          <button-loader [margin]="button.margin || false" *ngSwitchCase="ButtonsEnum.submit"
-            [loadSpinner]="loadSpinner" [isFormValid]="formGroup[idx].valid && !disableSubmit" [text]="getTranslatedName(button)"
-            type="submit" [text_color]="button.text_color" [color]="button.button_color" />
-        </div>
-      </div>
-    </form>
-    <div *ngFor="let addon of formScheme.addons" [ngSwitch]="addon.name">
-      <div *ngSwitchCase="AddonsEnum.highlight">
-        <p class="mb-0" style="text-align: center;">
-          <a class="color-dark" *ngIf="addon.normal_text" [id]="'register-text-'+idx">{{getTranslatedName(addon,'normal_text')}} </a>
-          <ng-container *ngIf="addon.href_type == hrefTypes.MODAL;else default">
-            <a [id]="'register-button-'+idx" [attr.data-bs-target]="'#'+addon.href" class="hover">{{getTranslatedName(addon,'highlight_text')}}</a>
-          </ng-container>
-          <ng-template #default>
-            <a (click)="closeModal()" [id]="'register-button-'+idx" [routerLink]="['/'+addon.href]"
-              class="hover">{{getTranslatedName(addon,'highlight_text')}}</a>
-          </ng-template>
+    </ng-container>
 
-        </p>
-      </div>
-      <div *ngSwitchCase="AddonsEnum.google_login" class="mt-3">
-        <div [id]="'google-uppertext-'+idx" class="d-flex justify-content-center divider-icon my-4" *ngIf="addon.upper_text">
-          {{getTranslatedName(addon,'upper_text')}}
-        </div>
-        <nav class="d-flex justify-content-center text-center">
-          <google-login (loginWithGoogle)="handleGoogleLoginV2($event)" [type]="addon.type || ''"
-            [size]="addon.size || ''" [gStyle]="addon.style || 0" [theme]="addon.theme || ''" [text]="addon.text || ''"
-            [shape]="addon.shape || ''" [logo_alignment]="addon.logo_alignment || ''" [auto_prompt]="addon.auto_prompt || 'false'" />
-        </nav>
-
-      </div>
-    </div>
   </ng-container>
-
-</ng-container>
-<button id="closeModalButt" style="display: none;" type="button" data-bs-toggle="modal"
-  data-bs-dismiss="modal"></button>
+  <button id="closeModalButt" style="display: none;" type="button" data-bs-toggle="modal"
+    data-bs-dismiss="modal"></button>
