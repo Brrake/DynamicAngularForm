@@ -319,7 +319,7 @@ export class DynamicFormComponent implements OnInit {
     this.formSchemes[page].active_page = true
   }
   isFormValid(idx: number): boolean {
-    return this.formGroup[idx].valid
+    return this.formGroup[idx]?.valid
   }
   closeModal() {
     if (this.isOnModal) setTimeout(() => { document.getElementById('closeModalButt')?.click() });

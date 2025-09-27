@@ -2,9 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { IonPopover } from '@ionic/angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { countries } from '../../countries';
-import "flag-icons/css/flag-icons.min.css";
 import * as libphonenumber from 'google-libphonenumber';
 import { Country } from '../../models/countries.model';
+
 @Component({
   selector: 'app-phone-field',
   templateUrl: './phone-field.component.html',
