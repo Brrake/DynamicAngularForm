@@ -16,7 +16,6 @@
     "@ionic/angular",
     "ng-recaptcha-2",
     "google-libphonenumber",
-    "flag-icons",
-    "intl-tel-input"
+    "flag-icons"
   ]
 }

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FieldType, SelectValueScheme } from '../../models/dynamic-form.model';
+import { Errors, FieldType, SelectValueScheme } from '../../models/dynamic-form.model';
 import { TranslateService } from '@ngx-translate/core';
 import { FormGroup } from '@angular/forms';
 
@@ -48,6 +48,7 @@ export class FormElementComponent implements OnInit {
 
   // Errors
   @Input() errors: any[] = [];
+  @Input() validators: any[] = [];
 
   @Output() onChange = new EventEmitter<any>()
 
@@ -120,5 +121,8 @@ export class FormElementComponent implements OnInit {
     const currLang = this.translate.currentLang
     if (currLang != 'it' && field[key + '_' + currLang] != undefined) return field[key + '_' + currLang]
     return field[key]
+  }
+  get maxLengthError() {
+    return this.validators.find(e => e.name == Errors.maxlength)?.value || null
   }
 }
