@@ -1,0 +1,53 @@
+.custom-search-input {
+  padding: 10px;
+  border-bottom: 1px solid var(--bs-dark);
+}
+
+.custom-tel-input {
+  border-end-start-radius: 0;
+  border-start-start-radius: 0;
+}
+
+.custom-tel-butt {
+  border: 1.3px solid var(--bs-primary);
+  background-color: var(--bs-primary);
+  color: #fff;
+  border-end-start-radius: 0.4rem;
+  border-start-start-radius: 0.4rem;
+  padding: 10px;
+}
+
+.fib,
+.fi {
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+
+.fi {
+  position: relative;
+  display: inline-block;
+  width: 1.333333em;
+  line-height: 1em;
+  margin-right: 7px;
+  border-radius: 5px !important;
+}
+
+.fi:before {
+  content: " ";
+}
+
+.fi.fis {
+  width: 1em;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}

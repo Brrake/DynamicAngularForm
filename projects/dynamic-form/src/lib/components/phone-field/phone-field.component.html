@@ -1,0 +1,33 @@
+<div class="d-flex justify-content-center mb-4 dropdown">
+    <ul class="dropdown-menu" style="padding: 20px;width: 350px;">
+        <h1>{{translatePrefix}}</h1>
+        <p>{{translateDescription}}</p>
+        <div class="form-floating mb-4 mt-4">
+            <input (input)="onSearchCountriesInput()" [(ngModel)]="searchText" name="search-input" type="text"
+                class="form-control" [placeholder]="translateSearch">
+            <label [for]="id">{{translateSearch}}</label>
+        </div>
+        <div style="overflow-y: scroll;max-height: 300px;">
+            <li class="nav-item" *ngFor="let phone of filteredPhoneNumbers">
+                <a (click)="selectPhoneItem(phone)"
+                    class="dropdown-item d-flex align-items-center justify-content-between custom-search-input pointer">
+                    <span class="fi"
+                        [ngStyle]="{ 'background-image': 'url(\'assets/flags/4x3/' + (phone.country | lowercase) + '.svg\')' }"></span>
+                    {{ phone.text }}
+                </a>
+            </li>
+            <p class="text-center" *ngIf="filteredPhoneNumbers.length == 0">{{translateNoResults}}</p>
+        </div>
+    </ul>
+
+    <button data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [id]="'open'+id"
+        class="custom-tel-butt" color="dark">
+        <span class="fi"
+            [ngStyle]="{ 'background-image': 'url(\'assets/flags/4x3/' + (selectedCountry.country | lowercase) + '.svg\')' }"></span>{{selectedCountry.code}}
+    </button>
+    <div class="form-floating">
+        <input #number [ngClass]="{'is-invalid': !isValidField() && numberText !== ''}" [(ngModel)]="numberText"
+            [id]="id" type="tel" class="form-control custom-tel-input" placeholder="328 888 9999">
+        <label [for]="id">{{label}}</label>
+    </div>
+</div>

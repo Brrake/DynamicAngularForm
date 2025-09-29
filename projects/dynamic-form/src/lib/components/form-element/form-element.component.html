@@ -53,7 +53,7 @@
       </select>
     </div>
   </ng-container>
-  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.slider || FieldTypesEnum.slider_noui)"
+  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.slider)"
     class="form-floating">
     <ngx-slider [id]="id" [formControlName]="formName || ''" [options]="getSliderOptions(options)" />
   </div>
@@ -80,9 +80,7 @@
       [config]="{length:length, inputClass:'otp-input',allowNumbersOnly:true,placeholder:'_'}" />
   </div>
   <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.telephone)" class="mb-4">
-    <input [ngClass]="{'is-invalid': form.get(formName)?.invalid && form.get(formName)?.touched}"
-      (input)="updatePhoneField($event,formName)" [value]="form.get(formName || '')?.value.default || ''"
-      class="form-control" [id]="id">
+    <app-phone-field (onPhoneSelected)="selectPhoneField($event)" id="search-popover" [label]="label" />
   </div>
   <p [id]="id" *ngSwitchCase="getRealFieldType(FieldTypesEnum.section_info)" class="lead mb-6 text-start">{{label}}</p>
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.show_image)" class="mb-4">
