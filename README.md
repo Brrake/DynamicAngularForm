@@ -64,13 +64,19 @@ You need to import the style sheet if using telehone input into `angular.json`
 
 ``` angular
   ...
-
-  "scripts":{
-    ...
-    "node_modules/intl-tel-input/build/css/intlTelInput.css"
-    ...
+  "architect": {
+    "build": {
+      "options": {
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "node_modules/dynamic-angular-form/assets/flags",
+            "output": "/assets/flags"
+          }
+        ]
+      }
+    }
   }
-
   ...
  
 ```

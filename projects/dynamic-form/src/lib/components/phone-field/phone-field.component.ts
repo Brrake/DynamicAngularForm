@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { countries } from '../../countries';
 import * as libphonenumber from 'google-libphonenumber';
 import { Country } from '../../models/countries.model';
-import { DynamicModalComponent } from '../dynamic-modal/dynamic-modal.component';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-phone-field',
@@ -14,6 +14,8 @@ import { DynamicModalComponent } from '../dynamic-modal/dynamic-modal.component'
 export class PhoneFieldComponent implements OnInit {
   @Input() id: string = '';
   @Input() label: string = '';
+  @Input() form: FormGroup | undefined;
+  @Input() formName: string = '';
   @Output() onPhoneSelected = new EventEmitter<any>();
 
   countries: Country[] = countries
@@ -34,6 +36,7 @@ export class PhoneFieldComponent implements OnInit {
     this.filteredPhoneNumbers = [...this.countries];
   }
   ngOnInit() {
+    this.numberText = this.form?.get(this.formName)?.value
   }
   onSearchCountriesInput() {
     this.filteredPhoneNumbers = this.countries.filter(i =>

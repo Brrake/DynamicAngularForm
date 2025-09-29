@@ -80,7 +80,7 @@
       [config]="{length:length, inputClass:'otp-input',allowNumbersOnly:true,placeholder:'_'}" />
   </div>
   <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.telephone)" class="mb-4">
-    <app-phone-field (onPhoneSelected)="selectPhoneField($event)" id="search-popover" [label]="label" />
+    <app-phone-field [form]="form" [formName]="formName" (onPhoneSelected)="selectPhoneField($event)" id="search-popover" [label]="label" />
   </div>
   <p [id]="id" *ngSwitchCase="getRealFieldType(FieldTypesEnum.section_info)" class="lead mb-6 text-start">{{label}}</p>
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.show_image)" class="mb-4">
