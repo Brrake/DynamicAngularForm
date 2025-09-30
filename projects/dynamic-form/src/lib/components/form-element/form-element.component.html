@@ -57,12 +57,6 @@
     class="form-floating">
     <ngx-slider [id]="id" [formControlName]="formName || ''" [options]="getSliderOptions(options)" />
   </div>
-
-  <!-- TODO NOUISLIDER
-  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.slider_noui)" class="form-floating mt-3 mb-3">
-    <div id="slider"></div>
-  </div>
-  -->
   <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)"
     class="form-floating password-field mb-4">
     <input [style]="" [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
