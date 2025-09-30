@@ -26,7 +26,7 @@
             [ngStyle]="{ 'background-image': 'url(\'assets/flags/4x3/' + (selectedCountry.country | lowercase) + '.svg\')' }"></span>{{selectedCountry.code}}
     </button>
     <div class="form-floating">
-        <input #number [ngClass]="{'is-invalid': !isValidField() && numberText !== ''}" [(ngModel)]="numberText"
+        <input #number (input)="onTypeNumber($event)" [ngClass]="{'is-invalid': !isValidField(numberText) && numberText !== ''}" [(ngModel)]="numberText"
             [id]="id" type="tel" class="form-control custom-tel-input" placeholder="328 888 9999">
         <label [for]="id">{{label}}</label>
     </div>

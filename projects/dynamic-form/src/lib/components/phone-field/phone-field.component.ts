@@ -50,25 +50,18 @@ export class PhoneFieldComponent implements OnInit {
       this.onPhoneSelected.emit(undefined)
       return
     }
-    let isValid = false
-    try {
-      const number = this.phoneUtil.parseAndKeepRawInput(this.numberText, this.selectedCountry.country);
-      isValid = this.phoneUtil.isValidNumber(number) || this.phoneUtil.isValidNumberForRegion(number, this.selectedCountry.country)
-    } catch (e) {
-      isValid = false
-    }
     this.onPhoneSelected.emit({
       number: this.numberText,
-      valid: isValid,
+      valid: this.isValidField(this.numberText),
       country: {
         code: this.selectedCountry.code,
         country: this.selectedCountry.country
       }
     });
   }
-  isValidField() {
+  isValidField(phone:string) {
     try {
-      const number = this.phoneUtil.parseAndKeepRawInput(this.numberText, this.selectedCountry.country);
+      const number = this.phoneUtil.parseAndKeepRawInput(phone, this.selectedCountry.country);
       return this.phoneUtil.isValidNumber(number) || this.phoneUtil.isValidNumberForRegion(number, this.selectedCountry.country)
     } catch (e) {
       return false
@@ -79,16 +72,9 @@ export class PhoneFieldComponent implements OnInit {
       this.onPhoneSelected.emit(undefined)
       return
     }
-    let isValid = false
-    try {
-      const number = this.phoneUtil.parseAndKeepRawInput(event.target.value, this.selectedCountry.country);
-      isValid = this.phoneUtil.isValidNumber(number) || this.phoneUtil.isValidNumberForRegion(number, this.selectedCountry.country)
-    } catch (e) {
-      isValid = false
-    }
     this.onPhoneSelected.emit({
       number: event.target.value,
-      valid: isValid,
+      valid: this.isValidField(event.target.value),
       country: {
         code: this.selectedCountry.code,
         country: this.selectedCountry.country
