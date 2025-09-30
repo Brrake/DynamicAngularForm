@@ -142,6 +142,3 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(26px);
 }
-::ng-deep .iti__dropdown-content{
-  z-index: 100!important;
-}

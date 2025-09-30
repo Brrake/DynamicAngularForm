@@ -9,16 +9,12 @@
 }
 
 .custom-tel-butt {
-  border: 2px solid var(--bs-primary);
-  background-color: var(--bs-light);
-  color: var(--bs-dark);
+  border: 1.3px solid var(--bs-primary);
+  background-color: var(--bs-primary);
+  color: #fff;
   border-end-start-radius: 0.4rem;
   border-start-start-radius: 0.4rem;
   padding: 10px;
-}
-.custom-tel-butt:hover {
-  background-color: var(--bs-primary);
-  color: var(--bs-light);
 }
 
 .fib,
