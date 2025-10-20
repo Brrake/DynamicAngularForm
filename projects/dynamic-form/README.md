@@ -25,8 +25,6 @@ First of all you need to install the library running :
 |-------------------|--------------------|--------------------|
 | `v20`             | `20`           | `v22.18.0`  |
 | `v19`             | `19`           | `v20.13.1`  |
-| `v18`             | `18`           | `v20.13.1`  |
-| `v17`             | `17`           | `v20.13.1`  |
 
 
 Subsequently you need to import the module into `app.module.ts`
@@ -66,13 +64,19 @@ You need to import the style sheet if using telehone input into `angular.json`
 
 ``` angular
   ...
-
-  "scripts":{
-    ...
-    "node_modules/intl-tel-input/build/css/intlTelInput.css"
-    ...
+  "architect": {
+    "build": {
+      "options": {
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "node_modules/dynamic-angular-form/assets/flags",
+            "output": "/assets/flags"
+          }
+        ]
+      }
+    }
   }
-
   ...
  
 ```
@@ -227,7 +231,7 @@ HTML ->
 | `length`         | `number (optional)`                                           | Length of the field.                                                                                  | otp                                             |
 | `minDate`        | `{ year:number, month:number, day:number } (optional)`        | minDate of datepicker.                                                                                | date                                            |
 | `maxDate`        | `{ year:number, month:number, day:number } (optional)`        | maxDate of datepicker.                                                                                | date                                            |
-| `values`         | `SelectValueScheme[] (optional)`                              | Array of selectable values for fields like dropdowns or radios.                                       | select                                          |
+| `values`         | `SelectValueScheme[] (optional)`                              | Array of selectable values for fields like dropdowns or radios.                                       | select, radio                                   |
 | `multiple`       | `boolean (optional)`                                          | Multiple upload of files.                                                                             | add_image, add_video                            |
 | `accept`         | `string (optional)`                                           | Accept types for input files.                                                                         | add_image, add_video                            |
 | `width`          | `string (optional)`                                           | Width of the field.                                                                                   | add_image, add_video, show_image, show_video    |
@@ -254,7 +258,6 @@ HTML ->
 | `g_recaptcha`   | Represents a Google reCAPTCHA field. |
 | `section_info`  | Represents a section information field. |
 | `slider`        | Represents a slider from @angular-slider/ngx-slider input field. |
-| `slider_noui`        | Represents a slider from nouislider input field. |
 | `telephone`     | Represents a telephone input field. |
 | `add_image`     | Represents an add image field.   |
 | `show_image`    | Represents a show image field.   |

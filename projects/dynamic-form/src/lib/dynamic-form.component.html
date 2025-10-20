@@ -12,7 +12,7 @@
           <div *ngIf="field.top_label" class="text-left" [id]="formScheme.formId+'-'+field.formControlName+'-toplabel'">
             <p class="col-form-label" style="color: #60697b;">{{getTranslatedName(field,'top_label')}}</p>
           </div>
-          <form-element [id]="formScheme.formId+'-'+field.formControlName" [type]="field.type"
+          <form-element [default_value]="field.default_value" [id]="formScheme.formId+'-'+field.formControlName" [type]="field.type"
           [seconds]="field.seconds || false" [meridian]="field.meridian || false"
             [disabled]="field.disabled || false" [label]="getTranslatedName(field)"
             [autocomplete]="field.autocomplete || false"

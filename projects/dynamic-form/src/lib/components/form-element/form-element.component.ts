@@ -1,10 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FieldType, SelectValueScheme } from '../../models/dynamic-form.model';
 import { TranslateService } from '@ngx-translate/core';
-import intlTelInput, { Iti } from 'intl-tel-input';
-import { createIsValidNumberValidator } from '../../custom_validators/createIsValidNumberValidator.validator';
-import noUiSlider from 'nouislider';
-import 'nouislider/dist/nouislider.css';
 
 @Component({
   selector: 'form-element',
@@ -20,6 +16,7 @@ export class FormElementComponent implements OnInit {
   @Input() formName: string = 'example';
   @Input() disabled: boolean = false;
   @Input() autocomplete: boolean = false;
+  @Input() default_value: any;
   // Select
   @Input() values: SelectValueScheme[] = [];
   // Slider
@@ -43,57 +40,29 @@ export class FormElementComponent implements OnInit {
   defMaxDate = { year: new Date().setFullYear(new Date().getFullYear() + 5), month: 12, day: 31 }
   //G-Recaptcha
   @Input() version: string = '';
-  
+
   // Time
-  @Input() meridian:boolean = false
-  @Input() seconds:boolean = true
+  @Input() meridian: boolean = false
+  @Input() seconds: boolean = true
 
   // Errors
   @Input() errors: any[] = [];
 
   @Output() onChange = new EventEmitter<any>()
 
+  showPassword = false
 
-  private itis_info: any[] = []
   public FieldTypesEnum: typeof FieldType = FieldType
 
   constructor(private translate: TranslateService) { }
   ngOnInit() {
-    if (this.type == this.FieldTypesEnum.telephone) {
-      setTimeout(() => {
-        const phone = document.getElementById(this.id) as HTMLInputElement
-        let iti = intlTelInput(phone, {
-          initialCountry: "auto",
-          loadUtilsOnInit: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/23.0.11/js/utils.js",
-          customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
-            return "e.g. " + selectedCountryPlaceholder;
-          },
-          geoIpLookup: function (success, failure) {
-            fetch("https://ipapi.co/json")
-              .then(function (res) { return res.json(); })
-              .then(function (data) { success(data.country_code); })
-              .catch(function () { failure(); });
-          }
-        }) as Iti;
-        this.itis_info.push({ iti: iti, formControlName: this.formName as string })
-        this.form.addValidators(createIsValidNumberValidator(() => iti))
-      })
-    }
-    if (this.type == this.FieldTypesEnum.slider_noui) {
-      setTimeout(() => {
-        const slider = document.getElementById('slider') as HTMLElement;
-        noUiSlider.create(slider, {
-          ...this.options
-        });
-      })
-    }
-    if(!this.form) return
-    this.form.valueChanges.subscribe((e:any) => {
+    if (!this.form) return
+    this.form.valueChanges.subscribe((e: any) => {
       this.onChange.emit(e)
     })
   }
   sanitizeInput(formControlName: string) {
-    if(!this.form) return
+    if (!this.form) return
     const control = this.form.get(formControlName);
     if (control) {
       const sanitizedValue = control.value.replace(/<[^>]*>/g, "");
@@ -113,16 +82,12 @@ export class FormElementComponent implements OnInit {
     }
     return body
   }
+  selectPhoneField(phone: any) {
+    this.form.get(this.formName || '')?.setValue(phone)
+  }
   // otp
   onOtpChange(event: any, formControlName: string) {
     this.form.patchValue({ [formControlName]: event })
-  }
-  // phone
-  updatePhoneField(event: any, formControlName: string): void {
-    const newDefault = event.target.value;
-    let currIti = this.itis_info.find(iti => iti.formControlName == formControlName);
-    const newValue = { formatted: `${currIti.iti?.getNumber()}`, default: newDefault };
-    this.form.get(formControlName)?.setValue(newValue);
   }
   // add image
   openSelectorFiles(id: string) {
@@ -134,7 +99,7 @@ export class FormElementComponent implements OnInit {
     this.displayMedia = URL.createObjectURL(event.target.files[0])
     for (let file of event.target.files) {
       var src = URL.createObjectURL(file);
-      addTree.push({ file: file, src: src,id: this.id, });
+      addTree.push({ file: file, src: src, id: this.id, });
     }
     this.onChooseMedia.emit({
       id: this.id,

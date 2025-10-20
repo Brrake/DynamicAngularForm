@@ -8,7 +8,7 @@ import { ButtonLoaderComponent } from "./components/button-loader/button-loader.
 import { RECAPTCHA_SETTINGS, RECAPTCHA_V3_SITE_KEY, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RecaptchaV3Module } from "ng-recaptcha-2";
 import { GoogleLoginComponent } from "./components/google-login/google-login.component";
 import { GOOGLE_CLIENT_ID_KEY } from "./config.token";
-import { DynamicModalComponent } from "../public-api";
+import { DynamicModalComponent, PhoneFieldComponent } from "../public-api";
 import { NgOtpInputModule } from "ng-otp-input";
 import { RouterModule } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
@@ -18,6 +18,7 @@ import { FormElementComponent } from "./components/form-element/form-element.com
   declarations: [
     DynamicFormComponent,
     ButtonLoaderComponent,
+    PhoneFieldComponent,
     DynamicModalComponent,
     FormElementComponent,
     GoogleLoginComponent
@@ -40,6 +41,7 @@ import { FormElementComponent } from "./components/form-element/form-element.com
     ButtonLoaderComponent,
     DynamicModalComponent,
     FormElementComponent,
+    PhoneFieldComponent,
     GoogleLoginComponent
   ],
   providers: [
