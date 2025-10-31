@@ -287,4 +287,13 @@ export class DynamicFormComponent implements OnInit {
       ]
     }
   }
+  getHighlightAddontext(addon:any,position:string):string{
+    const translatedName = this.getTranslatedName(addon,'normal_text')
+    if(position == 'before'){
+      return translatedName.split('[*]')[0] || ''
+    } else if(position == 'after'){
+      return translatedName.split('[*]')[1] || ''
+    }
+    return ''
+  }
 }
