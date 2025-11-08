@@ -1,6 +1,6 @@
 <ion-button [type]="type" (click)="onClick()" [disabled]="!isFormValid||loadSpinner||loadCheck" [color]="color"
   [size]="large ? 'large' : ''" [ngClass]="{'mr-1':margin}">
-  <a class="d-flex align-items-center" [style]="'color: '+getTextColor()" *ngIf="!loadSpinner && !loadCheck">
+  <a class="ion-display-flex ion-align-items-center" [style]="'color: '+getTextColor()" *ngIf="!loadSpinner && !loadCheck">
     <ion-icon size="small" [ngStyle]="{'margin-right': text ? '5px' : '0px'}" *ngIf="icon!='' && icon_position=='left'" [name]="icon"></ion-icon>
     <span>{{text}}</span>
     <ion-icon size="small" [ngStyle]="{'margin-left': text ? '5px' : '0px'}" *ngIf="icon!='' && icon_position=='right'" [name]="icon"></ion-icon>

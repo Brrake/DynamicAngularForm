@@ -2,7 +2,7 @@
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.g_recaptcha)">
     <div class="row mt-3" *ngIf="version == 'v2' || !version">
       <div class="col-sm-12 mb-2 g-recaptcha" [formGroup]="form">
-        <re-captcha [id]="id" class="d-flex justify-content-center"
+        <re-captcha [id]="id" class="ion-display-flex ion-justify-content-center"
           style="transform:scale(1);-webkit-transform:scale(1);transform-origin:0 0;-webkit-transform-origin:0 0;"
           [formControlName]="formName"
           [class.is-invalid]="form.get(formName)?.invalid && (form.get(formName)?.dirty || form.get(formName)?.touched)"></re-captcha>
@@ -22,7 +22,7 @@
     </div>
   </ng-container>
   <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.switch)">
-    <div class="d-flex justify-content-between align-items-center" [formGroup]="form">
+    <div class="ion-display-flex ion-justify-content-between ion-align-items-center" [formGroup]="form">
       <ion-toggle [name]="formName" [formControlName]="formName" [id]="id">{{label}}</ion-toggle>
     </div>
   </ng-container>
@@ -65,7 +65,7 @@
       <ion-input-password-toggle slot="end"></ion-input-password-toggle>
     </ion-input>
   </div>
-  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.otp)" [formGroup]="form" class="mb-3 d-flex"
+  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.otp)" [formGroup]="form" class="mb-3 ion-display-flex"
     style="align-items: center;justify-content: center;">
     <ion-input-otp [formControlName]="formName || ''" [id]="id" [readonly] [length]="length"></ion-input-otp>
   </div>
@@ -74,7 +74,7 @@
     <app-phone-field [errorText]="getErrorText()" (onPhoneSelected)="selectPhoneField($event)" id="search-popover" />
 
   </div>
-  <p [id]="id" *ngSwitchCase="getRealFieldType(FieldTypesEnum.section_info)" class="lead mb-6 text-start">{{label}}</p>
+  <p [id]="id" *ngSwitchCase="getRealFieldType(FieldTypesEnum.section_info)" class="lead mb-6 ion-text-start">{{label}}</p>
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.show_image)" class="mb-4">
     <img [id]="id" [width]="width" [src]="src">
   </div>
@@ -83,9 +83,9 @@
   </div>
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_image)" [id]="id"
     (click)="openSelectorFiles('input-file-'+label)"
-    class="add-block shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
+    class="add-block shadow-xl pdr-60px card pointer resp-block ion-justify-content-center lift mb-8"
     [ngStyle]="{'background-image': 'url('+displayMedia+')'}">
-    <a class="text-center" [hidden]="displayMedia!=''">+</a>
+    <a class="ion-text-center" [hidden]="displayMedia!=''">+</a>
     <input [disabled]="disabled" (change)="toAdd($event)" [id]="'input-file-'+label" style="display: none;" type="file"
       [attr.multiple]="multiple ? multiple : null"
       [attr.accept]="(accept!='' && accept!=null && accept!=undefined) ? accept :'image/png, image/gif, image/jpeg, image/jpg'">
@@ -104,8 +104,8 @@
     </ng-container>
     <ng-template #noVideo>
       <div [id]="id" (click)="openSelectorFiles('input-file-'+label)"
-        class="add-block shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8">
-        <a class="text-center">+</a>
+        class="add-block shadow-xl pdr-60px card pointer resp-block ion-justify-content-center lift mb-8">
+        <a class="ion-text-center">+</a>
         <input [disabled]="disabled" (change)="toAdd($event,'video')" [id]="'input-file-'+label" style="display: none;"
           type="file" [attr.multiple]="multiple ? multiple : null"
           [attr.accept]=" (accept!='' && accept!=null && accept!=undefined) ? accept :'video/mp4,video/x-m4v,video/*'">
@@ -126,7 +126,7 @@
     </div>
   </div>
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.time)" class="form-floating">
-    <div [formGroup]="form" [id]="id" class="input-group d-grid">
+    <div [formGroup]="form" [id]="id" class="input-group ion-display-grid">
       <ion-datetime-button datetime="datetime-1"></ion-datetime-button>
       <ion-modal [keepContentsMounted]="true">
         <ng-template>
