@@ -53,7 +53,7 @@ export class DynamicModalComponent implements OnInit, OnChanges {
   }
   ngOnChanges(event: any) {
     if (isPlatformServer(this.platformId)) return;
-    console.log('ng-content:', event);
+    //console.log('ng-content:', event);
   }
   onClose() {
     this.dynForm?.resetAndGoToPage(0)
