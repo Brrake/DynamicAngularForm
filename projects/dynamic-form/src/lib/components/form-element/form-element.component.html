@@ -71,7 +71,7 @@
   </div>
   <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.telephone)" class="mb-4">
 
-    <app-phone-field [errorText]="getErrorText()" (onPhoneSelected)="selectPhoneField($event)" id="search-popover" />
+    <app-phone-field [form]="form" [formName]="formName" [errorText]="getErrorText()" (onPhoneSelected)="selectPhoneField($event)" id="search-popover" />
 
   </div>
   <p [id]="id" *ngSwitchCase="getRealFieldType(FieldTypesEnum.section_info)" class="lead mb-6 ion-text-start">{{label}}</p>

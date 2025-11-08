@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { countries } from '../../countries';
 import * as libphonenumber from 'google-libphonenumber';
 import { Country } from '../../models/countries.model';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-phone-field',
@@ -15,6 +16,8 @@ export class PhoneFieldComponent implements OnInit {
   @ViewChild('popover') popover!: IonPopover;
   @Input() id: string = '';
   @Input() errorText: string = '';
+  @Input() form: FormGroup | undefined;
+  @Input() formName: string = '';
   @Output() onPhoneSelected = new EventEmitter<any>();
 
   countries: Country[] = countries
@@ -36,6 +39,15 @@ export class PhoneFieldComponent implements OnInit {
     this.filteredPhoneNumbers = [...this.countries];
   }
   ngOnInit() {
+    this.form?.controls[this.formName].valueChanges.subscribe(value => {
+      this.refreshValues()
+    });
+    this.refreshValues()
+  }
+  public refreshValues() {
+    const formControl = this.form?.get(this.formName)
+    this.numberText = formControl?.value?.number || ''
+    this.selectedCountry = formControl?.value?.country || this.selectedCountry
   }
   onSearchCountriesInput() {
     this.filteredPhoneNumbers = this.countries.filter(i =>
@@ -59,7 +71,7 @@ export class PhoneFieldComponent implements OnInit {
     }
     this.onPhoneSelected.emit({
       number: this.numberText,
-      valid: isValid,
+      valid: this.isValidField(this.numberText),
       country: {
         code: this.selectedCountry.code,
         country: this.selectedCountry.country
@@ -67,21 +79,22 @@ export class PhoneFieldComponent implements OnInit {
     });
     this.popover.dismiss({ data: phone }, '');
   }
+  isValidField(phone: string) {
+    try {
+      const number = this.phoneUtil.parseAndKeepRawInput(phone, this.selectedCountry.country);
+      return this.phoneUtil.isValidNumber(number) || this.phoneUtil.isValidNumberForRegion(number, this.selectedCountry.country)
+    } catch (e) {
+      return false
+    }
+  }
   onTypeNumber(event: any) {
     if (!event.target.value) {
       this.onPhoneSelected.emit(undefined)
       return
     }
-    let isValid = false
-    try {
-      const number = this.phoneUtil.parseAndKeepRawInput(event.target.value, this.selectedCountry.country);
-      isValid = this.phoneUtil.isValidNumber(number) || this.phoneUtil.isValidNumberForRegion(number, this.selectedCountry.country)
-    } catch (e) {
-      isValid = false
-    }
     this.onPhoneSelected.emit({
       number: event.target.value,
-      valid: isValid,
+      valid: this.isValidField(event.target.value),
       country: {
         code: this.selectedCountry.code,
         country: this.selectedCountry.country
