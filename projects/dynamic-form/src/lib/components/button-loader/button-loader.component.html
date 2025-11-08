@@ -5,6 +5,6 @@
     <span>{{text}}</span>
     <ion-icon *ngIf="icon!='' && icon_position=='right'" [name]="icon"></ion-icon>
   </a>
-  <i style="font-size: 30px!important;" *ngIf="loadCheck && !loadSpinner" class="uil uil-check fs-18"></i>
+  <ion-icon *ngIf="loadCheck && !loadSpinner" name="checkmark-outline"></ion-icon>
   <ion-spinner *ngIf="loadSpinner && !loadCheck" name="lines-sharp-small"></ion-spinner>
 </ion-button>
