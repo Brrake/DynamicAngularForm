@@ -1,13 +1,10 @@
-<ion-button [type]="type" (click)="onClick()" [disabled]="!isFormValid||loadSpinner||loadCheck"
-  [color]="color"
-  [size]="large ? 'large' : ''"
-  [ngClass]="{'mr-1':margin}"
->
+<ion-button [type]="type" (click)="onClick()" [disabled]="!isFormValid||loadSpinner||loadCheck" [color]="color"
+  [size]="large ? 'large' : ''" [ngClass]="{'mr-1':margin}">
   <a class="d-flex align-items-center" [style]="'color: '+getTextColor()" *ngIf="!loadSpinner && !loadCheck">
-    <i *ngIf="icon!='' && icon_position=='left'" [class]="getClassFromIcon()+' fs-20 '+(text ? 'mr-1' : '')"></i>
+    <ion-icon *ngIf="icon!='' && icon_position=='left'" [name]="icon"></ion-icon>
     <span>{{text}}</span>
-    <i *ngIf="icon!='' && icon_position=='right'" [class]="getClassFromIcon()+' fs-20'"></i>
+    <ion-icon *ngIf="icon!='' && icon_position=='right'" [name]="icon"></ion-icon>
   </a>
   <i style="font-size: 30px!important;" *ngIf="loadCheck && !loadSpinner" class="uil uil-check fs-18"></i>
-  <ion-spinner  *ngIf="loadSpinner && !loadCheck" name="lines-sharp-small"></ion-spinner>
+  <ion-spinner *ngIf="loadSpinner && !loadCheck" name="lines-sharp-small"></ion-spinner>
 </ion-button>
