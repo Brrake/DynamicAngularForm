@@ -36,10 +36,15 @@ export class PhoneFieldComponent implements OnInit {
     this.filteredPhoneNumbers = [...this.countries];
   }
   ngOnInit() {
+    this.form?.controls[this.formName].valueChanges.subscribe(value => {
+      this.refreshValues()
+    });
+    this.refreshValues()
+  }
+  public refreshValues() {
     const formControl = this.form?.get(this.formName)
-    this.numberText = formControl?.value || ''
-    //this.numberText = formControl?.value?.number || ''
-    //this.selectedCountry = formControl?.value?.country || this.selectedCountry
+    this.numberText = formControl?.value?.number || ''
+    this.selectedCountry = formControl?.value?.country || this.selectedCountry
   }
   onSearchCountriesInput() {
     this.filteredPhoneNumbers = this.countries.filter(i =>
