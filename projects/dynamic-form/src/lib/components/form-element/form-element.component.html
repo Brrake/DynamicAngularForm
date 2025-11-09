@@ -11,7 +11,7 @@
   </div>
   <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.textarea)">
     <div class="form-floating mb-4" [formGroup]="form">
-      <ion-textarea [counter]="maxLengthError ? true : false" [maxlength]="maxLengthError" [autoGrow]="true" labelPlacement="floating" fill="outline" [errorText]="getErrorText()"
+      <ion-textarea style="min-height: 150px;" [counter]="maxLengthError ? true : false" [maxlength]="maxLengthError" [autoGrow]="true" labelPlacement="floating" fill="outline" [errorText]="getErrorText()"
         [formControlName]="formName" (ionInput)="sanitizeInput(formName)" [label]="label"
         [placeholder]="label"></ion-textarea>
     </div>
