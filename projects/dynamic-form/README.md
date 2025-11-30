@@ -228,7 +228,7 @@ HTML ->
 | `default_value_{LANGUAGE}`| `string (optional)`                                  | Name translated of the field.                                                                         | section_info                                    |
 | `src`            | `string (optional)`                                           | Source URL or path for certain field types (e.g., images).                                            | show_image                                      |
 | `options`        | `any (optional)`                                              | Additional options for the field.                                                                     | slider                                          |
-| `length`         | `number (optional)`                                           | Length of the field.                                                                                  | otp                                             |
+| `length`         | `number (optional)`                                           | Length of the field.                                                                                  | otp, drag-and-drop                                             |
 | `minDate`        | `{ year:number, month:number, day:number } (optional)`        | minDate of datepicker.                                                                                | date                                            |
 | `maxDate`        | `{ year:number, month:number, day:number } (optional)`        | maxDate of datepicker.                                                                                | date                                            |
 | `values`         | `SelectValueScheme[] (optional)`                              | Array of selectable values for fields like dropdowns or radios.                                       | select, radio                                   |
@@ -263,6 +263,7 @@ HTML ->
 | `show_image`    | Represents a show image field.   |
 | `add_video`     | Represents an add image field.   |
 | `show_video`    | Represents a show image field.   |
+| `drag_and_drop`    | Represents a drag and drop files field .   |
 
 ### `SelectValueScheme`
 

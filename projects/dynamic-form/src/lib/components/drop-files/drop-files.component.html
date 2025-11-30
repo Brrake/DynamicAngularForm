@@ -1,0 +1,16 @@
+<div [id]="id">
+    <div class="dropzone mb-3" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)"
+        (click)="fileInput.click()" [class.dropzone-over]="isDragOver">
+        <p class="m-0">{{translateTitle}}</p>
+        <input [attr.accept]="accept" type="file" multiple (change)="onFileSelected($event)" hidden #fileInput />
+    </div>
+
+    <ul *ngIf="files.length">
+        <li *ngFor="let file of files;let idx = index">
+            <div class="d-flex align-items-center" style="gap:10px">
+                <span>{{ file.name }} ({{ bytesToMb(file.size) }} MB)</span>
+                <button-loader type="button" (onSubmit)="removeFile(idx)" [circular]="true" icon="uil uil-trash-alt" color="red" />
+            </div>
+        </li>
+    </ul>
+</div>

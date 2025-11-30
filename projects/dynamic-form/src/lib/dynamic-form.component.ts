@@ -41,6 +41,7 @@ export class DynamicFormComponent implements OnInit {
   displayVideo: string[] = []
   addTree: any = []
   addVideoTree: any = []
+  addDragAndDropTree: any = []
   formGroup: FormGroup[] = []
   emittedForms: any[] = []
 
@@ -179,7 +180,8 @@ export class DynamicFormComponent implements OnInit {
           this.onSubmit.emit({
             forms: this.formGroup, files: {
               images: this.addTree,
-              videos: this.addVideoTree
+              videos: this.addVideoTree,
+              drag_and_drop: this.addDragAndDropTree
             }, formEmittingIndex: idx, emittedForms: this.emittedForms
           });
         });
@@ -188,7 +190,8 @@ export class DynamicFormComponent implements OnInit {
       this.onSubmit.emit({
         forms: this.formGroup, files: {
           images: this.addTree,
-          videos: this.addVideoTree
+          videos: this.addVideoTree,
+          drag_and_drop: this.addDragAndDropTree
         }, formEmittingIndex: idx, emittedForms: this.emittedForms
       });
     }
@@ -198,6 +201,7 @@ export class DynamicFormComponent implements OnInit {
     console.log(this.formGroup)
     console.log(this.addTree)
     console.log(this.addVideoTree)
+    console.log(this.addDragAndDropTree)
   }
   onBackPage(page: number) {
     this.goToPage(page)
@@ -212,6 +216,7 @@ export class DynamicFormComponent implements OnInit {
     this.emittedForms = []
     this.addTree = []
     this.addVideoTree = []
+    this.addDragAndDropTree = []
     for (let i = 0; i < this.formGroup.length; i++) {
       this.formGroup[i].reset()
       const currScheme = this.formSchemes[i]?.fields as any
@@ -253,6 +258,7 @@ export class DynamicFormComponent implements OnInit {
     }
     this.addTree = []
     this.addVideoTree = []
+    this.addDragAndDropTree = []
     //Se la pagina è dopo la prima
     for (let i = 0; i < this.formSchemes.length; i++) {
       this.formSchemes[i].active_page = false
@@ -283,6 +289,12 @@ export class DynamicFormComponent implements OnInit {
       this.addVideoTree = this.addVideoTree.filter((file: any) => file.id != id)
       this.addVideoTree = [
         ...this.addVideoTree,
+        ...event.files
+      ]
+    } else if (event.mode == 'drag-and-drop') {
+      this.addDragAndDropTree = this.addDragAndDropTree.filter((file: any) => file.id != id)
+      this.addDragAndDropTree = [
+        ...this.addDragAndDropTree,
         ...event.files
       ]
     }

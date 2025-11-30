@@ -92,6 +92,9 @@
       [attr.multiple]="multiple ? multiple : null"
       [attr.accept]="(accept!='' && accept!=null && accept!=undefined) ? accept :'image/png, image/gif, image/jpeg, image/jpg'">
   </div>
+  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.drag_and_drop)">
+    <drop-files [maxFiles]="length" [id]="id" [accept]="accept ? accept : 'image/png, image/gif, image/jpeg, image/jpg'" (fileSelected)="handleFiles($event)" />
+  </div>
   <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_video)">
     <ng-container *ngIf="displayMedia!='';else noVideo">
       <div [id]="id" (click)="openSelectorFiles('input-file-'+label)" class="video-container pointer lift mb-8"

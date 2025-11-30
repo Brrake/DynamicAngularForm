@@ -4,6 +4,7 @@
 
 export * from './lib/dynamic-form.service';
 export * from './lib/dynamic-form.component';
+export * from './lib/components/drop-files/drop-files.component';
 export * from './lib/components/button-loader/button-loader.component';
 export * from './lib/components/form-element/form-element.component';
 export * from './lib/components/google-login/google-login.component';

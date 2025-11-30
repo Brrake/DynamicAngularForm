@@ -30,7 +30,7 @@ export class FormElementComponent implements OnInit {
   // add_image
   @Input() displayMedia: string = ''
   @Input() multiple: boolean = false;
-  @Input() accept: string = '';
+  @Input() accept: string = 'image/png, image/gif, image/jpeg, image/jpg';
   @Output() onChooseMedia: EventEmitter<any> = new EventEmitter()
 
   // Date
@@ -105,6 +105,18 @@ export class FormElementComponent implements OnInit {
       id: this.id,
       files: addTree,
       mode: mode
+    });
+  }
+  handleFiles(files: File[]) {
+    let addTree = []
+    for (let file of files) {
+      var src = URL.createObjectURL(file);
+      addTree.push({ file: file, src: src, id: this.id, });
+    }
+    this.onChooseMedia.emit({
+      id: this.id,
+      files: addTree,
+      mode: 'drag-and-drop'
     });
   }
   getTranslatedName(field: any, key: string = 'name'): string {
