@@ -39,13 +39,10 @@ export class DropFilesComponent {
     if (!event.dataTransfer) {
       return;
     }
-    if (this.files.length == this.maxFiles-1) {
-      return
-    }
     const acceptedTypes = this.accept.split(',').map(x => x.trim());
     const droppedFiles = Array.from(event.dataTransfer.files);
 
-    if((this.files.length)+(droppedFiles.length) > this.maxFiles-1) {
+    if((this.files.length)+(droppedFiles.length) > this.maxFiles) {
       return
     }
     
@@ -65,14 +62,11 @@ export class DropFilesComponent {
     if (!input.files?.length) {
       return;
     }
-    if (this.files.length == this.maxFiles-1) {
-      return
-    }
     const acceptedTypes = this.accept.split(',').map(x => x.trim());
     const selectedFiles = Array.from(input.files);
     const filteredFiles = selectedFiles.filter(file => acceptedTypes.includes(file.type));
 
-    if((this.files.length)+(selectedFiles.length) > this.maxFiles-1) {
+    if((this.files.length)+(selectedFiles.length) > this.maxFiles) {
       return
     }
     if (filteredFiles.length === 0) {

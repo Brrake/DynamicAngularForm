@@ -97,6 +97,7 @@ export class DynamicFormComponent implements OnInit {
           this.formGroup[i].controls[controlName].valueChanges.subscribe(value => {
             this.formValueChanges.emit({
               control: controlName,
+              valid:this.formGroup[i].get(controlName)?.valid,
               value: {
                 ...this.formGroup[i].value,
                 [controlName]: value
