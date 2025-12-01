@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { linkValidator } from './custom_validators/link.validator';
 import { confirmPasswordValidator } from './custom_validators/confirm-password.validator';
 import { phoneValidator } from './custom_validators/phoneValidator.validator';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformServer } from '@angular/common';
 import { ReCaptchaV3Service } from 'ng-recaptcha-2';
 import { TranslateService } from '@ngx-translate/core';
 @Component({
@@ -37,8 +37,7 @@ export class DynamicFormComponent implements OnInit {
   public hrefTypes: typeof HrefTypes = HrefTypes
 
 
-  displayImg: string[] = []
-  displayVideo: string[] = []
+
   addTree: any = []
   addVideoTree: any = []
   addDragAndDropTree: any = []
@@ -52,62 +51,54 @@ export class DynamicFormComponent implements OnInit {
   ) {
   }
   ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.emittedForms = []
-      for (let i = 0; i < this.formSchemes.length; i++) {
-        const formScheme = this.formSchemes[i]
-        this.formGroup[i] = new FormGroup({})
-        for (let j = 0; j < formScheme.fields.length; j++) {
-          const currField = formScheme.fields[j]
-          if (
-            currField.type != this.FieldTypesEnum.show_image &&
-            currField.type != this.FieldTypesEnum.add_image &&
-            currField.type != this.FieldTypesEnum.add_video &&
-            currField.type != this.FieldTypesEnum.show_video &&
-            currField.type != this.FieldTypesEnum.section_info
-          ) {
-            this.addFormControl(currField.formControlName as string, currField.default_value as string, currField.validators, i, currField.disabled as boolean)
+
+    if (isPlatformServer(this.platformId)) return;
+    const excludedFromControl = [
+      this.FieldTypesEnum.show_image,
+      this.FieldTypesEnum.add_image,
+      this.FieldTypesEnum.add_video,
+      this.FieldTypesEnum.show_video,
+      this.FieldTypesEnum.drag_and_drop,
+      this.FieldTypesEnum.section_info
+    ]
+    this.emittedForms = []
+    for (let i = 0; i < this.formSchemes.length; i++) {
+      const formScheme = this.formSchemes[i]
+      this.formGroup[i] = new FormGroup({})
+      for (let j = 0; j < formScheme.fields.length; j++) {
+        const currField = formScheme.fields[j]
+        if (excludedFromControl.includes(currField.type)) {
+          this.addFormControl(currField.formControlName as string, currField.default_value as string, currField.validators, i, currField.disabled as boolean)
+        }
+      }
+      for (let j = 0; j < formScheme?.custom_validators?.length; j++) {
+        switch (formScheme.custom_validators[j].name) {
+          case 'confirmPasswordValidator': {
+            this.formGroup[i].addValidators(confirmPasswordValidator)
+            break
           }
-          if (currField.type == this.FieldTypesEnum.add_image) {
-            this.displayImg.fill('', 0, formScheme.fields.length)
-            if (currField.default_value) {
-              this.displayImg[j] = currField.default_value as string
-            }
-          } if (currField.type == this.FieldTypesEnum.add_video) {
-            this.displayVideo.fill('', 0, formScheme.fields.length)
-            if (currField.default_value) {
-              this.displayVideo[j] = currField.default_value as string
-            }
+          case 'linkValidator': {
+            this.formGroup[i].addValidators(linkValidator)
+            break
           }
         }
-        for (let j = 0; j < formScheme?.custom_validators?.length; j++) {
-          switch (formScheme.custom_validators[j].name) {
-            case 'confirmPasswordValidator': {
-              this.formGroup[i].addValidators(confirmPasswordValidator)
-              break
-            }
-            case 'linkValidator': {
-              this.formGroup[i].addValidators(linkValidator)
-              break
-            }
-          }
-        }
-        this.formInit.emit({ id: formScheme.formId, form: this.formGroup[i] });
-        Object.keys(this.formGroup[i].controls).forEach(controlName => {
-          this.formGroup[i].controls[controlName].valueChanges.subscribe(value => {
-            this.formValueChanges.emit({
-              control: controlName,
-              valid:this.formGroup[i].get(controlName)?.valid,
-              value: {
-                ...this.formGroup[i].value,
-                [controlName]: value
-              },
-              formIdx: i
-            });
+      }
+      this.formInit.emit({ id: formScheme.formId, form: this.formGroup[i] });
+      Object.keys(this.formGroup[i].controls).forEach(controlName => {
+        this.formGroup[i].controls[controlName].valueChanges.subscribe(value => {
+          this.formValueChanges.emit({
+            control: controlName,
+            valid: this.formGroup[i].get(controlName)?.valid,
+            value: {
+              ...this.formGroup[i].value,
+              [controlName]: value
+            },
+            formIdx: i
           });
         });
-      }
+      });
     }
+
   }
   private addFormControl(fieldName: string, default_value: string, validators: any, formGroupIndex: number, fieldDisabled: boolean) {
     let valArr = []
@@ -300,11 +291,11 @@ export class DynamicFormComponent implements OnInit {
       ]
     }
   }
-  getHighlightAddontext(addon:any,position:string):string{
-    const translatedName = this.getTranslatedName(addon,'normal_text')
-    if(position == 'before'){
+  getHighlightAddontext(addon: any, position: string): string {
+    const translatedName = this.getTranslatedName(addon, 'normal_text')
+    if (position == 'before') {
       return translatedName.split('[*]')[0] || ''
-    } else if(position == 'after'){
+    } else if (position == 'after') {
       return translatedName.split('[*]')[1] || ''
     }
     return ''
