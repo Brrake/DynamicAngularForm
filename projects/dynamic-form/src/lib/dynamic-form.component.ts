@@ -67,7 +67,7 @@ export class DynamicFormComponent implements OnInit {
       this.formGroup[i] = new FormGroup({})
       for (let j = 0; j < formScheme.fields.length; j++) {
         const currField = formScheme.fields[j]
-        if (excludedFromControl.includes(currField.type)) {
+        if (!excludedFromControl.includes(currField.type)) {
           this.addFormControl(currField.formControlName as string, currField.default_value as string, currField.validators, i, currField.disabled as boolean)
         }
       }
