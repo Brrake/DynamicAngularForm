@@ -15,7 +15,7 @@ export class FormElementComponent implements OnInit {
   @Input() form: any;
   @Input() formName: string = 'example';
   @Input() disabled: boolean = false;
-  @Input() autocomplete: boolean = false;
+  @Input() autocomplete: string = 'off';
   @Input() default_value: any;
   // Select
   @Input() values: SelectValueScheme[] = [];

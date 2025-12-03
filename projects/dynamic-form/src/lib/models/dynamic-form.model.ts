@@ -19,7 +19,7 @@ export interface FieldScheme {
   length?: number
   minDate:{ year: number, month: number, day: number }
   maxDate:{ year: number, month: number, day: number }
-  autocomplete?: boolean
+  autocomplete?: string
   multiple?: boolean
   accept?: string
   width?: string

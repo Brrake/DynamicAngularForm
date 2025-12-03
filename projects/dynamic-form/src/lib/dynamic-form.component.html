@@ -15,7 +15,7 @@
           <form-element [default_value]="field.default_value" [id]="formScheme.formId+'-'+field.formControlName"
             [type]="field.type" [seconds]="field.seconds || false" [meridian]="field.meridian || false"
             [disabled]="field.disabled || false" [label]="getTranslatedName(field)"
-            [autocomplete]="field.autocomplete || false" [formName]="field.formControlName || ''"
+            [autocomplete]="field.autocomplete || 'off'" [formName]="field.formControlName || ''"
             [form]="formGroup[idx]" [displayMedia]="field.default_value?.toString() || ''" [values]="field.values || []"
             [options]="field.options || {}" [length]="field.length || 6" [controls]="field.controls || ''"
             [width]="field.width || ''" [src]="field.src || ''" [multiple]="field.multiple || false"
