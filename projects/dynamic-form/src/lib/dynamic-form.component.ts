@@ -203,7 +203,9 @@ export class DynamicFormComponent implements OnInit {
     this.emittedForms = this.emittedForms.filter((form: any) => form !== this.formGroup[page])
     //this.ngOnInit()
     this.isSubmitFailed = false
-    this.onBack.emit(true)
+    this.onBack.emit({
+      page: page
+    })
   }
   onClose() {
     this.goToPage(0)
@@ -265,7 +267,7 @@ export class DynamicFormComponent implements OnInit {
   closeModal() {
     if (this.isOnModal) setTimeout(() => { document.getElementById('closeModalButt')?.click() });
   }
-  submitAddon(addon:AddonScheme){
+  submitAddon(addon: AddonScheme) {
     this.addonSubmit.emit(addon.href)
   }
   getTranslatedName(field: any, key: string = 'name'): string {
