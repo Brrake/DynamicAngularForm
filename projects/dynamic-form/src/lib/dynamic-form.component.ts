@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID } from '@angular/core';
-import { AddonType, ButtonType, DynamicFormScheme, DynamicSubmitEvent, Errors, FieldType, HrefTypes } from './models/dynamic-form.model';
+import { AddonScheme, AddonType, ButtonType, DynamicFormScheme, DynamicSubmitEvent, Errors, FieldType, HrefTypes } from './models/dynamic-form.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { linkValidator } from './custom_validators/link.validator';
 import { confirmPasswordValidator } from './custom_validators/confirm-password.validator';
@@ -26,7 +26,9 @@ export class DynamicFormComponent implements OnInit {
   @Output() onCloseForm: EventEmitter<any> = new EventEmitter<any>();
   @Output() loginWithGoogle: EventEmitter<any> = new EventEmitter<any>();
   @Output() onBack: EventEmitter<any> = new EventEmitter<any>();
-  @Output() formValueChanges = new EventEmitter<any>();
+  @Output() formValueChanges = new EventEmitter<any>()
+
+  @Output() addonSubmit = new EventEmitter<any>();
 
   @Output() formInit = new EventEmitter<{ id: string; form: FormGroup }>();
 
@@ -263,7 +265,9 @@ export class DynamicFormComponent implements OnInit {
   closeModal() {
     if (this.isOnModal) setTimeout(() => { document.getElementById('closeModalButt')?.click() });
   }
-
+  submitAddon(addon:AddonScheme){
+    this.addonSubmit.emit(addon.href)
+  }
   getTranslatedName(field: any, key: string = 'name'): string {
     const currLang = this.translate.currentLang
     if (currLang != 'it' && field[key + '_' + currLang] != undefined) return field[key + '_' + currLang]

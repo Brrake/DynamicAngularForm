@@ -60,6 +60,8 @@ export interface AddonScheme {
 }
 export enum HrefTypes {
   MODAL = 'modal',
+  URL = 'url',
+  EMITTER = 'emitter'
 }
 // Buttons
 export interface ButtonScheme {

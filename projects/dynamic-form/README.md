@@ -306,6 +306,8 @@ HTML ->
 | Value    | Description                    |
 |----------|--------------------------------|
 | `MODAL`  | Represents a modal link type.  |
+| `URL`  | Represents a url link type.  |
+| `EMITTER`  | Represents a emitter link type, handled by addonSubmit().  |
 
 ## `ButtonScheme`
 
