@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID } from '@angular/core';
-import { AddonType, ButtonType, DynamicFormScheme, DynamicSubmitEvent, Errors, FieldType, HrefTypes } from './models/dynamic-form.model';
+import { AddonScheme, AddonType, ButtonType, DynamicFormScheme, DynamicSubmitEvent, Errors, FieldType, HrefTypes } from './models/dynamic-form.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { linkValidator } from './custom_validators/link.validator';
 import { confirmPasswordValidator } from './custom_validators/confirm-password.validator';
 import { phoneValidator } from './custom_validators/phoneValidator.validator';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformServer } from '@angular/common';
 import { ReCaptchaV3Service } from 'ng-recaptcha-2';
 import { TranslateService } from '@ngx-translate/core';
 @Component({
@@ -26,7 +26,9 @@ export class DynamicFormComponent implements OnInit {
   @Output() onCloseForm: EventEmitter<any> = new EventEmitter<any>();
   @Output() loginWithGoogle: EventEmitter<any> = new EventEmitter<any>();
   @Output() onBack: EventEmitter<any> = new EventEmitter<any>();
-  @Output() formValueChanges = new EventEmitter<any>();
+  @Output() formValueChanges = new EventEmitter<any>()
+
+  @Output() addonSubmit = new EventEmitter<any>();
 
   @Output() formInit = new EventEmitter<{ id: string; form: FormGroup }>();
 
@@ -37,10 +39,10 @@ export class DynamicFormComponent implements OnInit {
   public hrefTypes: typeof HrefTypes = HrefTypes
 
 
-  displayImg: string[] = []
-  displayVideo: string[] = []
+
   addTree: any = []
   addVideoTree: any = []
+  addDragAndDropTree: any = []
   formGroup: FormGroup[] = []
   emittedForms: any[] = []
 
@@ -51,61 +53,54 @@ export class DynamicFormComponent implements OnInit {
   ) {
   }
   ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.emittedForms = []
-      for (let i = 0; i < this.formSchemes.length; i++) {
-        const formScheme = this.formSchemes[i]
-        this.formGroup[i] = new FormGroup({})
-        for (let j = 0; j < formScheme.fields.length; j++) {
-          const currField = formScheme.fields[j]
-          if (
-            currField.type != this.FieldTypesEnum.show_image &&
-            currField.type != this.FieldTypesEnum.add_image &&
-            currField.type != this.FieldTypesEnum.add_video &&
-            currField.type != this.FieldTypesEnum.show_video &&
-            currField.type != this.FieldTypesEnum.section_info
-          ) {
-            this.addFormControl(currField.formControlName as string, currField.default_value as string, currField.validators, i, currField.disabled as boolean)
+
+    if (isPlatformServer(this.platformId)) return;
+    const excludedFromControl = [
+      this.FieldTypesEnum.show_image,
+      this.FieldTypesEnum.add_image,
+      this.FieldTypesEnum.add_video,
+      this.FieldTypesEnum.show_video,
+      this.FieldTypesEnum.drag_and_drop,
+      this.FieldTypesEnum.section_info
+    ]
+    this.emittedForms = []
+    for (let i = 0; i < this.formSchemes.length; i++) {
+      const formScheme = this.formSchemes[i]
+      this.formGroup[i] = new FormGroup({})
+      for (let j = 0; j < formScheme.fields.length; j++) {
+        const currField = formScheme.fields[j]
+        if (!excludedFromControl.includes(currField.type)) {
+          this.addFormControl(currField.formControlName as string, currField.default_value as string, currField.validators, i, currField.disabled as boolean)
+        }
+      }
+      for (let j = 0; j < formScheme?.custom_validators?.length; j++) {
+        switch (formScheme.custom_validators[j].name) {
+          case 'confirmPasswordValidator': {
+            this.formGroup[i].addValidators(confirmPasswordValidator)
+            break
           }
-          if (currField.type == this.FieldTypesEnum.add_image) {
-            this.displayImg.fill('', 0, formScheme.fields.length)
-            if (currField.default_value) {
-              this.displayImg[j] = currField.default_value as string
-            }
-          } if (currField.type == this.FieldTypesEnum.add_video) {
-            this.displayVideo.fill('', 0, formScheme.fields.length)
-            if (currField.default_value) {
-              this.displayVideo[j] = currField.default_value as string
-            }
+          case 'linkValidator': {
+            this.formGroup[i].addValidators(linkValidator)
+            break
           }
         }
-        for (let j = 0; j < formScheme?.custom_validators?.length; j++) {
-          switch (formScheme.custom_validators[j].name) {
-            case 'confirmPasswordValidator': {
-              this.formGroup[i].addValidators(confirmPasswordValidator)
-              break
-            }
-            case 'linkValidator': {
-              this.formGroup[i].addValidators(linkValidator)
-              break
-            }
-          }
-        }
-        this.formInit.emit({ id: formScheme.formId, form: this.formGroup[i] });
-        Object.keys(this.formGroup[i].controls).forEach(controlName => {
-          this.formGroup[i].controls[controlName].valueChanges.subscribe(value => {
-            this.formValueChanges.emit({
-              control: controlName,
-              value: {
-                ...this.formGroup[i].value,
-                [controlName]: value
-              },
-              formIdx: i
-            });
+      }
+      this.formInit.emit({ id: formScheme.formId, form: this.formGroup[i] });
+      Object.keys(this.formGroup[i].controls).forEach(controlName => {
+        this.formGroup[i].controls[controlName].valueChanges.subscribe(value => {
+          this.formValueChanges.emit({
+            control: controlName,
+            valid: this.formGroup[i].get(controlName)?.valid,
+            value: {
+              ...this.formGroup[i].value,
+              [controlName]: value
+            },
+            formIdx: i
           });
         });
-      }
+      });
     }
+
   }
   private addFormControl(fieldName: string, default_value: string, validators: any, formGroupIndex: number, fieldDisabled: boolean) {
     let valArr = []
@@ -179,7 +174,8 @@ export class DynamicFormComponent implements OnInit {
           this.onSubmit.emit({
             forms: this.formGroup, files: {
               images: this.addTree,
-              videos: this.addVideoTree
+              videos: this.addVideoTree,
+              drag_and_drop: this.addDragAndDropTree
             }, formEmittingIndex: idx, emittedForms: this.emittedForms
           });
         });
@@ -188,7 +184,8 @@ export class DynamicFormComponent implements OnInit {
       this.onSubmit.emit({
         forms: this.formGroup, files: {
           images: this.addTree,
-          videos: this.addVideoTree
+          videos: this.addVideoTree,
+          drag_and_drop: this.addDragAndDropTree
         }, formEmittingIndex: idx, emittedForms: this.emittedForms
       });
     }
@@ -198,6 +195,7 @@ export class DynamicFormComponent implements OnInit {
     console.log(this.formGroup)
     console.log(this.addTree)
     console.log(this.addVideoTree)
+    console.log(this.addDragAndDropTree)
   }
   onBackPage(page: number) {
     this.goToPage(page)
@@ -205,13 +203,16 @@ export class DynamicFormComponent implements OnInit {
     this.emittedForms = this.emittedForms.filter((form: any) => form !== this.formGroup[page])
     //this.ngOnInit()
     this.isSubmitFailed = false
-    this.onBack.emit(true)
+    this.onBack.emit({
+      page: page
+    })
   }
   onClose() {
     this.goToPage(0)
     this.emittedForms = []
     this.addTree = []
     this.addVideoTree = []
+    this.addDragAndDropTree = []
     for (let i = 0; i < this.formGroup.length; i++) {
       this.formGroup[i].reset()
       const currScheme = this.formSchemes[i]?.fields as any
@@ -253,6 +254,7 @@ export class DynamicFormComponent implements OnInit {
     }
     this.addTree = []
     this.addVideoTree = []
+    this.addDragAndDropTree = []
     //Se la pagina è dopo la prima
     for (let i = 0; i < this.formSchemes.length; i++) {
       this.formSchemes[i].active_page = false
@@ -265,7 +267,9 @@ export class DynamicFormComponent implements OnInit {
   closeModal() {
     if (this.isOnModal) setTimeout(() => { document.getElementById('closeModalButt')?.click() });
   }
-
+  submitAddon(addon: AddonScheme) {
+    this.addonSubmit.emit(addon.href)
+  }
   getTranslatedName(field: any, key: string = 'name'): string {
     const currLang = this.translate.currentLang
     if (currLang != 'it' && field[key + '_' + currLang] != undefined) return field[key + '_' + currLang]
@@ -285,13 +289,19 @@ export class DynamicFormComponent implements OnInit {
         ...this.addVideoTree,
         ...event.files
       ]
+    } else if (event.mode == 'drag-and-drop') {
+      this.addDragAndDropTree = this.addDragAndDropTree.filter((file: any) => file.id != id)
+      this.addDragAndDropTree = [
+        ...this.addDragAndDropTree,
+        ...event.files
+      ]
     }
   }
-  getHighlightAddontext(addon:any,position:string):string{
-    const translatedName = this.getTranslatedName(addon,'normal_text')
-    if(position == 'before'){
+  getHighlightAddontext(addon: any, position: string): string {
+    const translatedName = this.getTranslatedName(addon, 'normal_text')
+    if (position == 'before') {
       return translatedName.split('[*]')[0] || ''
-    } else if(position == 'after'){
+    } else if (position == 'after') {
       return translatedName.split('[*]')[1] || ''
     }
     return ''

@@ -13,6 +13,7 @@ import { NgOtpInputModule } from "ng-otp-input";
 import { RouterModule } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
 import { FormElementComponent } from "./components/form-element/form-element.component";
+import { DropFilesComponent } from "./components/drop-files/drop-files.component";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { FormElementComponent } from "./components/form-element/form-element.com
     PhoneFieldComponent,
     DynamicModalComponent,
     FormElementComponent,
-    GoogleLoginComponent
+    GoogleLoginComponent,
+    DropFilesComponent
   ],
   imports : [
     CommonModule,
@@ -41,6 +43,7 @@ import { FormElementComponent } from "./components/form-element/form-element.com
     ButtonLoaderComponent,
     DynamicModalComponent,
     FormElementComponent,
+    DropFilesComponent,
     PhoneFieldComponent,
     GoogleLoginComponent
   ],

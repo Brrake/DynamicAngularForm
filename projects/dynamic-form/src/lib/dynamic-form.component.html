@@ -15,7 +15,7 @@
           <form-element [default_value]="field.default_value" [id]="formScheme.formId+'-'+field.formControlName"
             [type]="field.type" [seconds]="field.seconds || false" [meridian]="field.meridian || false"
             [disabled]="field.disabled || false" [label]="getTranslatedName(field)"
-            [autocomplete]="field.autocomplete || false" [formName]="field.formControlName || ''"
+            [autocomplete]="field.autocomplete || 'off'" [formName]="field.formControlName || ''"
             [form]="formGroup[idx]" [displayMedia]="field.default_value?.toString() || ''" [values]="field.values || []"
             [options]="field.options || {}" [length]="field.length || 6" [controls]="field.controls || ''"
             [width]="field.width || ''" [src]="field.src || ''" [multiple]="field.multiple || false"
@@ -55,16 +55,20 @@
     <div *ngFor="let addon of formScheme.addons" [ngSwitch]="addon.name">
       <div *ngSwitchCase="AddonsEnum.highlight">
         <p class="mb-0" style="text-align: center;">
-          <a *ngIf="addon.normal_text" [id]="'register-text-before-'+idx">{{getHighlightAddontext(addon,'before')}} </a>
-          <ng-container *ngIf="addon.href_type == hrefTypes.MODAL;else default">
-            <a [id]="'register-button-'+idx" [attr.data-bs-target]="'#'+addon.href" data-bs-toggle="modal"
+          <a *ngIf="addon.normal_text" [id]="'addon-text-before-'+idx">{{getHighlightAddontext(addon,'before')}} </a>
+          <ng-container *ngIf="addon.href_type == hrefTypes.MODAL">
+            <a [id]="'addon-button-'+idx" [attr.data-bs-target]="'#'+addon.href" data-bs-toggle="modal"
               data-bs-dismiss="modal" class="hover">{{getTranslatedName(addon,'highlight_text')}}</a>
           </ng-container>
-          <ng-template #default>
-            <a (click)="closeModal()" [id]="'register-button-'+idx" [routerLink]="['/'+addon.href]"
+          <ng-container *ngIf="addon.href_type == hrefTypes.URL">
+            <a (click)="closeModal()" [id]="'addon-button-'+idx" [routerLink]="['/'+addon.href]"
               class="hover">{{getTranslatedName(addon,'highlight_text')}}</a>
-          </ng-template>
-          <a *ngIf="addon.normal_text" [id]="'register-text-after-'+idx">{{getHighlightAddontext(addon,'after')}} </a>
+          </ng-container>
+          <ng-container *ngIf="addon.href_type == hrefTypes.EMITTER">
+            <a (click)="submitAddon(addon)" [id]="'addon-button-'+idx"
+              class="hover pointer">{{getTranslatedName(addon,'highlight_text')}}</a>
+          </ng-container>
+          <a *ngIf="addon.normal_text" [id]="'addon-text-after-'+idx">{{getHighlightAddontext(addon,'after')}} </a>
         </p>
       </div>
       <div *ngSwitchCase="AddonsEnum.google_login" class="mt-3">

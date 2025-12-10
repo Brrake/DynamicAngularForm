@@ -19,7 +19,7 @@ export interface FieldScheme {
   length?: number
   minDate:{ year: number, month: number, day: number }
   maxDate:{ year: number, month: number, day: number }
-  autocomplete?: boolean
+  autocomplete?: string
   multiple?: boolean
   accept?: string
   width?: string
@@ -60,6 +60,8 @@ export interface AddonScheme {
 }
 export enum HrefTypes {
   MODAL = 'modal',
+  URL = 'url',
+  EMITTER = 'emitter'
 }
 // Buttons
 export interface ButtonScheme {
@@ -115,7 +117,8 @@ export enum FieldType {
   add_image = 'add-image',
   show_image = 'show-image',
   add_video = 'add-video',
-  show_video = 'show-video'
+  show_video = 'show-video',
+  drag_and_drop = 'drag-and-drop'
 }
 //Button Types
 export enum ButtonType {
@@ -146,7 +149,8 @@ export interface DynamicSubmitEvent {
   forms: Partial<FormGroup>[],
   files: {
     images: any[],
-    videos: any[]
+    videos: any[],
+    drag_and_drop: any[]
   },
   formEmittingIndex: number,
   emittedForms: Partial<FormGroup>[]

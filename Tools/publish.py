@@ -28,7 +28,7 @@ if __name__ == '__main__':
 
     run_buid = input("Do you want to build? (Y/N): ").strip().lower()
     if run_buid in ['y', 'yes']:
-        subprocess.call([ng_cmd, 'build', '--configuration', 'production'], cwd=main_dir)
+        subprocess.call([ng_cmd, 'build',lib_name, '--configuration', 'production'], cwd=main_dir)
         print('✅ Build completed')
 
     npm_otp = input("Insert OTP Code: ").strip().lower()

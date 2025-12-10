@@ -36,7 +36,15 @@ export class PhoneFieldComponent implements OnInit {
     this.filteredPhoneNumbers = [...this.countries];
   }
   ngOnInit() {
-    this.numberText = this.form?.get(this.formName)?.value
+    this.form?.controls[this.formName].valueChanges.subscribe(value => {
+      this.refreshValues()
+    });
+    this.refreshValues()
+  }
+  public refreshValues() {
+    const formControl = this.form?.get(this.formName)
+    this.numberText = formControl?.value?.number || ''
+    this.selectedCountry = formControl?.value?.country || this.selectedCountry
   }
   onSearchCountriesInput() {
     this.filteredPhoneNumbers = this.countries.filter(i =>
@@ -59,7 +67,7 @@ export class PhoneFieldComponent implements OnInit {
       }
     });
   }
-  isValidField(phone:string) {
+  isValidField(phone: string) {
     try {
       const number = this.phoneUtil.parseAndKeepRawInput(phone, this.selectedCountry.country);
       return this.phoneUtil.isValidNumber(number) || this.phoneUtil.isValidNumberForRegion(number, this.selectedCountry.country)

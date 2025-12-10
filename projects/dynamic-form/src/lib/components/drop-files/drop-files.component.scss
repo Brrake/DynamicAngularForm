@@ -1,0 +1,13 @@
+.dropzone {
+  border: 2px dashed #bbb;
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.dropzone-over {
+  border-color: var(--bs-primary);
+  background-color: var(--bs-soft-primary);
+}

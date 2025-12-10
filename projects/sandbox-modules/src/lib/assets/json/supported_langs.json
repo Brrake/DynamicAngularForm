@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Italiano",
+    "name_en": "Italian",
+    "code": "it",
+    "url":"./assets/flags/4x3/it.svg"
+  },
+  {
+    "name": "Inglese",
+    "name_en": "English",
+    "code": "en",
+    "url":"./assets/flags/4x3/sh.svg"
+  }
+]

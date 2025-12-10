@@ -1,0 +1,15 @@
+<li class="nav-item dropdown language-select text-uppercase text-white">
+  <div class="d-flex align-items-center" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+    <img style="margin-right: 10px; border-radius: 5px;" [src]="selectedLang.url" alt="" width="20">
+    <span style="font-size: 0.9rem;padding-left: 0;" class="nav-link text-white lang dropdown-toggle pointer">{{ selectedLang.code }}</span>
+  </div>
+
+  <ul class="dropdown-menu">
+    <li class="nav-item" *ngFor="let lang of supportedLangs">
+      <a class="dropdown-item pointer d-flex align-items-center" (click)="switchLanguage(lang.code)" [name]="'lang'" [attr.aria-valuetext]="lang.code">
+        <img style="margin-right: 10px; border-radius: 5px;" [src]="lang.url" alt="" width="20">
+        {{ lang.code | uppercase }}
+      </a>
+    </li>
+  </ul>
+</li>

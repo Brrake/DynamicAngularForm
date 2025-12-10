@@ -13,6 +13,7 @@ export class ButtonLoaderComponent implements OnInit {
   @Input() isFormValid: boolean = true
   @Input() text: string = ''
   @Input() icon: string = ''
+  @Input() circular: boolean = false
   @Input() icon_position: string = 'left'
   @Input() type: string = 'submit'
   @Input() color: string = 'primary'
@@ -29,43 +30,43 @@ export class ButtonLoaderComponent implements OnInit {
   constructor() { }
   ngOnInit() {
   }
-  getClassFromIcon():string{
-    if(this.icon=='credit-card'){
+  getClassFromIcon(): string {
+    if (this.icon == 'credit-card') {
       return 'uil uil-credit-card'
     }
-    if(this.icon=='deliveroo'){
+    if (this.icon == 'deliveroo') {
       return 'uil uil-credit-card'
     }
-    if(this.icon=='back'){
+    if (this.icon == 'back') {
       return 'uil uil-angle-left-b'
     }
-    if(this.icon=='info'){
+    if (this.icon == 'info') {
       return 'uil uil-info-circle'
     }
     return this.icon
   }
-  getTextColor(){
-    if(this.text_color=='white'){
+  getTextColor() {
+    if (this.text_color == 'white') {
       return '#fff'
     }
-    if(this.text_color=='deliveroo'){
+    if (this.text_color == 'deliveroo') {
       return '#35b8b2'
     }
-    if(this.text_color=='red'){
+    if (this.text_color == 'red') {
       return '#e2626b'
     }
-    if(this.text_color=='green'){
+    if (this.text_color == 'green') {
       return '#45c4a0'
     }
-    if(this.text_color=='yellow'){
+    if (this.text_color == 'yellow') {
       return '#fab758'
     }
-    if(this.text_color=='pink'){
+    if (this.text_color == 'pink') {
       return '#d16b86'
     }
     return this.text_color
   }
-  onClick(){
+  onClick() {
     this.onSubmit.emit()
   }
 

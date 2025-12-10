@@ -60,7 +60,7 @@
   <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)"
     class="form-floating password-field mb-4">
     <input [style]="" [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
-      [id]="id" [autocomplete]="autocomplete ? 'on':'off'" [type]="showPassword ? 'text':'password'"
+      [id]="id" [autocomplete]="autocomplete" [type]="showPassword ? 'text':'password'"
       [class]="'form-control '+((form.get(formName || '')?.invalid && form.get(formName || '')?.touched) ? 'pr-3':'pr-2')"
       [placeholder]="label" [name]="formName || ''" [formControlName]="formName || ''">
     <span (click)="showPassword = !showPassword"
@@ -91,6 +91,9 @@
     <input [disabled]="disabled" (change)="toAdd($event)" [id]="'input-file-'+label" style="display: none;" type="file"
       [attr.multiple]="multiple ? multiple : null"
       [attr.accept]="(accept!='' && accept!=null && accept!=undefined) ? accept :'image/png, image/gif, image/jpeg, image/jpg'">
+  </div>
+  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.drag_and_drop)">
+    <drop-files [maxFiles]="length" [id]="id" [accept]="accept ? accept : 'image/png, image/gif, image/jpeg, image/jpg'" (fileSelected)="handleFiles($event)" />
   </div>
   <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_video)">
     <ng-container *ngIf="displayMedia!='';else noVideo">
@@ -134,7 +137,7 @@
   </div>
   <ng-container *ngSwitchDefault>
     <div class="form-floating mb-4" [formGroup]="form">
-      <input [autocomplete]="autocomplete ? 'on':'off'"
+      <input [autocomplete]="autocomplete"
         [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
         [name]="formName" (input)="sanitizeInput(formName)" [formControlName]="formName" [id]="id" [type]="type"
         class="form-control" [placeholder]="label">

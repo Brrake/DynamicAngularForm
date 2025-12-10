@@ -1,4 +1,4 @@
-<button (click)="onClick()" [type]="type" [disabled]="!isFormValid||loadSpinner||loadCheck" [class]="'btn btn-'+color+' '+button_type+(margin ? ' mr-1':'')+(large?' btn-lg':'')+(expand?' btn-expand':'')">
+<button (click)="onClick()" [type]="type" [disabled]="!isFormValid||loadSpinner||loadCheck" [class]="'btn btn-'+color+' '+button_type" [ngClass]="{'mr-1':margin,'circular':circular,'btn-expand':expand,'btn-lg':large}">
   <a class="d-flex align-items-center" [style]="'color: '+getTextColor()" *ngIf="!loadSpinner && !loadCheck">
     <i *ngIf="icon!='' && icon_position=='left'" [class]="getClassFromIcon()+' fs-20 '+(text ? 'mr-1' : '')"></i>
     <span>{{text}}</span>

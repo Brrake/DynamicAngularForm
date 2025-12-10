@@ -2,10 +2,18 @@ import subprocess
 from pathlib import Path
 import sys
 from update_version import update_version
+import argparse
+parser = argparse.ArgumentParser()
+# FE
+parser.add_argument("--lib_name", default="dynamic-form", help="Override the default project to build (Default : dynamic-form)")
+parser.add_argument("--configuration", default="development", help="Override the default configuration to build (Default : development)")
+
+args = parser.parse_args()
+
 ng_cmd = "ng.cmd" if sys.platform.startswith("win") else "ng"
 npm_cmd = "npm.cmd" if sys.platform.startswith("win") else "npm"
 
-lib_name='dynamic-form'
+lib_name=args.lib_name
 
 # Ottieni la directory principale
 tools_dir = Path(__file__).resolve().parent
@@ -25,7 +33,7 @@ if __name__ == '__main__':
 
     run_buid = input("Do you want to build? (Y/N): ").strip().lower()
     if run_buid in ['y', 'yes']:
-        subprocess.call([ng_cmd, 'build', '--configuration', 'development'], cwd=main_dir)
+        subprocess.call([ng_cmd, 'build',lib_name, '--configuration', args.configuration], cwd=main_dir)
         print('✅ Build completed')
 
     # Esegui il comando npm pack nella directory dist/dynamic-form
