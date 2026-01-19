@@ -1,12 +1,10 @@
 import json
 from pathlib import Path
 
-lib_name='dynamic-form'
-
 tools_dir = Path(__file__).resolve().parent
 main_dir = tools_dir.parent
-project_dir = main_dir / 'projects' / lib_name
-def update_version():
+def update_version(lib_name='dynamic-form'):
+    project_dir = main_dir / 'projects' / lib_name
     # Read the file content
     try:
         with open(project_dir / 'package.json', 'r', encoding='utf8') as file:
@@ -51,6 +49,7 @@ def update_version():
         with open(project_dir / 'package.json', 'w', encoding='utf8') as file:
             json.dump(json_data, file, indent=2)
         print("Version updated successfully:")
+        print("Lib Name:", lib_name)
         print(f"Old Version: {version}")
         print(f"New Version: {new_version}")
     except IOError as e:

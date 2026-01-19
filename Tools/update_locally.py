@@ -28,7 +28,7 @@ if __name__ == '__main__':
 
     if update_version_input in ['y', 'yes']:
         # Esegui il comando per aggiornare la versione
-        update_version()
+        update_version(lib_name)
         print('✅ Version updated')
 
     run_buid = input("Do you want to build? (Y/N): ").strip().lower()
