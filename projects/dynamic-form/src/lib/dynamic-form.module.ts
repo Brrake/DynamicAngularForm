@@ -5,7 +5,7 @@ import { DynamicFormComponent } from "./dynamic-form.component";
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { NgbCalendar, NgbCalendarGregorian, NgbModule, NgbTimepicker } from "@ng-bootstrap/ng-bootstrap";
 import { ButtonLoaderComponent } from "./components/button-loader/button-loader.component";
-import { RECAPTCHA_SETTINGS, RECAPTCHA_V3_SITE_KEY, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RecaptchaV3Module } from "ng-recaptcha-2";
+import { RECAPTCHA_SETTINGS, RECAPTCHA_V3_SITE_KEY, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RecaptchaV3Module, ReCaptchaV3Service } from "ng-recaptcha-2";
 import { GoogleLoginComponent } from "./components/google-login/google-login.component";
 import { GOOGLE_CLIENT_ID_KEY } from "./config.token";
 import { DynamicModalComponent, PhoneFieldComponent } from "../public-api";
@@ -48,6 +48,7 @@ import { DropFilesComponent } from "./components/drop-files/drop-files.component
     GoogleLoginComponent
   ],
   providers: [
+    ReCaptchaV3Service,
     { provide: NgbCalendar, useClass: NgbCalendarGregorian },
     { provide: NgbTimepicker}
   ],
