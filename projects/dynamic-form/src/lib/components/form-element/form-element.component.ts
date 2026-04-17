@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FieldType, SelectValueScheme } from '../../models/dynamic-form.model';
 import { TranslateService } from '@ngx-translate/core';
+import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'form-element',
@@ -36,8 +37,10 @@ export class FormElementComponent implements OnInit {
   // Date
   @Input() minDate: any;
   @Input() maxDate: any;
+  @Input() disabledDates: any[] = []
   defMinDate = { year: 1930, month: 1, day: 1 }
   defMaxDate = { year: new Date().setFullYear(new Date().getFullYear() + 5), month: 12, day: 31 }
+
   //G-Recaptcha
   @Input() version: string = '';
 
@@ -51,10 +54,20 @@ export class FormElementComponent implements OnInit {
   @Output() onChange = new EventEmitter<any>()
 
   showPassword = false
-
+  isDisabled:any;
   public FieldTypesEnum: typeof FieldType = FieldType
 
-  constructor(private translate: TranslateService) { }
+  constructor(private translate: TranslateService) { 
+     this.isDisabled = (
+      date: NgbDateStruct
+      //current: { day: number; month: number; year: number }
+    ) => {
+      return this.disabledDates.find(x =>
+        (new NgbDate(x.year, x.month, x.day).equals(date)) )
+        ? true
+        : false;
+    };
+  }
   ngOnInit() {
     if (!this.form) return
     this.form.valueChanges.subscribe((e: any) => {
