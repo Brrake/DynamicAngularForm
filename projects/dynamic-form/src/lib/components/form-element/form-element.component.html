@@ -119,7 +119,7 @@
     </ng-template>
   </ng-container>
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.date)" class="form-floating mb-4">
-    <div [formGroup]="form" [id]="id" class="input-group">
+    <div [formGroup]="form" [id]="id" class="input-group" *ngIf="loadedFunc">
       <input [markDisabled]="isDisabled" class="form-control" [minDate]="minDate ? minDate: defMinDate" [maxDate]="maxDate ? maxDate :defMaxDate"
         [placeholder]="label ? label : 'yyyy-mm-dd'" [name]="formName" [formControlName]="formName" ngbDatepicker
         #d="ngbDatepicker" />

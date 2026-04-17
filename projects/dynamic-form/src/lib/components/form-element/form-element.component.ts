@@ -55,43 +55,21 @@ export class FormElementComponent implements OnInit {
   @Output() onChange = new EventEmitter<any>()
 
   showPassword = false
-  isDisabled;
+  isDisabled:any;
   loadedFunc = false
   public FieldTypesEnum: typeof FieldType = FieldType
 
   constructor(private translate: TranslateService) {
-    if (this.disabledDates.length > 0) {
-      this.isDisabled = (
-        date: NgbDateStruct
-        //current: { day: number; month: number; year: number }
-      ) => {
-        return this.disabledDates.find(x =>
-          (new NgbDate(x.year, x.month, x.day).equals(date)))
-          ? true
-          : false;
-      };
-    } else if (this.enabledDates.length > 0) {
-      this.isDisabled = (
-        date: NgbDateStruct
-        //current: { day: number; month: number; year: number }
-      ) => {
-        return this.enabledDates.find(x =>
-          (new NgbDate(x.year, x.month, x.day).equals(date)))
-          ? false
-          : true;
-      };
-    } else {
-      this.isDisabled = (
-        date: NgbDateStruct
-        //current: { day: number; month: number; year: number }
-      ) => {
-        return false
-      };
-    }
-
   }
   ngOnInit() {
     if (!this.form) return
+    this.flushDates()
+    this.form.valueChanges.subscribe((e: any) => {
+      this.onChange.emit(e)
+    })
+  }
+  flushDates() {
+    this.loadedFunc = false
     if (this.disabledDates.length > 0) {
       this.isDisabled = (
         date: NgbDateStruct
@@ -120,9 +98,7 @@ export class FormElementComponent implements OnInit {
         return false
       };
     }
-    this.form.valueChanges.subscribe((e: any) => {
-      this.onChange.emit(e)
-    })
+    this.loadedFunc = true
   }
   sanitizeInput(formControlName: string) {
     if (!this.form) return
