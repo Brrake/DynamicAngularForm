@@ -19,7 +19,7 @@
             [form]="formGroup[idx]" [displayMedia]="field.default_value?.toString() || ''" [values]="field.values || []"
             [options]="field.options || {}" [length]="field.length || 6" [controls]="field.controls || ''"
             [width]="field.width || ''" [src]="field.src || ''" [multiple]="field.multiple || false"
-            [accept]="field.accept || ''" [minDate]="field.minDate || ''" [maxDate]="field.maxDate || ''" [disabledDates]="field.disabledDates || []"
+            [accept]="field.accept || ''" [minDate]="field.minDate || ''" [maxDate]="field.maxDate || ''" [disabledDates]="field.disabledDates || []" [enabledDates]="field.enabledDates || []"
             [version]="field.version || ''" [errors]="field.errors || []"
             (onChooseMedia)="onChooseMedia($event,formScheme.formId+'-'+field.formControlName)" />
 

@@ -20,6 +20,7 @@ export interface FieldScheme {
   minDate:{ year: number, month: number, day: number }
   maxDate:{ year: number, month: number, day: number }
   disabledDates?: { year: number, month: number, day: number }[]
+  enabledDates?: { year: number, month: number, day: number }[]
   autocomplete?: string
   multiple?: boolean
   accept?: string

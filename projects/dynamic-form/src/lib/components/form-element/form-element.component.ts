@@ -38,6 +38,7 @@ export class FormElementComponent implements OnInit {
   @Input() minDate: any;
   @Input() maxDate: any;
   @Input() disabledDates: any[] = []
+  @Input() enabledDates: any[] = []
   defMinDate = { year: 1930, month: 1, day: 1 }
   defMaxDate = { year: new Date().setFullYear(new Date().getFullYear() + 5), month: 12, day: 31 }
 
@@ -54,19 +55,32 @@ export class FormElementComponent implements OnInit {
   @Output() onChange = new EventEmitter<any>()
 
   showPassword = false
-  isDisabled:any;
+  isDisabled: any;
   public FieldTypesEnum: typeof FieldType = FieldType
 
-  constructor(private translate: TranslateService) { 
-     this.isDisabled = (
-      date: NgbDateStruct
-      //current: { day: number; month: number; year: number }
-    ) => {
-      return this.disabledDates.find(x =>
-        (new NgbDate(x.year, x.month, x.day).equals(date)) )
-        ? true
-        : false;
-    };
+  constructor(private translate: TranslateService) {
+    if (this.disabledDates.length > 0) {
+      this.isDisabled = (
+        date: NgbDateStruct
+        //current: { day: number; month: number; year: number }
+      ) => {
+        return this.disabledDates.find(x =>
+          (new NgbDate(x.year, x.month, x.day).equals(date)))
+          ? true
+          : false;
+      };
+    }
+    if(this.enabledDates.length > 0) {
+      this.isDisabled = (
+        date: NgbDateStruct
+        //current: { day: number; month: number; year: number }
+      ) => {
+        return this.enabledDates.find(x =>
+          (new NgbDate(x.year, x.month, x.day).equals(date)))
+          ? false
+          : true;
+      };
+    }
   }
   ngOnInit() {
     if (!this.form) return
