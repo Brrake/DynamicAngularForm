@@ -37,8 +37,8 @@ export class FormElementComponent implements OnInit {
   // Date
   @Input() minDate: any;
   @Input() maxDate: any;
-  @Input() disabledDates: any[] = []
-  @Input() enabledDates: any[] = []
+  @Input() disabledDates: { year: number, month: number, day: number }[] = []
+  @Input() enabledDates: { year: number, month: number, day: number }[] = []
   defMinDate = { year: 1930, month: 1, day: 1 }
   defMaxDate = { year: new Date().setFullYear(new Date().getFullYear() + 5), month: 12, day: 31 }
 
@@ -55,7 +55,8 @@ export class FormElementComponent implements OnInit {
   @Output() onChange = new EventEmitter<any>()
 
   showPassword = false
-  isDisabled: any;
+  isDisabled;
+  loadedFunc = false
   public FieldTypesEnum: typeof FieldType = FieldType
 
   constructor(private translate: TranslateService) {
@@ -69,8 +70,7 @@ export class FormElementComponent implements OnInit {
           ? true
           : false;
       };
-    }
-    if(this.enabledDates.length > 0) {
+    } else if (this.enabledDates.length > 0) {
       this.isDisabled = (
         date: NgbDateStruct
         //current: { day: number; month: number; year: number }
@@ -80,10 +80,46 @@ export class FormElementComponent implements OnInit {
           ? false
           : true;
       };
+    } else {
+      this.isDisabled = (
+        date: NgbDateStruct
+        //current: { day: number; month: number; year: number }
+      ) => {
+        return false
+      };
     }
+
   }
   ngOnInit() {
     if (!this.form) return
+    if (this.disabledDates.length > 0) {
+      this.isDisabled = (
+        date: NgbDateStruct
+        //current: { day: number; month: number; year: number }
+      ) => {
+        return this.disabledDates.find(x =>
+          (new NgbDate(x.year, x.month, x.day).equals(date)))
+          ? true
+          : false;
+      };
+    } else if (this.enabledDates.length > 0) {
+      this.isDisabled = (
+        date: NgbDateStruct
+        //current: { day: number; month: number; year: number }
+      ) => {
+        return this.enabledDates.find(x =>
+          (new NgbDate(x.year, x.month, x.day).equals(date)))
+          ? false
+          : true;
+      };
+    } else {
+      this.isDisabled = (
+        date: NgbDateStruct
+        //current: { day: number; month: number; year: number }
+      ) => {
+        return false
+      };
+    }
     this.form.valueChanges.subscribe((e: any) => {
       this.onChange.emit(e)
     })
