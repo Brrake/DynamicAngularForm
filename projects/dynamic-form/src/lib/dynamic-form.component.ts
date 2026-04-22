@@ -33,18 +33,18 @@ export class DynamicFormComponent implements OnInit {
   @Output() formInit = new EventEmitter<{ id: string; form: FormGroup }>();
 
 
-  public FieldTypesEnum: typeof FieldType = FieldType
-  public AddonsEnum: typeof AddonType = AddonType
-  public ButtonsEnum: typeof ButtonType = ButtonType
-  public hrefTypes: typeof HrefTypes = HrefTypes
+  protected FieldTypesEnum: typeof FieldType = FieldType
+  protected AddonsEnum: typeof AddonType = AddonType
+  protected ButtonsEnum: typeof ButtonType = ButtonType
+  protected hrefTypes: typeof HrefTypes = HrefTypes
 
 
 
-  addTree: any = []
-  addVideoTree: any = []
-  addDragAndDropTree: any = []
-  formGroup: FormGroup[] = []
-  emittedForms: any[] = []
+  protected addTree: any = []
+  protected addVideoTree: any = []
+  protected addDragAndDropTree: any = []
+  protected formGroup: FormGroup[] = []
+  protected emittedForms: any[] = []
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -191,13 +191,13 @@ export class DynamicFormComponent implements OnInit {
     }
     return { success: true }
   }
-  onTestSubmit() {
+  protected onTestSubmit() {
     console.log(this.formGroup)
     console.log(this.addTree)
     console.log(this.addVideoTree)
     console.log(this.addDragAndDropTree)
   }
-  onBackPage(page: number) {
+  protected onBackPage(page: number) {
     this.goToPage(page)
     this.formGroup[page + 1]?.reset()
     this.emittedForms = this.emittedForms.filter((form: any) => form !== this.formGroup[page])
@@ -207,7 +207,7 @@ export class DynamicFormComponent implements OnInit {
       page: page
     })
   }
-  onClose() {
+  protected onClose() {
     this.goToPage(0)
     this.emittedForms = []
     this.addTree = []
@@ -243,7 +243,7 @@ export class DynamicFormComponent implements OnInit {
     this.ngOnInit()
   }
 
-  handleGoogleLoginV2(response: any) {
+  protected handleGoogleLoginV2(response: any) {
     this.loginWithGoogle.emit(response);
   }
   public goToPage(page: number): void {
@@ -267,16 +267,16 @@ export class DynamicFormComponent implements OnInit {
   closeModal() {
     if (this.isOnModal) setTimeout(() => { document.getElementById('closeModalButt')?.click() });
   }
-  submitAddon(addon: AddonScheme) {
+  protected submitAddon(addon: AddonScheme) {
     this.addonSubmit.emit(addon.href)
   }
-  getTranslatedName(field: any, key: string = 'name'): string {
+  protected getTranslatedName(field: any, key: string = 'name'): string {
     const currLang = this.translate.currentLang
     if (currLang != 'it' && field[key + '_' + currLang] != undefined) return field[key + '_' + currLang]
     return field[key]
   }
 
-  onChooseMedia(event: any, id: string) {
+  protected onChooseMedia(event: any, id: string) {
     if (event.mode == 'img') {
       this.addTree = this.addTree.filter((file: any) => file.id != id)
       this.addTree = [
@@ -297,7 +297,7 @@ export class DynamicFormComponent implements OnInit {
       ]
     }
   }
-  getHighlightAddontext(addon: any, position: string): string {
+  protected getHighlightAddontext(addon: any, position: string): string {
     const translatedName = this.getTranslatedName(addon, 'normal_text')
     if (position == 'before') {
       return translatedName.split('[*]')[0] || ''

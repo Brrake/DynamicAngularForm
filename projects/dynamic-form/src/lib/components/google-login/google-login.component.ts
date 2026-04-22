@@ -23,7 +23,7 @@ export class GoogleLoginComponent implements OnInit, OnDestroy {
   @Input() shape: string = 'rectangular'
   @Input() logo_alignment: string = 'left'
   @Input() auto_prompt: string = 'false'
-  script ?: HTMLScriptElement
+  protected script ?: HTMLScriptElement
 
   constructor(@Inject(GOOGLE_CLIENT_ID_KEY) public googleClientId: string) { }
 
@@ -43,7 +43,7 @@ export class GoogleLoginComponent implements OnInit, OnDestroy {
     this.script?.parentElement?.removeChild(this.script)
   }
 
-  handleGoogleLoginV2(response: any) {
+  protected handleGoogleLoginV2(response: any) {
     this.loginWithGoogle.emit(response);
   }
 

@@ -39,8 +39,8 @@ export class FormElementComponent implements OnInit {
   @Input() maxDate: any;
   @Input() disabledDates: { year: number, month: number, day: number }[] = []
   @Input() enabledDates: { year: number, month: number, day: number }[] = []
-  defMinDate = { year: 1930, month: 1, day: 1 }
-  defMaxDate = { year: new Date().setFullYear(new Date().getFullYear() + 5), month: 12, day: 31 }
+  protected defMinDate = { year: 1930, month: 1, day: 1 }
+  protected defMaxDate = { year: new Date().setFullYear(new Date().getFullYear() + 5), month: 12, day: 31 }
 
   //G-Recaptcha
   @Input() version: string = '';
@@ -54,10 +54,10 @@ export class FormElementComponent implements OnInit {
 
   @Output() onChange = new EventEmitter<any>()
 
-  showPassword = false
-  isDisabled:any;
-  loadedFunc = false
-  public FieldTypesEnum: typeof FieldType = FieldType
+  protected showPassword = false
+  protected isDisabled:any;
+  protected loadedFunc = false
+  protected FieldTypesEnum: typeof FieldType = FieldType
 
   constructor(private translate: TranslateService) {
   }
@@ -68,7 +68,7 @@ export class FormElementComponent implements OnInit {
       this.onChange.emit(e)
     })
   }
-  flushDates() {
+  protected flushDates() {
     this.loadedFunc = false
     if (this.disabledDates.length > 0) {
       this.isDisabled = (
@@ -100,7 +100,7 @@ export class FormElementComponent implements OnInit {
     }
     this.loadedFunc = true
   }
-  sanitizeInput(formControlName: string) {
+  protected sanitizeInput(formControlName: string) {
     if (!this.form) return
     const control = this.form.get(formControlName);
     if (control) {
@@ -108,11 +108,11 @@ export class FormElementComponent implements OnInit {
       control.setValue(sanitizedValue, { emitEvent: false });
     }
   }
-  getRealFieldType(fieldType: string) {
+  protected getRealFieldType(fieldType: string) {
     return fieldType.replace(/_/g, '-').toLowerCase().trim()
   }
   // slider
-  getSliderOptions(options: any) {
+  protected getSliderOptions(options: any) {
     let body = {
       ...options,
       getPointerColor: (value: number) => {
@@ -121,19 +121,19 @@ export class FormElementComponent implements OnInit {
     }
     return body
   }
-  selectPhoneField(phone: any) {
+  protected selectPhoneField(phone: any) {
     this.form.get(this.formName || '')?.setValue(phone)
   }
   // otp
-  onOtpChange(event: any, formControlName: string) {
+  protected onOtpChange(event: any, formControlName: string) {
     this.form.patchValue({ [formControlName]: event })
   }
   // add image
-  openSelectorFiles(id: string) {
+  protected openSelectorFiles(id: string) {
     const selector = document.getElementById(id) as HTMLElement
     selector.click()
   }
-  toAdd(event: any, mode: string = 'img') {
+  protected toAdd(event: any, mode: string = 'img') {
     let addTree = []
     this.displayMedia = URL.createObjectURL(event.target.files[0])
     for (let file of event.target.files) {
@@ -146,7 +146,7 @@ export class FormElementComponent implements OnInit {
       mode: mode
     });
   }
-  handleFiles(files: File[]) {
+  protected handleFiles(files: File[]) {
     let addTree = []
     for (let file of files) {
       var src = URL.createObjectURL(file);
@@ -158,7 +158,7 @@ export class FormElementComponent implements OnInit {
       mode: 'drag-and-drop'
     });
   }
-  getTranslatedName(field: any, key: string = 'name'): string {
+  protected getTranslatedName(field: any, key: string = 'name'): string {
     const currLang = this.translate.currentLang
     if (currLang != 'it' && field[key + '_' + currLang] != undefined) return field[key + '_' + currLang]
     return field[key]

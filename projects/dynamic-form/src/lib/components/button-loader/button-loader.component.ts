@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ButtonType } from '../../models/dynamic-form.model';
 
 @Component({
@@ -7,7 +7,7 @@ import { ButtonType } from '../../models/dynamic-form.model';
   styleUrls: ['./button-loader.component.scss'],
   standalone: false
 })
-export class ButtonLoaderComponent implements OnInit {
+export class ButtonLoaderComponent {
   @Input() loadSpinner: boolean = false
   @Input() loadCheck: boolean = false
   @Input() isFormValid: boolean = true
@@ -27,10 +27,7 @@ export class ButtonLoaderComponent implements OnInit {
 
   @Output() onSubmit = new EventEmitter()
 
-  constructor() { }
-  ngOnInit() {
-  }
-  getClassFromIcon(): string {
+  protected getClassFromIcon(): string {
     if (this.icon == 'credit-card') {
       return 'uil uil-credit-card'
     }
@@ -45,7 +42,7 @@ export class ButtonLoaderComponent implements OnInit {
     }
     return this.icon
   }
-  getTextColor() {
+  protected getTextColor() {
     if (this.text_color == 'white') {
       return '#fff'
     }
@@ -66,7 +63,7 @@ export class ButtonLoaderComponent implements OnInit {
     }
     return this.text_color
   }
-  onClick() {
+  protected onClick() {
     this.onSubmit.emit()
   }
 

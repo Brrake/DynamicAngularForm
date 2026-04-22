@@ -33,14 +33,14 @@ export class DynamicModalComponent implements OnInit {
   @Output() formValueChanges = new EventEmitter<any>();
   @Output() formInit = new EventEmitter<{ id: string; form: FormGroup }>();
 
-  isLoaded = true
+  protected isLoaded = true
 
   constructor() {
   }
   ngOnInit() {
 
   }
-  onClose() {
+  protected onClose() {
     this.isLoaded = false
 
     this.dynForm?.resetAndGoToPage(0)
@@ -48,7 +48,7 @@ export class DynamicModalComponent implements OnInit {
     this.onCloseModal.emit(true)
     this.isLoaded = true
   }
-  onFormInit(event:any) {
+  protected onFormInit(event:any) {
     this.formInit.emit(event)
   }
   isFormValid(idx: number): boolean {
@@ -60,10 +60,10 @@ export class DynamicModalComponent implements OnInit {
   goToPage(page: number) {
     this.dynForm?.goToPage(page)
   }
-  onSubmitForm(event: any) {
+  protected onSubmitForm(event: any) {
     this.onSubmit.emit(event);
   }
-  onFormValueChanges(event: any) {
+  protected onFormValueChanges(event: any) {
     this.formValueChanges.emit(event);
   }
   submitDynamicForm(idx: number) {
@@ -74,7 +74,7 @@ export class DynamicModalComponent implements OnInit {
     document.getElementById('closeDefModal-'+this.modalId)?.click()
   }
 
-  handleGoogleLoginV2(response: any) {
+  protected handleGoogleLoginV2(response: any) {
     this.loginWithGoogle.emit(response);
   }
   openModal() {
