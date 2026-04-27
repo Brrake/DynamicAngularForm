@@ -26,11 +26,11 @@
   </ng-container>
   <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.checkbox_group)">
     <div class="d-flex justify-content-between" style="flex-wrap: wrap;">
-      <ng-container *ngFor="let value of values">
+      <ng-container *ngFor="let value of values;let idx = index">
         <div class="form-check text-end" [formGroup]="form">
           <input [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
-            [name]="formName" [formControlName]="formName" class="form-check-input" type="checkbox" value="" [id]="id">
-          <label class="form-check-label" [for]="id"> {{label}} </label>
+            [name]="formName" [formControlName]="formName" class="form-check-input" type="checkbox" [value]="value.value" [id]="id+'-'+idx">
+          <label class="form-check-label" [for]="id+'-'+idx"> {{value.name}} </label>
         </div>
       </ng-container>
     </div>
