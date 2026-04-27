@@ -25,7 +25,7 @@
     </div>
   </ng-container>
   <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.checkbox_group)">
-    <div class="d-flex justify-content-between" style="flex-wrap: wrap;">
+    <div class="d-flex justify-content-between" style="flex-wrap: wrap;gap: 15px;">
       <ng-container *ngFor="let value of values;let idx = index">
         <div class="form-check text-end" [formGroup]="form">
           <input [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
