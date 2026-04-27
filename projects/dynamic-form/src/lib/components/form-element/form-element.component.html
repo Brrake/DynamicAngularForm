@@ -24,6 +24,17 @@
       <label class="form-check-label" [for]="id"> {{label}} </label>
     </div>
   </ng-container>
+  <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.checkbox_group)">
+    <div class="d-flex justify-content-between" style="flex-wrap: wrap;">
+      <ng-container *ngFor="let value of values">
+        <div class="form-check text-end" [formGroup]="form">
+          <input [ngClass]="{'is-invalid': form.get(formName || '')?.invalid && form.get(formName || '')?.touched}"
+            [name]="formName" [formControlName]="formName" class="form-check-input" type="checkbox" value="" [id]="id">
+          <label class="form-check-label" [for]="id"> {{label}} </label>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
   <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.switch)">
     <div class="d-flex justify-content-between align-items-center">
       <p class="m-0">{{label}}</p>
@@ -53,8 +64,7 @@
       </select>
     </div>
   </ng-container>
-  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.slider)"
-    class="form-floating">
+  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.slider)" class="form-floating">
     <ngx-slider [id]="id" [formControlName]="formName || ''" [options]="getSliderOptions(options)" />
   </div>
   <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)"
@@ -74,7 +84,8 @@
       [config]="{length:length, inputClass:'otp-input',allowNumbersOnly:true,placeholder:'_'}" />
   </div>
   <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.telephone)" class="mb-4">
-    <app-phone-field [form]="form" [formName]="formName" (onPhoneSelected)="selectPhoneField($event)" id="search-popover" [label]="label" />
+    <app-phone-field [form]="form" [formName]="formName" (onPhoneSelected)="selectPhoneField($event)"
+      id="search-popover" [label]="label" />
   </div>
   <p [id]="id" *ngSwitchCase="getRealFieldType(FieldTypesEnum.section_info)" class="lead mb-6 text-start">{{label}}</p>
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.show_image)" class="mb-4">
@@ -93,7 +104,8 @@
       [attr.accept]="(accept!='' && accept!=null && accept!=undefined) ? accept :'image/png, image/gif, image/jpeg, image/jpg'">
   </div>
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.drag_and_drop)">
-    <drop-files [maxFiles]="length" [id]="id" [accept]="accept ? accept : 'image/png, image/gif, image/jpeg, image/jpg'" (fileSelected)="handleFiles($event)" />
+    <drop-files [maxFiles]="length" [id]="id" [accept]="accept ? accept : 'image/png, image/gif, image/jpeg, image/jpg'"
+      (fileSelected)="handleFiles($event)" />
   </div>
   <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_video)">
     <ng-container *ngIf="displayMedia!='';else noVideo">
@@ -120,9 +132,9 @@
   </ng-container>
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.date)" class="form-floating mb-4">
     <div [formGroup]="form" [id]="id" class="input-group" *ngIf="loadedFunc">
-      <input [markDisabled]="isDisabled" class="form-control" [minDate]="minDate ? minDate: defMinDate" [maxDate]="maxDate ? maxDate :defMaxDate"
-        [placeholder]="label ? label : 'yyyy-mm-dd'" [name]="formName" [formControlName]="formName" ngbDatepicker
-        #d="ngbDatepicker" />
+      <input [markDisabled]="isDisabled" class="form-control" [minDate]="minDate ? minDate: defMinDate"
+        [maxDate]="maxDate ? maxDate :defMaxDate" [placeholder]="label ? label : 'yyyy-mm-dd'" [name]="formName"
+        [formControlName]="formName" ngbDatepicker #d="ngbDatepicker" />
       <button class="btn bi bi-calendar3" (click)="d.toggle()" type="button"><i
           class="uil uil-calendar-alt"></i></button>
     </div>

@@ -224,16 +224,16 @@ HTML ->
 | `disabled`       | `boolean (optional)`                                          | Indicates if the field is disabled.                                                                   | ALL                                             |
 | `visible`        | `boolean (optional)`                                          | Indicates if the field is visible.                                                                    | ALL                                             |
 | `formControlName`| `string (optional)`                                           | Form control name, typically used with reactive forms.                                                | ALL                                             |
-| `autocomplete`        | `boolean (optional)`                                     | Indicates if the field has autocomplete.                                                              | text, password                                  |
+| `autocomplete`        | `string (optional)`                                     | Indicates if the field has autocomplete and which value use.                                                              | text, password                                  |
 | `default_value_{LANGUAGE}`| `string (optional)`                                  | Name translated of the field.                                                                         | section_info                                    |
 | `src`            | `string (optional)`                                           | Source URL or path for certain field types (e.g., images).                                            | show_image                                      |
 | `options`        | `any (optional)`                                              | Additional options for the field.                                                                     | slider                                          |
-| `length`         | `number (optional)`                                           | Length of the field.                                                                                  | otp                                             |
+| `length`         | `number (optional)`                                           | Length of the field.                                                                                  | otp, drag-and-drop                                             |
 | `minDate`        | `{ year:number, month:number, day:number } (optional)`        | minDate of datepicker.                                                                                | date                                            |
 | `maxDate`        | `{ year:number, month:number, day:number } (optional)`        | maxDate of datepicker.                                                                                | date                                            |
 | `disabledDates`        | `{ year:number, month:number, day:number }[] (optional)`        | disabledDates of datepicker.                                                                  | date                                            |
 | `enabledDates`        | `{ year:number, month:number, day:number }[] (optional)`        | enabledDates of datepicker.                                                                  | date                                            |
-| `values`         | `SelectValueScheme[] (optional)`                              | Array of selectable values for fields like dropdowns or radios.                                       | select, radio                                   |
+| `values`         | `SelectValueScheme[] (optional)`                              | Array of selectable values for fields like dropdowns or radios.                                       | select, radio, checkbox_group                    |
 | `multiple`       | `boolean (optional)`                                          | Multiple upload of files.                                                                             | add_image, add_video                            |
 | `accept`         | `string (optional)`                                           | Accept types for input files.                                                                         | add_image, add_video                            |
 | `width`          | `string (optional)`                                           | Width of the field.                                                                                   | add_image, add_video, show_image, show_video    |
@@ -256,6 +256,7 @@ HTML ->
 | `password`      | Represents a password input field. |
 | `textarea`      | Represents a textarea input field. |
 | `checkbox`      | Represents a checkbox input field. |
+| `checkbox_group`      | Represents a checkbox group of checkboxes input field. |
 | `switch`          | Represents a switch input field.   |
 | `g_recaptcha`   | Represents a Google reCAPTCHA field. |
 | `section_info`  | Represents a section information field. |
@@ -265,6 +266,7 @@ HTML ->
 | `show_image`    | Represents a show image field.   |
 | `add_video`     | Represents an add image field.   |
 | `show_video`    | Represents a show image field.   |
+| `drag_and_drop`    | Represents a drag and drop files field .   |
 
 ### `SelectValueScheme`
 
@@ -307,6 +309,8 @@ HTML ->
 | Value    | Description                    |
 |----------|--------------------------------|
 | `MODAL`  | Represents a modal link type.  |
+| `URL`  | Represents a url link type.  |
+| `EMITTER`  | Represents a emitter link type, handled by addonSubmit().  |
 
 ## `ButtonScheme`
 

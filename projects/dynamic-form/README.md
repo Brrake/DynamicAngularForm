@@ -233,7 +233,7 @@ HTML ->
 | `maxDate`        | `{ year:number, month:number, day:number } (optional)`        | maxDate of datepicker.                                                                                | date                                            |
 | `disabledDates`        | `{ year:number, month:number, day:number }[] (optional)`        | disabledDates of datepicker.                                                                  | date                                            |
 | `enabledDates`        | `{ year:number, month:number, day:number }[] (optional)`        | enabledDates of datepicker.                                                                  | date                                            |
-| `values`         | `SelectValueScheme[] (optional)`                              | Array of selectable values for fields like dropdowns or radios.                                       | select, radio                                   |
+| `values`         | `SelectValueScheme[] (optional)`                              | Array of selectable values for fields like dropdowns or radios.                                       | select, radio, checkbox_group                    |
 | `multiple`       | `boolean (optional)`                                          | Multiple upload of files.                                                                             | add_image, add_video                            |
 | `accept`         | `string (optional)`                                           | Accept types for input files.                                                                         | add_image, add_video                            |
 | `width`          | `string (optional)`                                           | Width of the field.                                                                                   | add_image, add_video, show_image, show_video    |
@@ -256,6 +256,7 @@ HTML ->
 | `password`      | Represents a password input field. |
 | `textarea`      | Represents a textarea input field. |
 | `checkbox`      | Represents a checkbox input field. |
+| `checkbox_group`      | Represents a checkbox group of checkboxes input field. |
 | `switch`          | Represents a switch input field.   |
 | `g_recaptcha`   | Represents a Google reCAPTCHA field. |
 | `section_info`  | Represents a section information field. |

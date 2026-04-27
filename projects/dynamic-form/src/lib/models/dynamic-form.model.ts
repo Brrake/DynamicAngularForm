@@ -112,6 +112,7 @@ export enum FieldType {
   password = 'password',
   textarea = 'textarea',
   checkbox = 'checkbox',
+  checkbox_group = 'checkbox-group',
   g_recaptcha = 'g-recaptcha',
   section_info = 'section-info',
   slider = 'slider',
