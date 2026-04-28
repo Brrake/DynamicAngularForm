@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FieldType, SelectValueScheme } from '../../models/dynamic-form.model';
 import { TranslateService } from '@ngx-translate/core';
 import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'form-element',
@@ -13,7 +14,7 @@ export class FormElementComponent implements OnInit {
   @Input() id: string = '';
   @Input() type: FieldType = FieldType.text;
   @Input() label: string = 'Example';
-  @Input() form: any;
+  @Input() form: FormGroup = new FormGroup({});
   @Input() formName: string = 'example';
   @Input() disabled: boolean = false;
   @Input() autocomplete: string = 'off';
@@ -62,8 +63,8 @@ export class FormElementComponent implements OnInit {
   constructor(private translate: TranslateService) {
   }
   ngOnInit() {
-    if (!this.form) return
     this.flushDates()
+    if (!this.form) return
     this.form.valueChanges.subscribe((e: any) => {
       this.onChange.emit(e)
     })
@@ -100,6 +101,9 @@ export class FormElementComponent implements OnInit {
     }
     this.loadedFunc = true
   }
+  protected get formControl(){
+    return this.form?.get(this.formName || '')
+  }
   protected sanitizeInput(formControlName: string) {
     if (!this.form) return
     const control = this.form.get(formControlName);
@@ -122,6 +126,7 @@ export class FormElementComponent implements OnInit {
     return body
   }
   protected selectPhoneField(phone: any) {
+    if (!this.form) return
     this.form.get(this.formName || '')?.setValue(phone)
   }
   // otp
