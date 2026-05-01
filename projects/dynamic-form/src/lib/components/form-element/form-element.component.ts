@@ -125,10 +125,6 @@ export class FormElementComponent implements OnInit {
     }
     return body
   }
-  protected selectPhoneField(phone: any) {
-    if (!this.form) return
-    this.form.get(this.formName || '')?.setValue(phone)
-  }
   // otp
   protected onOtpChange(event: any, formControlName: string) {
     this.form.patchValue({ [formControlName]: event })

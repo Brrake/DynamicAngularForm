@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { countries } from '../../countries';
 import * as libphonenumber from 'google-libphonenumber';
@@ -27,7 +27,6 @@ export class PhoneFieldComponent implements OnInit {
   protected phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
 
   protected searchText: string = '';
-  protected numberText: string = '';
   protected filteredPhoneNumbers: Country[] = [];
 
   constructor(
@@ -36,16 +35,9 @@ export class PhoneFieldComponent implements OnInit {
     this.filteredPhoneNumbers = [...this.countries];
   }
   ngOnInit() {
-    this.form?.controls[this.formName].valueChanges.subscribe(value => {
-      this.refreshValues()
-    });
-    this.refreshValues()
+
   }
-  public refreshValues() {
-    const formControl = this.form?.get(this.formName)
-    this.numberText = formControl?.value?.number || ''
-    this.selectedCountry = formControl?.value?.country || this.selectedCountry
-  }
+
   protected onSearchCountriesInput() {
     this.filteredPhoneNumbers = this.countries.filter(i =>
       (i.text || '').toLowerCase().includes(this.searchText.toLowerCase())
@@ -54,13 +46,13 @@ export class PhoneFieldComponent implements OnInit {
 
   protected selectPhoneItem(phone: any) {
     this.selectedCountry = phone;
-    if (!this.numberText) {
+    if (!this.phoneValue) {
       this.onPhoneSelected.emit(undefined)
       return
     }
     this.onPhoneSelected.emit({
-      number: this.numberText,
-      valid: this.isValidField(this.numberText),
+      number: this.phoneValue,
+      valid: this.isValidField(this.phoneValue),
       country: {
         code: this.selectedCountry.code,
         country: this.selectedCountry.country
@@ -75,19 +67,31 @@ export class PhoneFieldComponent implements OnInit {
       return false
     }
   }
+  get phoneValue(): string {
+    return this.form?.get(this.formName)?.value?.number || '';
+  }
+
   protected onTypeNumber(event: any) {
-    if (!event.target.value) {
-      this.onPhoneSelected.emit(undefined)
-      return
+    const value = event.target.value || '';
+    const control = this.form?.get(this.formName);
+
+    if (!control) return;
+
+    if (!value) {
+      control.setValue(undefined);
+      this.onPhoneSelected.emit(undefined);
+      return;
     }
-    this.onPhoneSelected.emit({
-      number: event.target.value,
-      valid: this.isValidField(event.target.value),
+    const body = {
+      ...(control.value || {}),
+      number: value,
       country: {
         code: this.selectedCountry.code,
         country: this.selectedCountry.country
       }
-    });
+    }
+    control.setValue(body);
+    this.onPhoneSelected.emit(body);
   }
   protected openPhoneSelect() {
     const button = document.querySelector('#open-' + this.id) as HTMLButtonElement;
