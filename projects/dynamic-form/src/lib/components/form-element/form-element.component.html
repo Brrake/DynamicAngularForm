@@ -1,13 +1,6 @@
 <ng-container [ngSwitch]="getRealFieldType(type)">
   <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.g_recaptcha)">
-    <div class="row mt-3" *ngIf="version == 'v2' || !version">
-      <div class="col-sm-12 mb-2 g-recaptcha" [formGroup]="form">
-        <re-captcha [id]="id" class="d-flex justify-content-center"
-          style="transform:scale(1);-webkit-transform:scale(1);transform-origin:0 0;-webkit-transform-origin:0 0;"
-          [formControlName]="formName"
-          [class.is-invalid]="formControl?.invalid && (formControl?.dirty || formControl?.touched)"></re-captcha>
-      </div>
-    </div>
+    <lib-google-recaptcha [id]="id" [formName]="formName" [form]="form" [version]="version" />
   </div>
   <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.textarea)">
     <div class="form-floating mb-4" [formGroup]="form">
