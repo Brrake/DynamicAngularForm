@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DynamicFormComponent } from '../../dynamic-form.component';
-import { DynamicFormScheme } from '../../models/dynamic-form.model';
+import { DynamicFormScheme, DynamicSubmitEvent } from '../../models/dynamic-form.model';
 import { FormGroup } from '@angular/forms';
 
 
@@ -26,7 +26,7 @@ export class DynamicModalComponent implements OnInit {
   @Input() modalBackdrop: string | boolean = true;
   @Input() disableSubmit: boolean = false
 
-  @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onSubmit: EventEmitter<DynamicSubmitEvent> = new EventEmitter<DynamicSubmitEvent>();
   @Output() onCloseModal: EventEmitter<any> = new EventEmitter<any>();
   @Output() loginWithGoogle: EventEmitter<any> = new EventEmitter<any>();
   @Output() onBack: EventEmitter<any> = new EventEmitter<any>();
