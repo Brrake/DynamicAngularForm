@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID } from '@angular/core';
-import { AddonScheme, AddonType, ButtonType, DynamicFormScheme, DynamicSubmitEvent, Errors, FieldType, HrefTypes } from './models/dynamic-form.model';
+import { AddonScheme, AddonType, ButtonType, DynamicFormScheme, DynamicSubmitEvent, Errors, FieldType, HrefTypes, SelectValueScheme } from './models/dynamic-form.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { linkValidator } from './custom_validators/link.validator';
 import { confirmPasswordValidator } from './custom_validators/confirm-password.validator';
@@ -305,5 +305,55 @@ export class DynamicFormComponent implements OnInit {
       return translatedName.split('[*]')[1] || ''
     }
     return ''
+  }
+
+
+  changeDescription(idx: number, description: string) {
+    this.formSchemes[idx].description = description
+  }
+  changeDefaultValue(idx: number, formControlName: string, value: any) {
+    this.updateField(idx, formControlName, {
+      default_value: value
+    })
+  }
+  changeVisibility(idx: number, formControlName: string, visible: boolean) {
+    this.updateField(idx, formControlName, {
+      visible: visible
+    })
+  }
+  fillSelects(idx: number, formControlName: string, values: SelectValueScheme[]) {
+    this.updateField(idx, formControlName, {
+      values: values
+    })
+  }
+  changeRangeDate(idx: number, formControlName: string, minDate: { year: number, month: number, day: number }, maxDate: { year: number, month: number, day: number }) {
+    this.updateField(idx, formControlName, {
+      minDate: minDate
+    })
+    this.updateField(idx, formControlName, {
+      maxDate: maxDate
+    })
+  }
+
+  enableDates(idx: number, formControlName: string, values: any) {
+    this.updateField(idx, formControlName, {
+      enabledDates: values
+    })
+  }
+
+  disableDates(idx: number, formControlName: string, values: any) {
+    this.updateField(idx, formControlName, {
+      disabledDates: values
+    })
+  }
+  private updateField(idx: number, formControlName: string, value: any) {
+    for (let i = 0; i < this.formSchemes[idx].fields.length; i++) {
+      if (this.formSchemes[idx].fields[i].formControlName == formControlName) {
+        this.formSchemes[idx].fields[i] = {
+          ...this.formSchemes[idx].fields[i],
+          ...value
+        }
+      }
+    }
   }
 }

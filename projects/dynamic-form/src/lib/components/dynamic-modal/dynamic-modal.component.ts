@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DynamicFormComponent } from '../../dynamic-form.component';
-import { DynamicFormScheme, DynamicSubmitEvent } from '../../models/dynamic-form.model';
+import { DynamicFormScheme, DynamicSubmitEvent, SelectValueScheme } from '../../models/dynamic-form.model';
 import { FormGroup } from '@angular/forms';
 
 
@@ -48,13 +48,13 @@ export class DynamicModalComponent implements OnInit {
     this.onCloseModal.emit(true)
     this.isLoaded = true
   }
-  protected onFormInit(event:any) {
+  protected onFormInit(event: any) {
     this.formInit.emit(event)
   }
   isFormValid(idx: number): boolean {
     return this.dynForm?.isFormValid(idx) || false
   }
-  updateForm(idx:number, values:any) {
+  updateForm(idx: number, values: any) {
     this.dynForm?.updateForm(idx, values)
   }
   goToPage(page: number) {
@@ -69,15 +69,36 @@ export class DynamicModalComponent implements OnInit {
   submitDynamicForm(idx: number) {
     this.dynForm?.onSubmitForm(idx);
   }
-  closeModal(){
+  closeModal() {
     this.onClose()
-    document.getElementById('closeDefModal-'+this.modalId)?.click()
+    document.getElementById('closeDefModal-' + this.modalId)?.click()
   }
 
   protected handleGoogleLoginV2(response: any) {
     this.loginWithGoogle.emit(response);
   }
   openModal() {
-    document.getElementById('openModal-'+this.modalId)?.click()
+    document.getElementById('openModal-' + this.modalId)?.click()
+  }
+  changeDescription(idx: number, description: string) {
+    this.dynForm?.changeDescription(idx, description)
+  }
+  changeDefaultValue(idx: number, formControlName: string, value: any) {
+    this.dynForm?.changeDefaultValue(idx, formControlName, value)
+  }
+  changeVisibility(idx: number, formControlName: string, visible: boolean) {
+    this.dynForm?.changeVisibility(idx, formControlName, visible)
+  }
+  fillSelects(idx: number, formControlName: string, values: SelectValueScheme[]) {
+    this.dynForm?.fillSelects(idx, formControlName, values)
+  }
+  changeRangeDate(idx: number, formControlName: string, minDate: { year: number, month: number, day: number }, maxDate: { year: number, month: number, day: number }) {
+    this.dynForm?.changeRangeDate(idx, formControlName, minDate, maxDate)
+  }
+  enableDates(idx: number, formControlName: string, values: any) {
+    this.dynForm?.enableDates(idx, formControlName, values)
+  }
+  disableDates(idx: number, formControlName: string, values: any) {
+    this.dynForm?.disableDates(idx, formControlName, values)
   }
 }
