@@ -10,7 +10,7 @@ For the installation we need to use the following versions of :
 
 Node.JS : [v20.13.1](https://nodejs.org/dist/v20.13.1/node-v20.13.1-x64.msi)
 
-Angular : 17 - 18 - 19 - 20
+Angular : 19 - 20 - 21 - 22 
 
 The library come with preinstalled `@angular-slider/ngx-slider` for the rendering of Slider form inputs, `@ng-bootstrap/ng-bootstrap` for the Date and Time Picker and `ng-recaptcha-2` for the rendering og Google Recaptcha security feature.
 
@@ -23,6 +23,7 @@ First of all you need to install the library running :
 
 | Angular Version   | Lib Version        | Node Version        |
 |-------------------|--------------------|--------------------|
+| `v22`             | `22`           | `v26.7.0`  |
 | `v20`             | `20`           | `v22.18.0`  |
 | `v19`             | `19`           | `v20.13.1`  |
 
