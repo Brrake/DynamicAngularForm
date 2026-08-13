@@ -7,7 +7,7 @@ from update_version import update_version
 ng_cmd = "ng.cmd" if sys.platform.startswith("win") else "ng"
 npm_cmd = "npm.cmd" if sys.platform.startswith("win") else "npm"
 
-release='release-19'
+release='release-22'
 lib_name='dynamic-form'
 
 # Ottieni la directory principale
