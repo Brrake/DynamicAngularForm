@@ -7,11 +7,12 @@ import { phoneValidator } from './custom_validators/phoneValidator.validator';
 import { isPlatformServer } from '@angular/common';
 import { ReCaptchaV3Service } from 'ng-recaptcha-2';
 import { TranslateService } from '@ngx-translate/core';
+import { APP_CHANGE_DETECTION } from './app-change-detection';
 @Component({
   selector: 'dynamic-form',
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: APP_CHANGE_DETECTION,
   standalone: false
 })
 export class DynamicFormComponent implements OnInit {

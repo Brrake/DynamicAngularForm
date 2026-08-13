@@ -3,12 +3,13 @@ import { FieldType, SelectValueScheme } from '../../models/dynamic-form.model';
 import { TranslateService } from '@ngx-translate/core';
 import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
+import { APP_CHANGE_DETECTION } from '../../app-change-detection';
 
 @Component({
   selector: 'form-element',
   templateUrl: './form-element.component.html',
   styleUrls: ['./form-element.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: APP_CHANGE_DETECTION,
   standalone: false
 })
 export class FormElementComponent implements OnInit {

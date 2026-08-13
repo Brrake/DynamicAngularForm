@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { ButtonType } from '../../models/dynamic-form.model';
+import { APP_CHANGE_DETECTION } from '../../app-change-detection';
 
 @Component({
   selector: 'button-loader',
   templateUrl: './button-loader.component.html',
   styleUrls: ['./button-loader.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: APP_CHANGE_DETECTION,
   standalone: false
 })
 export class ButtonLoaderComponent {

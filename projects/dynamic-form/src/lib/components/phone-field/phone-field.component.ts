@@ -4,12 +4,13 @@ import { countries } from '../../countries';
 import * as libphonenumber from 'google-libphonenumber';
 import { Country } from '../../models/countries.model';
 import { FormGroup } from '@angular/forms';
+import { APP_CHANGE_DETECTION } from '../../app-change-detection';
 
 @Component({
   selector: 'app-phone-field',
   templateUrl: './phone-field.component.html',
   styleUrl: './phone-field.component.scss',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: APP_CHANGE_DETECTION,
   standalone: false
 })
 export class PhoneFieldComponent implements OnInit {
