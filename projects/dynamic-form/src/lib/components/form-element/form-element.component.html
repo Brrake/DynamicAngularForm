@@ -1,161 +1,180 @@
-<ng-container [ngSwitch]="getRealFieldType(type)">
-  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.g_recaptcha)">
-    <lib-google-recaptcha [id]="id" [formName]="formName" [form]="form" [version]="version" />
-  </div>
-  <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.textarea)">
-    <div class="form-floating mb-4" [formGroup]="form">
-      <textarea [ngClass]="{'is-invalid': formControl?.invalid && formControl?.touched}"
-        [name]="formName" (input)="sanitizeInput(formName)" [formControlName]="formName" [id]="id" class="form-control"
-        [placeholder]="label" style="height: 150px"></textarea>
-      <label [for]="id">{{label}}</label>
-    </div>
-  </ng-container>
-  <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.checkbox)">
+@switch(getRealFieldType(type)) {
+
+@case(getRealFieldType(FieldTypesEnum.g_recaptcha)) {
+<lib-google-recaptcha [id]="id" [formName]="formName" [form]="form" [version]="version" />
+}
+@case(getRealFieldType(FieldTypesEnum.textarea)) {
+<div class="form-floating mb-4" [formGroup]="form">
+  <textarea [ngClass]="{'is-invalid': formControl?.invalid && formControl.touched}" [name]="formName"
+    (input)="sanitizeInput(formName)" [formControlName]="formName" [id]="id" class="form-control" [placeholder]="label"
+    style="height: 150px"></textarea>
+  <label [for]="id">{{label}}</label>
+</div>
+}
+@case(getRealFieldType(FieldTypesEnum.checkbox)) {
+<div class="form-check text-end" [formGroup]="form">
+  <input [ngClass]="{'is-invalid': formControl?.invalid && formControl.touched}" [name]="formName"
+    [formControlName]="formName" class="form-check-input" type="checkbox" value="" [id]="id">
+  <label class="form-check-label" [for]="id"> {{label}} </label>
+</div>
+}
+@case(getRealFieldType(FieldTypesEnum.checkbox_group)) {
+<div class="d-flex justify-content-between" style="flex-wrap: wrap;gap: 15px;">
+  <ng-container *ngFor="let value of values;let idx = index">
     <div class="form-check text-end" [formGroup]="form">
-      <input [ngClass]="{'is-invalid': formControl?.invalid && formControl?.touched}"
-        [name]="formName" [formControlName]="formName" class="form-check-input" type="checkbox" value="" [id]="id">
-      <label class="form-check-label" [for]="id"> {{label}} </label>
+      <input [ngClass]="{'is-invalid': formControl?.invalid && formControl.touched}" [name]="formName"
+        [formControlName]="formName" class="form-check-input" type="checkbox" [value]="value.value" [id]="id+'-'+idx">
+      <label class="form-check-label" [for]="id+'-'+idx"> {{value.name}} </label>
     </div>
   </ng-container>
-  <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.checkbox_group)">
-    <div class="d-flex justify-content-between" style="flex-wrap: wrap;gap: 15px;">
-      <ng-container *ngFor="let value of values;let idx = index">
-        <div class="form-check text-end" [formGroup]="form">
-          <input [ngClass]="{'is-invalid': formControl?.invalid && formControl?.touched}"
-            [name]="formName" [formControlName]="formName" class="form-check-input" type="checkbox"
-            [value]="value.value" [id]="id+'-'+idx">
-          <label class="form-check-label" [for]="id+'-'+idx"> {{value.name}} </label>
-        </div>
-      </ng-container>
+</div>
+}
+@case(getRealFieldType(FieldTypesEnum.switch)) {
+<div class="d-flex justify-content-between align-items-center">
+  <p class="m-0">{{label}}</p>
+  <label class="switch" [formGroup]="form">
+    <input type="checkbox" [name]="formName" [formControlName]="formName" [id]="id">
+    <span class="slider"></span>
+  </label>
+</div>
+}
+@case(getRealFieldType(FieldTypesEnum.radio)) {
+<div [formGroup]="form">
+  <div class="form-check" *ngFor="let value of values">
+    <input [ngClass]="{'is-invalid': formControl?.invalid && formControl.touched}" [value]="value.value"
+      [formControlName]="formName" class="form-check-input" type="radio" [name]="formName" [id]="id">
+    <label class="form-check-label" [for]="id"> {{getTranslatedName(value,'name')}} </label>
+  </div>
+</div>
+}
+@case(getRealFieldType(FieldTypesEnum.select)) {
+<div class="form-select-wrapper mb-4" [formGroup]="form">
+  <select [ngClass]="{'is-invalid': formControl?.invalid && formControl.touched}" [id]="id" [formControlName]="formName"
+    [name]="formName" class="form-select">
+    <option value="" disabled selected>{{label}}</option>
+    <option *ngFor="let value of values" [value]="value.value">
+      {{getTranslatedName(value,'name')}}</option>
+  </select>
+</div>
+}
+@case(getRealFieldType(FieldTypesEnum.slider)) {
+<div [formGroup]="form" class="form-floating">
+  <ngx-slider [id]="id" [formControlName]="formName || ''" [options]="getSliderOptions(options)" />
+</div>
+}
+@case(getRealFieldType(FieldTypesEnum.password)) {
+<div [formGroup]="form" class="form-floating password-field mb-4">
+  <input [style]="" [ngClass]="{'is-invalid': formControl?.invalid && formControl.touched}" [id]="id"
+    [autocomplete]="autocomplete" [type]="showPassword ? 'text':'password'"
+    [class]="'form-control '+((formControl?.invalid && formControl.touched) ? 'pr-3':'pr-2')" [placeholder]="label"
+    [name]="formName || ''" [formControlName]="formName || ''">
+  <span (click)="showPassword = !showPassword"
+    [class]="'password-toggle '+((formControl?.invalid && formControl.touched) ? 'pw-invalid':'')"><i class="uil"
+      [ngClass]="{'uil-eye': !showPassword, 'uil-eye-slash': showPassword}"></i></span>
+  <label [for]="id">{{label}}</label>
+</div>
+}
+@case(getRealFieldType(FieldTypesEnum.otp)) {
+<div class="mb-3 d-flex" style="align-items: center;justify-content: center;">
+  <ng-otp-input [id]="id" (onInputChange)="onOtpChange($event, formName || '')"
+    [config]="{length:length, inputClass:'otp-input',allowNumbersOnly:true,placeholder:'_'}" />
+</div>
+}
+@case(getRealFieldType(FieldTypesEnum.telephone)) {
+<div [formGroup]="form" class="mb-4">
+  <app-phone-field [form]="form" [formName]="formName" id="search-popover" [label]="label" />
+</div>
+}
+@case(getRealFieldType(FieldTypesEnum.section_info)) {
+<p [id]="id" class="lead mb-6 text-start">{{label}}</p>
+}
+@case(getRealFieldType(FieldTypesEnum.show_image)) {
+<div class="mb-4">
+  <img [id]="id" [width]="width" [src]="src">
+</div>
+}
+@case(getRealFieldType(FieldTypesEnum.show_video)) {
+<div class="mb-4">
+  <video [id]="id" [controls]="controls" [width]="width" [src]="src"></video>
+</div>
+}
+@case(getRealFieldType(FieldTypesEnum.add_image)) {
+<div [id]="id" (click)="openSelectorFiles('input-file-'+label)"
+  class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
+  [style]="'font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;'+ (displayMedia!='' ? 'background-image: url('+displayMedia+');':'')">
+  <a class="text-center" [hidden]="displayMedia!=''">+</a>
+  <input [disabled]="disabled" (change)="toAdd($event)" [id]="'input-file-'+label" style="display: none;" type="file"
+    [attr.multiple]="multiple ? multiple : null"
+    [attr.accept]="(accept!='' && accept!=null && accept!=undefined) ? accept :'image/png, image/gif, image/jpeg, image/jpg'">
+</div>
+}
+@case(getRealFieldType(FieldTypesEnum.drag_and_drop)) {
+<div>
+  <drop-files [maxFiles]="length" [id]="id" [accept]="accept ? accept : 'image/png, image/gif, image/jpeg, image/jpg'"
+    (fileSelected)="handleFiles($event)" />
+</div>
+}
+@case(getRealFieldType(FieldTypesEnum.add_video)) {
+
+@if(displayMedia!=''){
+<div [id]="id" (click)="openSelectorFiles('input-file-'+label)" class="video-container pointer lift mb-8"
+  style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
+  <video [src]="displayMedia" [controls]="controls ? controls : null" [width]="width" playsinline autoplay
+    [muted]="'muted'" loop id="bg-video">
+  </video>
+  <input [disabled]="disabled" (change)="toAdd($event,'video')" [id]="'input-file-'+label" style="display: none;"
+    type="file" [attr.multiple]="multiple ? multiple : null"
+    [attr.accept]=" (accept!='' && accept!=null && accept!=undefined) ? accept :'video/mp4,video/x-m4v,video/*'">
+</div>
+}
+@else{
+<div [id]="id" (click)="openSelectorFiles('input-file-'+label)"
+  class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
+  style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
+  <a class="text-center">+</a>
+  <input [disabled]="disabled" (change)="toAdd($event,'video')" [id]="'input-file-'+label" style="display: none;"
+    type="file" [attr.multiple]="multiple ? multiple : null"
+    [attr.accept]=" (accept!='' && accept!=null && accept!=undefined) ? accept :'video/mp4,video/x-m4v,video/*'">
+</div>
+}
+}
+@case(getRealFieldType(FieldTypesEnum.date)) {
+<div class="form-floating mb-4">
+  <div [formGroup]="form" [id]="id" class="input-group" *ngIf="loadedFunc">
+    <input [markDisabled]="isDisabled" class="form-control" [minDate]="minDate ? minDate: defMinDate"
+      [maxDate]="maxDate ? maxDate :defMaxDate" [placeholder]="label ? label : 'yyyy-mm-dd'" [name]="formName"
+      [formControlName]="formName" ngbDatepicker #d="ngbDatepicker" />
+    <button class="btn bi bi-calendar3" (click)="d.toggle()" type="button"><i class="uil uil-calendar-alt"></i></button>
+  </div>
+</div>
+}
+@case(getRealFieldType(FieldTypesEnum.time)) {
+<div class="form-floating">
+  <div [formGroup]="form" [id]="id" class="input-group d-grid">
+    <p>{{label}}</p>
+    <ngb-timepicker [meridian]="meridian" [disabled]="disabled" [seconds]="seconds"
+      class="d-flex justify-content-center" [formControlName]="formName">
+    </ngb-timepicker>
+  </div>
+</div>
+}
+@default {
+<div class="form-floating mb-4" [formGroup]="form">
+  <input [autocomplete]="autocomplete" [ngClass]="{'is-invalid': formControl?.invalid && formControl.touched}"
+    [name]="formName" (input)="sanitizeInput(formName)" [formControlName]="formName" [id]="id" [type]="type"
+    class="form-control" [placeholder]="label">
+  <label [for]="id">{{label}}</label>
+</div>
+}
+}
+@if(!formControl?.valid && (formControl?.dirty || formControl?.touched)){
+<div class="alert alert-danger">
+  @for (error of errors; track error) {
+  <div>
+    <div [hidden]="!formControl.errors?.[error.name.toLowerCase()]">
+      {{getTranslatedName(error,'text')}}
     </div>
-  </ng-container>
-  <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.switch)">
-    <div class="d-flex justify-content-between align-items-center">
-      <p class="m-0">{{label}}</p>
-      <label class="switch" [formGroup]="form">
-        <input type="checkbox" [name]="formName" [formControlName]="formName" [id]="id">
-        <span class="slider"></span>
-      </label>
-    </div>
-  </ng-container>
-  <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.radio)">
-    <div [formGroup]="form">
-      <div class="form-check" *ngFor="let value of values">
-        <input [ngClass]="{'is-invalid': formControl?.invalid && formControl?.touched}"
-          [value]="value.value" [formControlName]="formName" class="form-check-input" type="radio" [name]="formName"
-          [id]="id">
-        <label class="form-check-label" [for]="id"> {{getTranslatedName(value,'name')}} </label>
-      </div>
-    </div>
-  </ng-container>
-  <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.select)">
-    <div class="form-select-wrapper mb-4" [formGroup]="form">
-      <select [ngClass]="{'is-invalid': formControl?.invalid && formControl?.touched}"
-        [id]="id" [formControlName]="formName" [name]="formName" class="form-select">
-        <option value="" disabled selected>{{label}}</option>
-        <option *ngFor="let value of values" [value]="value.value">
-          {{getTranslatedName(value,'name')}}</option>
-      </select>
-    </div>
-  </ng-container>
-  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.slider)" class="form-floating">
-    <ngx-slider [id]="id" [formControlName]="formName || ''" [options]="getSliderOptions(options)" />
   </div>
-  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.password)"
-    class="form-floating password-field mb-4">
-    <input [style]="" [ngClass]="{'is-invalid': formControl?.invalid && formControl?.touched}"
-      [id]="id" [autocomplete]="autocomplete" [type]="showPassword ? 'text':'password'"
-      [class]="'form-control '+((formControl?.invalid && formControl?.touched) ? 'pr-3':'pr-2')"
-      [placeholder]="label" [name]="formName || ''" [formControlName]="formName || ''">
-    <span (click)="showPassword = !showPassword"
-      [class]="'password-toggle '+((formControl?.invalid && formControl?.touched) ? 'pw-invalid':'')"><i
-        class="uil" [ngClass]="{'uil-eye': !showPassword, 'uil-eye-slash': showPassword}"></i></span>
-    <label [for]="id">{{label}}</label>
-  </div>
-  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.otp)" class="mb-3 d-flex"
-    style="align-items: center;justify-content: center;">
-    <ng-otp-input [id]="id" (onInputChange)="onOtpChange($event, formName || '')"
-      [config]="{length:length, inputClass:'otp-input',allowNumbersOnly:true,placeholder:'_'}" />
-  </div>
-  <div [formGroup]="form" *ngSwitchCase="getRealFieldType(FieldTypesEnum.telephone)" class="mb-4">
-    <app-phone-field [form]="form" [formName]="formName"
-      id="search-popover" [label]="label" />
-  </div>
-  <p [id]="id" *ngSwitchCase="getRealFieldType(FieldTypesEnum.section_info)" class="lead mb-6 text-start">{{label}}</p>
-  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.show_image)" class="mb-4">
-    <img [id]="id" [width]="width" [src]="src">
-  </div>
-  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.show_video)" class="mb-4">
-    <video [id]="id" [controls]="controls" [width]="width" [src]="src"></video>
-  </div>
-  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_image)" [id]="id"
-    (click)="openSelectorFiles('input-file-'+label)"
-    class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
-    [style]="'font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;'+ (displayMedia!='' ? 'background-image: url('+displayMedia+');':'')">
-    <a class="text-center" [hidden]="displayMedia!=''">+</a>
-    <input [disabled]="disabled" (change)="toAdd($event)" [id]="'input-file-'+label" style="display: none;" type="file"
-      [attr.multiple]="multiple ? multiple : null"
-      [attr.accept]="(accept!='' && accept!=null && accept!=undefined) ? accept :'image/png, image/gif, image/jpeg, image/jpg'">
-  </div>
-  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.drag_and_drop)">
-    <drop-files [maxFiles]="length" [id]="id" [accept]="accept ? accept : 'image/png, image/gif, image/jpeg, image/jpg'"
-      (fileSelected)="handleFiles($event)" />
-  </div>
-  <ng-container *ngSwitchCase="getRealFieldType(FieldTypesEnum.add_video)">
-    <ng-container *ngIf="displayMedia!='';else noVideo">
-      <div [id]="id" (click)="openSelectorFiles('input-file-'+label)" class="video-container pointer lift mb-8"
-        style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
-        <video [src]="displayMedia" [controls]="controls ? controls : null" [width]="width" playsinline autoplay
-          [muted]="'muted'" loop id="bg-video">
-        </video>
-        <input [disabled]="disabled" (change)="toAdd($event,'video')" [id]="'input-file-'+label" style="display: none;"
-          type="file" [attr.multiple]="multiple ? multiple : null"
-          [attr.accept]=" (accept!='' && accept!=null && accept!=undefined) ? accept :'video/mp4,video/x-m4v,video/*'">
-      </div>
-    </ng-container>
-    <ng-template #noVideo>
-      <div [id]="id" (click)="openSelectorFiles('input-file-'+label)"
-        class="shadow-xl pdr-60px card pointer resp-block justify-content-center lift mb-8"
-        style="font-size: 80px;width: auto;padding: 25px;height: 180px;background-size: cover; background-position: center;">
-        <a class="text-center">+</a>
-        <input [disabled]="disabled" (change)="toAdd($event,'video')" [id]="'input-file-'+label" style="display: none;"
-          type="file" [attr.multiple]="multiple ? multiple : null"
-          [attr.accept]=" (accept!='' && accept!=null && accept!=undefined) ? accept :'video/mp4,video/x-m4v,video/*'">
-      </div>
-    </ng-template>
-  </ng-container>
-  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.date)" class="form-floating mb-4">
-    <div [formGroup]="form" [id]="id" class="input-group" *ngIf="loadedFunc">
-      <input [markDisabled]="isDisabled" class="form-control" [minDate]="minDate ? minDate: defMinDate"
-        [maxDate]="maxDate ? maxDate :defMaxDate" [placeholder]="label ? label : 'yyyy-mm-dd'" [name]="formName"
-        [formControlName]="formName" ngbDatepicker #d="ngbDatepicker" />
-      <button class="btn bi bi-calendar3" (click)="d.toggle()" type="button"><i
-          class="uil uil-calendar-alt"></i></button>
-    </div>
-  </div>
-  <div *ngSwitchCase="getRealFieldType(FieldTypesEnum.time)" class="form-floating">
-    <div [formGroup]="form" [id]="id" class="input-group d-grid">
-      <p>{{label}}</p>
-      <ngb-timepicker [meridian]="meridian" [disabled]="disabled" [seconds]="seconds"
-        class="d-flex justify-content-center" [formControlName]="formName">
-      </ngb-timepicker>
-    </div>
-  </div>
-  <ng-container *ngSwitchDefault>
-    <div class="form-floating mb-4" [formGroup]="form">
-      <input [autocomplete]="autocomplete"
-        [ngClass]="{'is-invalid': formControl?.invalid && formControl?.touched}"
-        [name]="formName" (input)="sanitizeInput(formName)" [formControlName]="formName" [id]="id" [type]="type"
-        class="form-control" [placeholder]="label">
-      <label [for]="id">{{label}}</label>
-    </div>
-  </ng-container>
-  <div *ngIf="!formControl?.valid && (formControl?.dirty || formControl?.touched)"
-    class="alert alert-danger">
-    <div *ngFor="let error of errors">
-      <div [hidden]="!formControl?.errors?.[error.name.toLowerCase()]">
-        {{getTranslatedName(error,'text')}}
-      </div>
-    </div>
-  </div>
-</ng-container>
+  }
+</div>
+}

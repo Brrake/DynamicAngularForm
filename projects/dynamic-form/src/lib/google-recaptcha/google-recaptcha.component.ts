@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecaptchaFormsModule, RecaptchaModule, RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha-2';
@@ -6,13 +6,12 @@ import { RecaptchaFormsModule, RecaptchaModule, RecaptchaV3Module, ReCaptchaV3Se
 @Component({
   selector: 'lib-google-recaptcha',
   imports: [
-    CommonModule,
     RecaptchaV3Module,
     RecaptchaFormsModule,
     RecaptchaModule,
     FormsModule,
     ReactiveFormsModule
-  ],
+],
   providers: [
     ReCaptchaV3Service
   ],
