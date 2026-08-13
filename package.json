@@ -8,6 +8,12 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
+  "allowScripts": {
+    "esbuild": true,
+    "@parcel/watcher":true,
+    "lmdb":true,
+    "msgpackr-extract":true
+  },
   "dependencies": {
     "@angular-slider/ngx-slider": "^22.0.0",
     "@angular/animations": "^22.1.1",
