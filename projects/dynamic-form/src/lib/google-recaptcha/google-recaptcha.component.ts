@@ -1,5 +1,5 @@
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecaptchaFormsModule, RecaptchaModule, RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha-2';
 
@@ -16,6 +16,7 @@ import { RecaptchaFormsModule, RecaptchaModule, RecaptchaV3Module, ReCaptchaV3Se
     ReCaptchaV3Service
   ],
   templateUrl: './google-recaptcha.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './google-recaptcha.component.css'
 })
 export class GoogleRecaptchaComponent {

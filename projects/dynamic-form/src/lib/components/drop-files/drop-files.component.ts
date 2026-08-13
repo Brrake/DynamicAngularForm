@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'drop-files',
   standalone: false,
   templateUrl: './drop-files.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './drop-files.component.scss'
 })
 export class DropFilesComponent {

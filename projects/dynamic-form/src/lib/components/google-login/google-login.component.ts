@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, Input, OnDestroy, Inject } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input, OnDestroy, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { GOOGLE_CLIENT_ID_KEY } from '../../config.token';
 
 declare global {
@@ -11,6 +11,7 @@ declare global {
   selector: 'google-login',
   templateUrl: './google-login.component.html',
   styleUrls: ['./google-login.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class GoogleLoginComponent implements OnInit, OnDestroy {

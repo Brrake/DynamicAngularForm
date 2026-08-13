@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { countries } from '../../countries';
 import * as libphonenumber from 'google-libphonenumber';
@@ -9,6 +9,7 @@ import { FormGroup } from '@angular/forms';
   selector: 'app-phone-field',
   templateUrl: './phone-field.component.html',
   styleUrl: './phone-field.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class PhoneFieldComponent implements OnInit {

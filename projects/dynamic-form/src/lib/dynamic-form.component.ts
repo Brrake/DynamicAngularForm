@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID, ChangeDetectionStrategy } from '@angular/core';
 import { AddonScheme, AddonType, ButtonType, DynamicFormScheme, DynamicSubmitEvent, Errors, FieldType, HrefTypes, SelectValueScheme } from './models/dynamic-form.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { linkValidator } from './custom_validators/link.validator';
@@ -11,6 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
   selector: 'dynamic-form',
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class DynamicFormComponent implements OnInit {
