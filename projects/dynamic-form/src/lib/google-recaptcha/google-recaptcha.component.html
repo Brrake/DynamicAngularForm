@@ -1,0 +1,8 @@
+<div class="row mt-3" *ngIf="version == 'v2' || !version">
+    <div class="col-sm-12 mb-2 g-recaptcha" [formGroup]="form">
+        <re-captcha [id]="id" class="d-flex justify-content-center"
+            style="transform:scale(1);-webkit-transform:scale(1);transform-origin:0 0;-webkit-transform-origin:0 0;"
+            [formControlName]="formName"
+            [class.is-invalid]="formControl?.invalid && (formControl?.dirty || formControl?.touched)"></re-captcha>
+    </div>
+</div>

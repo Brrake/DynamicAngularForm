@@ -6,9 +6,6 @@
     "paths": {
       "dynamic-form": [
         "./dist/dynamic-form"
-      ],
-      "sandbox-modules": [
-        "./dist/sandbox-modules"
       ]
     },
     "strict": true,

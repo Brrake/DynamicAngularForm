@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { countries } from '../../countries';
 import * as libphonenumber from 'google-libphonenumber';
@@ -18,17 +18,16 @@ export class PhoneFieldComponent implements OnInit {
   @Input() formName: string = '';
   @Output() onPhoneSelected = new EventEmitter<any>();
 
-  countries: Country[] = countries
+  protected countries: Country[] = countries
 
-  selectedCountry: Country = {
+  protected selectedCountry: Country = {
     code: '+39',
     country: 'IT'
   };
-  phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
+  protected phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
 
-  searchText: string = '';
-  numberText: string = '';
-  filteredPhoneNumbers: Country[] = [];
+  protected searchText: string = '';
+  protected filteredPhoneNumbers: Country[] = [];
 
   constructor(
     private translate: TranslateService
@@ -36,38 +35,31 @@ export class PhoneFieldComponent implements OnInit {
     this.filteredPhoneNumbers = [...this.countries];
   }
   ngOnInit() {
-    this.form?.controls[this.formName].valueChanges.subscribe(value => {
-      this.refreshValues()
-    });
-    this.refreshValues()
+
   }
-  public refreshValues() {
-    const formControl = this.form?.get(this.formName)
-    this.numberText = formControl?.value?.number || ''
-    this.selectedCountry = formControl?.value?.country || this.selectedCountry
-  }
-  onSearchCountriesInput() {
+
+  protected onSearchCountriesInput() {
     this.filteredPhoneNumbers = this.countries.filter(i =>
       (i.text || '').toLowerCase().includes(this.searchText.toLowerCase())
     );
   }
 
-  selectPhoneItem(phone: any) {
+  protected selectPhoneItem(phone: any) {
     this.selectedCountry = phone;
-    if (!this.numberText) {
+    if (!this.phoneValue) {
       this.onPhoneSelected.emit(undefined)
       return
     }
     this.onPhoneSelected.emit({
-      number: this.numberText,
-      valid: this.isValidField(this.numberText),
+      number: this.phoneValue,
+      valid: this.isValidField(this.phoneValue),
       country: {
         code: this.selectedCountry.code,
         country: this.selectedCountry.country
       }
     });
   }
-  isValidField(phone: string) {
+  protected isValidField(phone: string) {
     try {
       const number = this.phoneUtil.parseAndKeepRawInput(phone, this.selectedCountry.country);
       return this.phoneUtil.isValidNumber(number) || this.phoneUtil.isValidNumberForRegion(number, this.selectedCountry.country)
@@ -75,38 +67,50 @@ export class PhoneFieldComponent implements OnInit {
       return false
     }
   }
-  onTypeNumber(event: any) {
-    if (!event.target.value) {
-      this.onPhoneSelected.emit(undefined)
-      return
+  get phoneValue(): string {
+    return this.form?.get(this.formName)?.value?.number || '';
+  }
+
+  protected onTypeNumber(event: any) {
+    const value = event.target.value || '';
+    const control = this.form?.get(this.formName);
+
+    if (!control) return;
+
+    if (!value) {
+      control.setValue(undefined);
+      this.onPhoneSelected.emit(undefined);
+      return;
     }
-    this.onPhoneSelected.emit({
-      number: event.target.value,
-      valid: this.isValidField(event.target.value),
+    const body = {
+      ...(control.value || {}),
+      number: value,
       country: {
         code: this.selectedCountry.code,
         country: this.selectedCountry.country
       }
-    });
+    }
+    control.setValue(body);
+    this.onPhoneSelected.emit(body);
   }
-  openPhoneSelect() {
+  protected openPhoneSelect() {
     const button = document.querySelector('#open-' + this.id) as HTMLButtonElement;
     button.click();
   }
 
-  get translatePrefix() {
+  protected get translatePrefix() {
     const currLang = this.translate.currentLang
     return currLang == 'it' ? 'Seleziona Prefisso' : 'Select Prefix'
   }
-  get translateDescription() {
+  protected get translateDescription() {
     const currLang = this.translate.currentLang
     return currLang == 'it' ? 'Inserisci il suffisso del tuo paese' : 'Enter the suffix of your country'
   }
-  get translateSearch() {
+  protected get translateSearch() {
     const currLang = this.translate.currentLang
     return currLang == 'it' ? 'Cerca' : 'Search'
   }
-  get translateNoResults() {
+  protected get translateNoResults() {
     const currLang = this.translate.currentLang
     return currLang == 'it' ? 'Nessun risultato trovato' : 'No results found'
   }

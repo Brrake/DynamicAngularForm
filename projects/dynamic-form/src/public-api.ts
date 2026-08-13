@@ -1,7 +1,7 @@
 /*
  * Public API Surface of dynamic-form
  */
-
+export * from './lib/config.token';
 export * from './lib/dynamic-form.service';
 export * from './lib/dynamic-form.component';
 export * from './lib/components/drop-files/drop-files.component';

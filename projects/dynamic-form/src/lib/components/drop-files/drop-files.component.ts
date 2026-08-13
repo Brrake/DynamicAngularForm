@@ -8,8 +8,8 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './drop-files.component.scss'
 })
 export class DropFilesComponent {
-  files: File[] = [];
-  isDragOver = false;
+  protected files: File[] = [];
+  protected isDragOver = false;
   @Input() id: string = '';
   @Input() accept: string = 'image/png, image/gif, image/jpeg, image/jpg';
   @Input() maxFiles: number = 5;
@@ -19,19 +19,19 @@ export class DropFilesComponent {
     private translate: TranslateService
   ) { }
 
-  onDragOver(event: DragEvent) {
+  protected onDragOver(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
     this.isDragOver = true;
   }
 
-  onDragLeave(event: DragEvent) {
+  protected onDragLeave(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
     this.isDragOver = false;
   }
 
-  onDrop(event: DragEvent) {
+  protected onDrop(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
     this.isDragOver = false;
@@ -57,7 +57,7 @@ export class DropFilesComponent {
     // qui puoi chiamare il servizio per l’upload
   }
 
-  onFileSelected(event: Event) {
+  protected onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (!input.files?.length) {
       return;
@@ -77,14 +77,14 @@ export class DropFilesComponent {
     // anche qui eventuale upload
     this.fileSelected.emit(this.files);
   }
-  bytesToMb(bytes: number) {
+  protected bytesToMb(bytes: number) {
     return (bytes / (1024 * 1024)).toFixed(2);
   }
-  removeFile(index: number) {
+  protected removeFile(index: number) {
     this.files.splice(index, 1);
     this.fileSelected.emit(this.files);
   }
-  get translateTitle() {
+  protected get translateTitle() {
     const currLang = this.translate.currentLang
     return currLang == 'it' ? 'Trascina qui i file o clicca per selezionare' : 'Drag and drop files or click to select'
   }

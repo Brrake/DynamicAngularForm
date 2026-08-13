@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FieldType, SelectValueScheme } from '../../models/dynamic-form.model';
 import { TranslateService } from '@ngx-translate/core';
+import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'form-element',
@@ -12,7 +14,7 @@ export class FormElementComponent implements OnInit {
   @Input() id: string = '';
   @Input() type: FieldType = FieldType.text;
   @Input() label: string = 'Example';
-  @Input() form: any;
+  @Input() form: FormGroup = new FormGroup({});
   @Input() formName: string = 'example';
   @Input() disabled: boolean = false;
   @Input() autocomplete: string = 'off';
@@ -36,8 +38,11 @@ export class FormElementComponent implements OnInit {
   // Date
   @Input() minDate: any;
   @Input() maxDate: any;
-  defMinDate = { year: 1930, month: 1, day: 1 }
-  defMaxDate = { year: new Date().setFullYear(new Date().getFullYear() + 5), month: 12, day: 31 }
+  @Input() disabledDates: { year: number, month: number, day: number }[] = []
+  @Input() enabledDates: { year: number, month: number, day: number }[] = []
+  protected defMinDate = { year: 1930, month: 1, day: 1 }
+  protected defMaxDate = { year: new Date().setFullYear(new Date().getFullYear() + 5), month: 12, day: 31 }
+
   //G-Recaptcha
   @Input() version: string = '';
 
@@ -50,18 +55,56 @@ export class FormElementComponent implements OnInit {
 
   @Output() onChange = new EventEmitter<any>()
 
-  showPassword = false
+  protected showPassword = false
+  protected isDisabled:any;
+  protected loadedFunc = false
+  protected FieldTypesEnum: typeof FieldType = FieldType
 
-  public FieldTypesEnum: typeof FieldType = FieldType
-
-  constructor(private translate: TranslateService) { }
+  constructor(private translate: TranslateService) {
+  }
   ngOnInit() {
+    this.flushDates()
     if (!this.form) return
     this.form.valueChanges.subscribe((e: any) => {
       this.onChange.emit(e)
     })
   }
-  sanitizeInput(formControlName: string) {
+  protected flushDates() {
+    this.loadedFunc = false
+    if (this.disabledDates.length > 0) {
+      this.isDisabled = (
+        date: NgbDateStruct
+        //current: { day: number; month: number; year: number }
+      ) => {
+        return this.disabledDates.find(x =>
+          (new NgbDate(x.year, x.month, x.day).equals(date)))
+          ? true
+          : false;
+      };
+    } else if (this.enabledDates.length > 0) {
+      this.isDisabled = (
+        date: NgbDateStruct
+        //current: { day: number; month: number; year: number }
+      ) => {
+        return this.enabledDates.find(x =>
+          (new NgbDate(x.year, x.month, x.day).equals(date)))
+          ? false
+          : true;
+      };
+    } else {
+      this.isDisabled = (
+        date: NgbDateStruct
+        //current: { day: number; month: number; year: number }
+      ) => {
+        return false
+      };
+    }
+    this.loadedFunc = true
+  }
+  protected get formControl(){
+    return this.form?.get(this.formName || '')
+  }
+  protected sanitizeInput(formControlName: string) {
     if (!this.form) return
     const control = this.form.get(formControlName);
     if (control) {
@@ -69,11 +112,11 @@ export class FormElementComponent implements OnInit {
       control.setValue(sanitizedValue, { emitEvent: false });
     }
   }
-  getRealFieldType(fieldType: string) {
+  protected getRealFieldType(fieldType: string) {
     return fieldType.replace(/_/g, '-').toLowerCase().trim()
   }
   // slider
-  getSliderOptions(options: any) {
+  protected getSliderOptions(options: any) {
     let body = {
       ...options,
       getPointerColor: (value: number) => {
@@ -82,19 +125,16 @@ export class FormElementComponent implements OnInit {
     }
     return body
   }
-  selectPhoneField(phone: any) {
-    this.form.get(this.formName || '')?.setValue(phone)
-  }
   // otp
-  onOtpChange(event: any, formControlName: string) {
+  protected onOtpChange(event: any, formControlName: string) {
     this.form.patchValue({ [formControlName]: event })
   }
   // add image
-  openSelectorFiles(id: string) {
+  protected openSelectorFiles(id: string) {
     const selector = document.getElementById(id) as HTMLElement
     selector.click()
   }
-  toAdd(event: any, mode: string = 'img') {
+  protected toAdd(event: any, mode: string = 'img') {
     let addTree = []
     this.displayMedia = URL.createObjectURL(event.target.files[0])
     for (let file of event.target.files) {
@@ -107,7 +147,7 @@ export class FormElementComponent implements OnInit {
       mode: mode
     });
   }
-  handleFiles(files: File[]) {
+  protected handleFiles(files: File[]) {
     let addTree = []
     for (let file of files) {
       var src = URL.createObjectURL(file);
@@ -119,7 +159,7 @@ export class FormElementComponent implements OnInit {
       mode: 'drag-and-drop'
     });
   }
-  getTranslatedName(field: any, key: string = 'name'): string {
+  protected getTranslatedName(field: any, key: string = 'name'): string {
     const currLang = this.translate.currentLang
     if (currLang != 'it' && field[key + '_' + currLang] != undefined) return field[key + '_' + currLang]
     return field[key]
