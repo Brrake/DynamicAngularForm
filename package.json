@@ -9,7 +9,7 @@
     "test": "ng test"
   },
   "dependencies": {
-    "@angular-slider/ngx-slider": "^21.0.0",
+    "@angular-slider/ngx-slider": "^22.0.0",
     "@angular/animations": "^21.2.20",
     "@angular/cdk": "^21.2.14",
     "@angular/common": "^21.2.20",
@@ -30,7 +30,7 @@
     "@fortawesome/free-brands-svg-icons": "^7.2.0",
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
     "@hakimio/ngx-google-analytics": "15.0.0",
-    "@ng-bootstrap/ng-bootstrap": "^20.0.0",
+    "@ng-bootstrap/ng-bootstrap": "^21.0.0",
     "@ngx-translate/core": "^16.0.3",
     "@ngx-translate/http-loader": "^16.0.0",
     "@simplewebauthn/browser": "13.2.2",
