@@ -40,7 +40,7 @@ if __name__ == '__main__':
         print(f"Version: {version}")
     latest_npm = input(f"Do you want to publish {version} as latest NPM? (Y/N): ").strip().lower()
     if latest_npm in ['y', 'yes']:
-        subprocess.call([npm_cmd, 'dist-tag','add',f'{lib_name}@{version}','latest'], cwd=main_dir)
+        subprocess.call([npm_cmd, 'dist-tag','add',f'dynamic-angular-form@{version}','latest'], cwd=main_dir)
         print('✅ Latest NPM published')
     github_tags = input("Do you want to publish GitHub Tags? (Y/N): ").strip().lower()
     if github_tags in ['y', 'yes']:
