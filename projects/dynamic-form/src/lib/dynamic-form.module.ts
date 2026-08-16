@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DynamicFormComponent } from "./dynamic-form.component";
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
-import { NgbCalendar, NgbCalendarGregorian, NgbModule, NgbTimepicker } from "@ng-bootstrap/ng-bootstrap";
+import { NgbCalendar, NgbCalendarGregorian, NgbDatepickerModule, NgbTimepicker, NgbTimepickerModule } from "@ng-bootstrap/ng-bootstrap";
 import { ButtonLoaderComponent } from "./components/button-loader/button-loader.component";
 import { RECAPTCHA_SETTINGS, RECAPTCHA_V3_SITE_KEY, RecaptchaSettings, ReCaptchaV3Service } from "ng-recaptcha-2";
 import { GoogleLoginComponent } from "./components/google-login/google-login.component";
@@ -30,7 +30,9 @@ import { GoogleRecaptchaComponent } from "./google-recaptcha/google-recaptcha.co
     CommonModule,
     FormsModule,
     NgxSliderModule,
-    NgbModule,
+    //NgbModule,
+    NgbDatepickerModule,
+    NgbTimepickerModule,
     TranslateModule,
     NgOtpInputModule,
     RouterModule,
@@ -49,7 +51,7 @@ import { GoogleRecaptchaComponent } from "./google-recaptcha/google-recaptcha.co
   providers: [
     ReCaptchaV3Service,
     { provide: NgbCalendar, useClass: NgbCalendarGregorian },
-    { provide: NgbTimepicker}
+    { provide: NgbTimepicker, useExisting: NgbTimepicker }
   ],
 })
 export class DynamicFormModule {

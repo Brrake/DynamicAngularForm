@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { DynamicFormComponent } from '../../dynamic-form.component';
 import { DynamicFormScheme, DynamicSubmitEvent, SelectValueScheme } from '../../models/dynamic-form.model';
 import { FormGroup } from '@angular/forms';
+import { APP_CHANGE_DETECTION } from '../../app-change-detection';
 
 
 
@@ -9,6 +10,7 @@ import { FormGroup } from '@angular/forms';
   selector: 'dynamic-modal',
   templateUrl: './dynamic-modal.component.html',
   styleUrls: ['./dynamic-modal.component.scss'],
+  changeDetection: APP_CHANGE_DETECTION,
   standalone: false
 })
 export class DynamicModalComponent implements OnInit {

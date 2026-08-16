@@ -1,12 +1,12 @@
-import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecaptchaFormsModule, RecaptchaModule, RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha-2';
+import { APP_CHANGE_DETECTION } from '../app-change-detection';
 
 @Component({
   selector: 'lib-google-recaptcha',
   imports: [
-    CommonModule,
     RecaptchaV3Module,
     RecaptchaFormsModule,
     RecaptchaModule,
@@ -17,6 +17,7 @@ import { RecaptchaFormsModule, RecaptchaModule, RecaptchaV3Module, ReCaptchaV3Se
     ReCaptchaV3Service
   ],
   templateUrl: './google-recaptcha.component.html',
+  changeDetection: APP_CHANGE_DETECTION,
   styleUrl: './google-recaptcha.component.css'
 })
 export class GoogleRecaptchaComponent {

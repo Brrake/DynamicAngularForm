@@ -1,14 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { countries } from '../../countries';
 import * as libphonenumber from 'google-libphonenumber';
 import { Country } from '../../models/countries.model';
 import { FormGroup } from '@angular/forms';
+import { APP_CHANGE_DETECTION } from '../../app-change-detection';
 
 @Component({
   selector: 'app-phone-field',
   templateUrl: './phone-field.component.html',
   styleUrl: './phone-field.component.scss',
+  changeDetection: APP_CHANGE_DETECTION,
   standalone: false
 })
 export class PhoneFieldComponent implements OnInit {

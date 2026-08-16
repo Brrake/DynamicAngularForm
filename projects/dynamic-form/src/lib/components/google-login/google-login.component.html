@@ -1,4 +1,4 @@
-<ng-container *ngIf="gStyle==2">
+@if (gStyle==2) {
   <div id="g_id_onload" [attr.data-client_id]="googleClientId" [attr.data-auto_prompt]="auto_prompt"
     data-callback="handleGoogleLoginV2">
   </div>
@@ -11,4 +11,4 @@
     [attr.data-shape]="shape"
     [attr.data-logo_alignment]="logo_alignment"
   ></div>
-</ng-container>
+}
