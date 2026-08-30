@@ -6,32 +6,45 @@ Repository GITHUB : [DynamicAngularForm](https://github.com/Brrake/DynamicAngula
 
 ## Requirements
 
-For the installation we need to use the following versions of :
+Starting from this release, **a single package version supports every compatible Angular release**: you no longer need to pick a specific library version to match your Angular version, one install works across the whole supported range.
 
-Node.JS : [v20.13.1](https://nodejs.org/dist/v20.13.1/node-v20.13.1-x64.msi)
+Node.JS : `v24.19.0` or later (any Node.js version compatible with the Angular CLI version you are using) — [download](https://nodejs.org/dist/v24.19.0/node-v24.19.0-x64.msi)
 
-Angular : 19 - 20 - 21 - 22 
+Angular : `19` to `22`
 
-The library come with preinstalled `@angular-slider/ngx-slider` for the rendering of Slider form inputs, `@ng-bootstrap/ng-bootstrap` for the Date and Time Picker and `ng-recaptcha-2` for the rendering og Google Recaptcha security feature.
+| Peer Dependency | Supported Range |
+|------------------|-----------------|
+| `@angular/animations` | `>=19.0.0 <23.0.0` |
+| `@angular/common` | `>=19.0.0 <23.0.0` |
+| `@angular/compiler` | `>=19.0.0 <23.0.0` |
+| `@angular/core` | `>=19.0.0 <23.0.0` |
+| `@angular/forms` | `>=19.0.0 <23.0.0` |
+| `@angular/platform-browser` | `>=19.0.0 <23.0.0` |
+| `@angular/platform-browser-dynamic` | `>=19.0.0 <23.0.0` |
+| `@angular/router` | `>=19.0.0 <23.0.0` |
+| `@angular-slider/ngx-slider` | `>=19.0.0 <23.0.0` |
+| `@ng-bootstrap/ng-bootstrap` | `>=18.0.0 <22.0.0` |
+| `ng-recaptcha-2` | `>=15.0.0 <23.0.0` |
+| `@ngx-translate/core` | `>=16.0.0 <19.0.0` |
+| `@ngx-translate/http-loader` | `>=16.0.0 <19.0.0` |
+
+The library comes with preinstalled `@angular-slider/ngx-slider` for the rendering of Slider form inputs, `@ng-bootstrap/ng-bootstrap` for the Date and Time Picker and `ng-recaptcha-2` for the rendering of Google Recaptcha security feature.
+
+> Note: `@ngx-translate/core` and `@ngx-translate/http-loader` are now required peer dependencies, needed to support the multi-language (`_{LANGUAGE}`) properties available on the schemes.
 
 ## Installation
 
 First of all you need to install the library running :
 ```
- npm i dynamic-angular-form@19.0.2
+ npm i dynamic-angular-form
 ```
 
-| Angular Version   | Lib Version        | Node Version        |
-|-------------------|--------------------|--------------------|
-| `v22`             | `22`           | `v26.7.0`  |
-| `v20`             | `20`           | `v22.18.0`  |
-| `v19`             | `19`           | `v20.13.1`  |
-
+The installed version will automatically work with any Angular release between `19` and `22`, so there is no need to pin a version tied to your Angular major.
 
 Subsequently you need to import the module into `app.module.ts`
 ``` angular
 @NgModule({
-  declarations: [	
+  declarations: [ 
     AppComponent
    ],
   imports: [
@@ -48,7 +61,7 @@ export class AppModule { }
 
 ``` angular
 @NgModule({
-  declarations: [	
+  declarations: [ 
     AppComponent
    ],
   imports: [
@@ -84,8 +97,6 @@ You need to import the style sheet if using telehone input into `angular.json`
 
 ## Models and Usage
 Below you will find all the information you need to correctly use the templates and the various components
-
-
 
 ---
 
@@ -131,7 +142,6 @@ HTML ->
 ```
  <dynamic-modal #myModal (onSubmit)="submit($event)" [formSchemes]="registerScheme" modalId="modal-1" />
 ```
-
 
 | Method              | Description                       |
 |---------------------|-----------------------------------|
@@ -192,9 +202,7 @@ HTML ->
 | `closeModal()`    | If the form is contained into a modal, then close parent modal                | false    |
 | `onSubmitForm()`    | Submit form manually                | false    |
 
-
 ---
-
 
 ## `DynamicFormScheme`
 
@@ -202,9 +210,7 @@ HTML ->
 |-------------------|-----------------------------|--------------------------------------------------|
 | `formId`          | `string`                    | Unique identifier for the form.                  |
 | `title`           | `string`                    | Title of the form.                               |
-| `title_{LANGUAGE}`| `string (optional)`         | Title translated of the field.                    |
 | `description`     | `string (optional)`         | Description of the form.                         |
-| `description_{LANGUAGE}`| `string (optional)`   | Description translated of the field.                    |
 | `active_page`     | `boolean (optional)`        | Indicates if the form is active.                 |
 | `fields`          | [`FieldScheme[]`](#fieldscheme)             | Array of form fields.                            |
 | `buttons`         | [`ButtonScheme[]`](#buttonscheme)            | Array of form buttons.                           |
@@ -226,12 +232,11 @@ HTML ->
 | `visible`        | `boolean (optional)`                                          | Indicates if the field is visible.                                                                    | ALL                                             |
 | `formControlName`| `string (optional)`                                           | Form control name, typically used with reactive forms.                                                | ALL                                             |
 | `autocomplete`        | `string (optional)`                                     | Indicates if the field has autocomplete and which value use.                                                              | text, password                                  |
-| `default_value_{LANGUAGE}`| `string (optional)`                                  | Name translated of the field.                                                                         | section_info                                    |
 | `src`            | `string (optional)`                                           | Source URL or path for certain field types (e.g., images).                                            | show_image                                      |
 | `options`        | `any (optional)`                                              | Additional options for the field.                                                                     | slider                                          |
 | `length`         | `number (optional)`                                           | Length of the field.                                                                                  | otp, drag-and-drop                                             |
-| `minDate`        | `{ year:number, month:number, day:number } (optional)`        | minDate of datepicker.                                                                                | date                                            |
-| `maxDate`        | `{ year:number, month:number, day:number } (optional)`        | maxDate of datepicker.                                                                                | date                                            |
+| `minDate`        | `{ year:number, month:number, day:number }`        | minDate of datepicker.                                                                                | date                                            |
+| `maxDate`        | `{ year:number, month:number, day:number }`        | maxDate of datepicker.                                                                                | date                                            |
 | `disabledDates`        | `{ year:number, month:number, day:number }[] (optional)`        | disabledDates of datepicker.                                                                  | date                                            |
 | `enabledDates`        | `{ year:number, month:number, day:number }[] (optional)`        | enabledDates of datepicker.                                                                  | date                                            |
 | `values`         | `SelectValueScheme[] (optional)`                              | Array of selectable values for fields like dropdowns or radios.                                       | select, radio, checkbox_group                    |
@@ -274,7 +279,6 @@ HTML ->
 | Property | Type   | Description           |
 |----------|--------|-----------------------|
 | `name`   | `string` | Display name of the option. |
-| `name_{LANGUAGE}`| `string (optional)`    | Name translated of the field. |
 | `value`  | `string` | Value of the option. |
 
 ## `AddonScheme`
@@ -282,10 +286,8 @@ HTML ->
 | Property        | Type                     | Description                                                   | Usage Type            |
 |-----------------|--------------------------|---------------------------------------------------------------|-----------------------|
 | `name`          | [`AddonType`](#addontype-enum)              | Type of the addon.                         |ALL                    |
-| `normal_text`   | `string (optional)`      | Regular text displayed in the addon.                          |highlight              |
-| `normal_text_{LANGUAGE}`| `string (optional)` |  Regular text translated of the field.     | highlight                                             |
+| `normal_text`   | `string (optional)`      | Regular text displayed in the addon. Use '[*]' to choose the position of the `highlight_text`                          |highlight              |
 | `highlight_text`| `string (optional)`      | Highlighted text within the addon.                            |highlight              |
-| `highlight_text_{LANGUAGE}`| `string (optional)` | Highlighted text translated of the field.        | highlight                                             |
 | `href`          | `string (optional)`      | URL or link associated with the addon.                        |highlight              |
 | `href_type`     | [`HrefTypes (optional)`](#hreftypes-enum)   | Type of href action (e.g., modal).         |highlight              |
 | `style`         | `number (optional)`      | Style identifier for the addon.                               |google_login           |
@@ -319,7 +321,6 @@ HTML ->
 |---------------|----------------|--------------------------------------------------|-----------------------|
 | `type`        | `ButtonType`   | Type of the button (e.g., submit, close).        | ALL                   |
 | `name`        | `string`       | Name of the button.                              | ALL                   |
-| `name_{LANGUAGE}`| `string (optional)`  | Name translated of the field.      | ALL                  |
 | `text_color`  | `string`       | Text color of the button.                        | ALL                   |
 | `button_color`| `string`       | Background color of the button.                  | ALL                   |
 | `margin`      | `boolean (optional)` | Indicates if the button has a margin.      | ALL                   |
@@ -369,9 +370,6 @@ HTML ->
 | `min`| Represents a min error. |
 | `pattern`  | Represents a pattern matching error. |
 
-
-
-
 ## Other Components
 
 ### Button Loader
@@ -394,6 +392,7 @@ HTML ->
 | `color`          | `string`              | `'primary'`   | Button color as hex (e.g., `#45c4a0`)                                            | false    |
 | `text_color`     | `string`              | `'white'`     | Button text color as hex (e.g., `#ffffff`)                                       | false    |
 | `margin`         | `boolean`             | `true`        | Button margin right, useful with multiple buttons in sequence                    | false    |
+
 #### Output
 
 | Method              | Description                       | Required |
