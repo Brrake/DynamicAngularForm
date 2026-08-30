@@ -3,6 +3,7 @@ from pathlib import Path
 import sys
 import json
 from update_version import update_version
+import shutil
 
 ng_cmd = "ng.cmd" if sys.platform.startswith("win") else "ng"
 npm_cmd = "npm.cmd" if sys.platform.startswith("win") else "npm"
@@ -30,6 +31,9 @@ if __name__ == '__main__':
     if run_buid in ['y', 'yes']:
         subprocess.call([ng_cmd, 'build',lib_name, '--configuration', 'production'], cwd=main_dir)
         print('✅ Build completed')
+
+    shutil.copyfile(main_dir / 'LICENSE', dist_dir / 'LICENSE')
+    shutil.copyfile(main_dir / 'README.md', dist_dir / 'README.md')
 
     npm_otp = input("Insert OTP Code: ").strip().lower()
     subprocess.call([npm_cmd, 'publish','--otp', npm_otp ,'--tag',release], cwd=dist_dir)

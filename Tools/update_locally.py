@@ -3,6 +3,7 @@ from pathlib import Path
 import sys
 from update_version import update_version
 import argparse
+import shutil
 parser = argparse.ArgumentParser()
 # FE
 parser.add_argument("--lib_name", default="dynamic-form", help="Override the default project to build (Default : dynamic-form)")
@@ -35,6 +36,9 @@ if __name__ == '__main__':
     if run_buid in ['y', 'yes']:
         subprocess.call([ng_cmd, 'build',lib_name, '--configuration', args.configuration], cwd=main_dir)
         print('✅ Build completed')
+
+    shutil.copyfile(main_dir / 'LICENSE', dist_dir / 'LICENSE')
+    shutil.copyfile(main_dir / 'README.md', dist_dir / 'README.md')
 
     # Esegui il comando npm pack nella directory dist/dynamic-form
     subprocess.call([npm_cmd, 'pack'], cwd=dist_dir)
