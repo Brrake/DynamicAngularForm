@@ -1,6 +1,6 @@
 {
   "name": "dynamic-angular-form",
-  "version": "22.0.7",
+  "version": "22.0.8",
   "description": "Simple, easy and performance dynamic form for angular",
   "author": "Brrake <daviderubiu5@gmail.com>",
   "license": "MIT",
@@ -29,7 +29,8 @@
   "dependencies": {
     "google-libphonenumber": "^3.2.43",
     "ng-otp-input": "^2.0.10",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "@pangz/ng-cloudflare-turnstile": "0.6.0"
   },
   "sideEffects": false
 }

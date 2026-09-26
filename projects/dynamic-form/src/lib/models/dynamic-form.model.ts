@@ -114,6 +114,7 @@ export enum FieldType {
   checkbox = 'checkbox',
   checkbox_group = 'checkbox-group',
   g_recaptcha = 'g-recaptcha',
+  cf_turnstile = 'cf-turnstile',
   section_info = 'section-info',
   slider = 'slider',
   telephone = 'telephone',

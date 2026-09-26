@@ -7,7 +7,7 @@ import { NgbCalendar, NgbCalendarGregorian, NgbDatepickerModule, NgbTimepicker, 
 import { ButtonLoaderComponent } from "./components/button-loader/button-loader.component";
 import { RECAPTCHA_SETTINGS, RECAPTCHA_V3_SITE_KEY, RecaptchaSettings, ReCaptchaV3Service } from "ng-recaptcha-2";
 import { GoogleLoginComponent } from "./components/google-login/google-login.component";
-import { GOOGLE_CLIENT_ID_KEY } from "./config.token";
+import { GOOGLE_CLIENT_ID_KEY,CF_TURNSTILE_KEY } from "./config.token";
 import { DynamicModalComponent, PhoneFieldComponent } from "../public-api";
 import { NgOtpInputModule } from "ng-otp-input";
 import { RouterModule } from "@angular/router";
@@ -15,6 +15,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { FormElementComponent } from "./components/form-element/form-element.component";
 import { DropFilesComponent } from "./components/drop-files/drop-files.component";
 import { GoogleRecaptchaComponent } from "./google-recaptcha/google-recaptcha.component";
+import { NgCloudflareTurnstile } from "@pangz/ng-cloudflare-turnstile";
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { GoogleRecaptchaComponent } from "./google-recaptcha/google-recaptcha.co
     NgOtpInputModule,
     RouterModule,
     ReactiveFormsModule,
+    NgCloudflareTurnstile,
     GoogleRecaptchaComponent
   ],
   exports: [
@@ -55,7 +57,7 @@ import { GoogleRecaptchaComponent } from "./google-recaptcha/google-recaptcha.co
   ],
 })
 export class DynamicFormModule {
-  static forRoot(sitegRecaptchaKey: string,googleClientId: string): ModuleWithProviders<DynamicFormModule> {
+  static forRoot(sitegRecaptchaKey: string,googleClientId: string,cfTurnstileKey: string): ModuleWithProviders<DynamicFormModule> {
     return {
       ngModule: DynamicFormModule,
       providers: [
@@ -73,6 +75,10 @@ export class DynamicFormModule {
           provide: GOOGLE_CLIENT_ID_KEY,
           useValue: googleClientId
         },
+        {
+          provide: CF_TURNSTILE_KEY,
+          useValue: cfTurnstileKey
+        }
       ]
     };
   }

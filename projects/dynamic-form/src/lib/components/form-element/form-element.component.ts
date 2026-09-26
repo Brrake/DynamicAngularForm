@@ -1,9 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FieldType, SelectValueScheme } from '../../models/dynamic-form.model';
 import { TranslateService } from '@ngx-translate/core';
 import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
 import { APP_CHANGE_DETECTION } from '../../app-change-detection';
+import { Config, Result } from '@pangz/ng-cloudflare-turnstile';
+import { CF_TURNSTILE_KEY } from '../../config.token';
 
 @Component({
   selector: 'form-element',
@@ -56,9 +58,11 @@ export class FormElementComponent implements OnInit {
   @Input() errors: any[] = [];
 
   @Output() onChange = new EventEmitter<any>()
-
+  protected turnstileConfig: Config = {
+    siteKey: inject(CF_TURNSTILE_KEY), // sostituisci
+  };
   protected showPassword = false
-  protected isDisabled:any;
+  protected isDisabled: any;
   protected loadedFunc = false
   protected FieldTypesEnum: typeof FieldType = FieldType
 
@@ -70,6 +74,9 @@ export class FormElementComponent implements OnInit {
     this.form.valueChanges.subscribe((e: any) => {
       this.onChange.emit(e)
     })
+  }
+  protected onTurnstileResult(result: Result): void {
+    this.form.patchValue({ [this.formName]: result.data.token });
   }
   protected flushDates() {
     this.loadedFunc = false
@@ -103,7 +110,7 @@ export class FormElementComponent implements OnInit {
     }
     this.loadedFunc = true
   }
-  protected get formControl(){
+  protected get formControl() {
     return this.form?.get(this.formName || '')
   }
   protected sanitizeInput(formControlName: string) {

@@ -13,6 +13,7 @@
   ],
   "allowedNonPeerDependencies": [
     "ng-otp-input",
-    "google-libphonenumber"
+    "google-libphonenumber",
+    "@pangz/ng-cloudflare-turnstile"
   ]
 }

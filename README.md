@@ -67,7 +67,7 @@ export class AppModule { }
   imports: [
     BrowserModule,
     AppRoutingModule,
-    DynamicFormModule.forRoot(environment.recaptchaSiteKey,environment.googleClientId)
+    DynamicFormModule.forRoot(environment.recaptchaSiteKey,environment.googleClientId,environment.cloudflareTurnstileKey)
   ],
   bootstrap: [AppComponent]
 })
@@ -265,6 +265,7 @@ HTML ->
 | `checkbox_group`      | Represents a checkbox group of checkboxes input field. |
 | `switch`          | Represents a switch input field.   |
 | `g_recaptcha`   | Represents a Google reCAPTCHA field. |
+| `cf_turnstile`   | Represents a Cloudflare Turnstile field. |
 | `section_info`  | Represents a section information field. |
 | `slider`        | Represents a slider from @angular-slider/ngx-slider input field. |
 | `telephone`     | Represents a telephone input field. |
