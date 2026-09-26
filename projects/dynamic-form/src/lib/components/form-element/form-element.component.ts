@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
 import { APP_CHANGE_DETECTION } from '../../app-change-detection';
-import { Config, Result } from '@pangz/ng-cloudflare-turnstile';
+import { Config, Result, State } from '@pangz/ng-cloudflare-turnstile';
 import { CF_TURNSTILE_KEY } from '../../config.token';
 
 @Component({
@@ -76,7 +76,13 @@ export class FormElementComponent implements OnInit {
     })
   }
   protected onTurnstileResult(result: Result): void {
-    this.form.patchValue({ [this.formName]: result.data.token });
+    switch (result.result) {
+        case State.SUCCESS:
+            this.form.patchValue({ [this.formName]: result.data });
+            // send to backend (together with your data) to verify
+            break;
+        default: console.log("Unknown event");
+    }
   }
   protected flushDates() {
     this.loadedFunc = false
