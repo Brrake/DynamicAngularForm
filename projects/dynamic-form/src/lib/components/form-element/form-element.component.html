@@ -4,10 +4,12 @@
 <lib-google-recaptcha [id]="id" [formName]="formName" [form]="form" [version]="version" />
 }
 @case(getRealFieldType(FieldTypesEnum.cf_turnstile)) {
+  @if(turnstileConfig.siteKey){
   <ng-cloudflare-turnstile
     [config]="turnstileConfig"
     (event)="onTurnstileResult($event)"
-  ></ng-cloudflare-turnstile>
+  />
+  }
 }
 @case(getRealFieldType(FieldTypesEnum.textarea)) {
 <div class="form-floating mb-4" [formGroup]="form">
