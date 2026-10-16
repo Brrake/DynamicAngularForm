@@ -16,3 +16,4 @@ export * from './lib/models/countries.model';
 export * from './lib/models/dynamic-form.model';
 export * from './lib/custom_validators/link.validator';
 export * from './lib/custom_validators/confirm-password.validator';
+export * from './lib/cf-recaptcha/cf-recaptcha.component';

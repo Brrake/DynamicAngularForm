@@ -1,7 +1,7 @@
 
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component,inject, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RecaptchaFormsModule, RecaptchaModule, RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha-2';
+import { RECAPTCHA_V3_SITE_KEY, RecaptchaFormsModule, RecaptchaModule, RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha-2';
 import { APP_CHANGE_DETECTION } from '../app-change-detection';
 
 @Component({
@@ -25,6 +25,7 @@ export class GoogleRecaptchaComponent {
   @Input() form: FormGroup = new FormGroup({});
   @Input() formName: string = 'example';
   @Input() version: string = 'v2';
+  protected siteKey = inject(RECAPTCHA_V3_SITE_KEY)
 
   protected get formControl() {
     return this.form?.get(this.formName || '')

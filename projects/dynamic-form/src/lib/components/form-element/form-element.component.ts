@@ -4,9 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
 import { APP_CHANGE_DETECTION } from '../../app-change-detection';
-import { Config, Result, State } from '@pangz/ng-cloudflare-turnstile';
-import { CF_TURNSTILE_KEY } from '../../config.token';
-
+import { Result, State } from '@pangz/ng-cloudflare-turnstile';
 @Component({
   selector: 'form-element',
   templateUrl: './form-element.component.html',
@@ -58,9 +56,7 @@ export class FormElementComponent implements OnInit {
   @Input() errors: any[] = [];
 
   @Output() onChange = new EventEmitter<any>()
-  protected turnstileConfig: Config = {
-    siteKey: inject(CF_TURNSTILE_KEY), // sostituisci
-  };
+
   protected showPassword = false
   protected isDisabled: any;
   protected loadedFunc = false

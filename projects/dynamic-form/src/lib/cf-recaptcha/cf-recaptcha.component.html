@@ -1,0 +1,3 @@
+@if(turnstileConfig.siteKey){
+<ng-cloudflare-turnstile [config]="turnstileConfig" (event)="onTurnstileResult($event)" />
+}

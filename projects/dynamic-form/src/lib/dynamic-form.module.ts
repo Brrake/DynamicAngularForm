@@ -15,7 +15,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { FormElementComponent } from "./components/form-element/form-element.component";
 import { DropFilesComponent } from "./components/drop-files/drop-files.component";
 import { GoogleRecaptchaComponent } from "./google-recaptcha/google-recaptcha.component";
-import { NgCloudflareTurnstile } from "@pangz/ng-cloudflare-turnstile";
+import { CfRecaptchaComponent } from "./cf-recaptcha/cf-recaptcha.component";
 
 @NgModule({
   declarations: [
@@ -38,8 +38,8 @@ import { NgCloudflareTurnstile } from "@pangz/ng-cloudflare-turnstile";
     NgOtpInputModule,
     RouterModule,
     ReactiveFormsModule,
-    NgCloudflareTurnstile,
-    GoogleRecaptchaComponent
+    GoogleRecaptchaComponent,
+    CfRecaptchaComponent
   ],
   exports: [
     DynamicFormComponent,

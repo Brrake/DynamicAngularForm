@@ -1,4 +1,4 @@
-@if (version == 'v2' || !version) {
+@if ((version == 'v2' || !version) && siteKey) {
   <div class="row mt-3">
     <div class="col-sm-12 mb-2 g-recaptcha" [formGroup]="form">
       <re-captcha [id]="id" class="d-flex justify-content-center"
