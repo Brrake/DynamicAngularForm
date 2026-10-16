@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, Inject, inject, Input, OnInit, Output, PLATFORM_ID, ChangeDetectionStrategy } from '@angular/core';
 import { AddonScheme, AddonType, ButtonType, DynamicFormScheme, DynamicSubmitEvent, Errors, FieldType, HrefTypes, SelectValueScheme } from './models/dynamic-form.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { linkValidator } from './custom_validators/link.validator';
 import { confirmPasswordValidator } from './custom_validators/confirm-password.validator';
 import { phoneValidator } from './custom_validators/phoneValidator.validator';
 import { isPlatformServer } from '@angular/common';
-import { ReCaptchaV3Service } from 'ng-recaptcha-2';
+import { RECAPTCHA_V3_SITE_KEY, ReCaptchaV3Service } from 'ng-recaptcha-2';
 import { TranslateService } from '@ngx-translate/core';
 import { APP_CHANGE_DETECTION } from './app-change-detection';
 @Component({
@@ -168,7 +168,7 @@ export class DynamicFormComponent implements OnInit {
         }
       }
     }
-    if (isV3GRecaptcha) {
+    if (isV3GRecaptcha && inject(RECAPTCHA_V3_SITE_KEY)) {
       this.recaptchaV3Service.execute('importantAction')
         .subscribe((token) => {
           this.formGroup[idx].value[fieldName] = token
