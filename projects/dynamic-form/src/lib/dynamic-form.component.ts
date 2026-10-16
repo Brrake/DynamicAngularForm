@@ -16,7 +16,7 @@ import { APP_CHANGE_DETECTION } from './app-change-detection';
   standalone: false
 })
 export class DynamicFormComponent implements OnInit {
-
+  private gRecaptchaV3SiteKey = inject(RECAPTCHA_V3_SITE_KEY)
   @Input() formSchemes: DynamicFormScheme[] = []
   @Input() loadSpinner: boolean = false
   @Input() isSubmitFailed: boolean = false
@@ -168,7 +168,7 @@ export class DynamicFormComponent implements OnInit {
         }
       }
     }
-    if (isV3GRecaptcha && inject(RECAPTCHA_V3_SITE_KEY)) {
+    if (isV3GRecaptcha && this.gRecaptchaV3SiteKey) {
       this.recaptchaV3Service.execute('importantAction')
         .subscribe((token) => {
           this.formGroup[idx].value[fieldName] = token
